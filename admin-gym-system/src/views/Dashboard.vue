@@ -163,32 +163,52 @@
         >
             <v-spacer class="order-1 pa-2"></v-spacer>
 
-            <div class="order-2 pa-2">
-                <v-sheet
-                    :color="`grey ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
-                    class="pa-3"
+            <div class="grafik order-2 py-2">
+                <v-card
+                    class="mt-4"
+                    width="629px"
                 >
-                    <v-skeleton-loader
+                <v-card-subtitle>Jumlah Registrasi User</v-card-subtitle>
+                    <v-sheet
                     class="mx-auto"
-                    width= "629px"
-                    type="card"
-                    ></v-skeleton-loader>
-                </v-sheet>
+                    color="cyan"
+                    elevation="12"
+                    max-width="calc(100%)"
+                    >
+                    <v-sparkline
+                        :labels="labels"
+                        :value="value"
+                        color="white"
+                        line-width="2"
+                        padding="16"
+                    ></v-sparkline>
+                    </v-sheet>
+                </v-card>
             </div>
 
             <v-spacer class="order-3 pa-2"></v-spacer>
 
-            <div class="order-4 pa-2">
-               <v-sheet
-                    :color="`grey ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
-                    class="pa-3"
+            <div class="grafik order-4 py-2">
+               <v-card
+                    class="mt-4"
+                    width="629px"
                 >
-                    <v-skeleton-loader
+                <v-card-subtitle>Laporan Book Class</v-card-subtitle>
+                    <v-sheet
                     class="mx-auto"
-                    width= "629px"
-                    type="card"
-                    ></v-skeleton-loader>
-                </v-sheet>
+                    color="cyan"
+                    elevation="12"
+                    max-width="calc(100%)"
+                    >
+                    <v-sparkline
+                        :labels="labels"
+                        :value="value"
+                        color="white"
+                        line-width="2"
+                        padding="16"
+                    ></v-sparkline>
+                    </v-sheet>
+                </v-card>
             </div>
 
             <v-spacer class="order-5 pa-2"></v-spacer>
@@ -198,32 +218,52 @@
         >
             <v-spacer class="order-1 pa-2"></v-spacer>
 
-            <div class="order-2 pa-2">
-                <v-sheet
-                    :color="`grey ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
-                    class="pa-3"
+            <div class="grafik order-2 pa-2">
+                <v-card
+                    class="mt-4"
+                    width="629px"
                 >
-                    <v-skeleton-loader
+                <v-card-subtitle>Jenis Class</v-card-subtitle>
+                    <v-sheet
                     class="mx-auto"
-                    width= "629px"
-                    type="card"
-                    ></v-skeleton-loader>
-                </v-sheet>
+                    color="cyan"
+                    elevation="12"
+                    max-width="calc(100%)"
+                    >
+                    <v-sparkline
+                        :labels="labels"
+                        :value="value"
+                        color="white"
+                        line-width="2"
+                        padding="16"
+                    ></v-sparkline>
+                    </v-sheet>
+                </v-card>
             </div>
 
             <v-spacer class="order-3 pa-2"></v-spacer>
 
-            <div class="order-4 pa-2">
-               <v-sheet
-                    :color="`grey ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
-                    class="pa-3"
+            <div class="grafik order-4 pa-2">
+               <v-card
+                    class="mt-4"
+                    width="629px"
                 >
-                    <v-skeleton-loader
+                <v-card-subtitle>Kategori Class</v-card-subtitle>
+                    <v-sheet
                     class="mx-auto"
-                    width= "629px"
-                    type="card"
-                    ></v-skeleton-loader>
-                </v-sheet>
+                    color="cyan"
+                    elevation="12"
+                    max-width="calc(100%)"
+                    >
+                    <v-sparkline
+                        :labels="labels"
+                        :value="value"
+                        color="white"
+                        line-width="2"
+                        padding="16"
+                    ></v-sparkline>
+                    </v-sheet>
+                </v-card>
             </div>
 
             <v-spacer class="order-5 pa-2"></v-spacer>
@@ -241,6 +281,29 @@ export default {
         default: { isDark: false },
       },
     },
+
+    data: () => ({
+      labels: [
+        '12am',
+        '3am',
+        '6am',
+        '9am',
+        '12pm',
+        '3pm',
+        '6pm',
+        '9pm',
+      ],
+      value: [
+        200,
+        675,
+        410,
+        390,
+        310,
+        460,
+        250,
+        240,
+      ],
+    }),
 }
 </script>
 
@@ -314,5 +377,17 @@ export default {
 .order-6 .v-icon{
     color: #FEE9CC;
     padding-left: 1px;
+}
+
+.v-sheet--offset {
+    top: -24px;
+    position: relative;
+  }
+
+.grafik .v-card__subtitle{
+    background-color: #CCFEFA;
+    color: #0291CB !important;
+    text-align: left;
+    font-weight: bold;
 }
 </style>

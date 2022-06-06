@@ -25,19 +25,24 @@
         dense
         nav
       >
-        <v-list-item
-          v-for="(item, index) in items"
-          :key="index"
-          @click="press(item.title)"
+        <v-list-item-group
+          v-model="selectedItem"
+          color="#F48743"
         >
-          <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-icon>
+          <v-list-item class="navIcon"
+            v-for="(item, index) in items"
+            :key="index"
+            @click="press(item.title)"
+          >
+            <v-list-item-icon>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-icon>
 
-          <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>{{ item.title }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
     
@@ -96,14 +101,16 @@ export default {
         { title: 'Dashboard', icon: 'mdi-view-dashboard' },
         { title: 'Data Member', icon: 'mdi-badge-account-horizontal-outline' },
         { title: 'Data Kelas', icon: 'mdi-dumbbell' },
+        { title: 'Data Pemesanan', icon: 'mdi-cart' },
+        { title: 'Data Pelatih', icon: 'mdi-badge-account-horizontal-outline' },
         { title: 'Data Admin', icon: 'mdi-badge-account-horizontal-outline' },
-        { title: 'Classes', icon: 'mdi-dumbbell' },
-        { title: 'Newsletter', icon: 'mdi-newspaper-variant' },
-        { title: 'Logout', icon: 'mdi-logout' },
+        { title: 'Jadwal Latihan', icon: 'mdi-calendar-month' },
+        { title: 'Berita', icon: 'mdi-newspaper-variant' },
       ],
       drawer: false,
       group: null,
       page: "Dashboard",
+      selectedItem: 1,
     }),
 
     watch: {
@@ -115,7 +122,7 @@ export default {
     methods :{
       press(path){
         this.page = path;
-      // this.$router.push({name: path})
+        this.$router.push({name: path})
     }
   },
   }
@@ -134,6 +141,12 @@ export default {
     justify-content: center;
 }
 
+.navIcon:hover{
+  background: #FEE9CC;
+}
 
-
+.navIcon:visited{
+  color: #F48743;
+  background: red;
+}
 </style>
