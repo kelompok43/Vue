@@ -8,12 +8,14 @@ import DataPemesanan from "@/views/DataPemesanan.vue"
 import DataPelatih from "@/views/DataPelatih.vue"
 import Berita from "@/views/Berita.vue"
 import JadwalLatihan from "@/views/JadwalLatihan.vue"
+import Home from "../views/Home.vue";
+import Registrasi from "../views/Registrasi.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
     {
-        path: "/",
+        path: "/Dashboard",
         name: "Dashboard",
         component: Dashboard,
     },
@@ -51,6 +53,25 @@ const routes = [
         path: "/Berita",
         name: "Berita",
         component: Berita,
+    },
+    {
+        path: "/",
+        name: "Home",
+        component: Home,
+    },
+    {
+        path: "/about",
+        name: "About",
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+            import(/* webpackChunkName: "about" */ "../views/About.vue"),
+    },
+    {
+        path: "/registrasi",
+        name: "Registrasi",
+        component: Registrasi,
     },
 ];
 
