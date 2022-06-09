@@ -171,17 +171,10 @@
                 <v-card-subtitle>Jumlah Registrasi User</v-card-subtitle>
                     <v-sheet
                     class="mx-auto"
-                    color="cyan"
-                    elevation="12"
+                    color="white"
                     max-width="calc(100%)"
                     >
-                    <v-sparkline
-                        :labels="labels"
-                        :value="value"
-                        color="white"
-                        line-width="2"
-                        padding="16"
-                    ></v-sparkline>
+                    <ChartRegis/>
                     </v-sheet>
                 </v-card>
             </div>
@@ -196,17 +189,23 @@
                 <v-card-subtitle>Laporan Book Class</v-card-subtitle>
                     <v-sheet
                     class="mx-auto"
-                    color="cyan"
+                    color="white"
                     elevation="12"
                     max-width="calc(100%)"
                     >
-                    <v-sparkline
+                    <!-- <v-sparkline
+                        fill
                         :labels="labels"
                         :value="value"
-                        color="white"
-                        line-width="2"
+                        :gradient ="gradients"
+                        color="#0291CB"
+                        line-width="1"
                         padding="16"
-                    ></v-sparkline>
+                        :smooth="16"
+                        auto-draw
+                        stroke-linecap="round"
+                    ></v-sparkline> -->
+                    <ChartBook/>
                     </v-sheet>
                 </v-card>
             </div>
@@ -226,18 +225,28 @@
                 <v-card-subtitle>Jenis Class</v-card-subtitle>
                     <v-sheet
                     class="mx-auto"
-                    color="cyan"
-                    elevation="12"
+                    color="white"
                     max-width="calc(100%)"
                     >
-                    <v-sparkline
-                        :labels="labels"
-                        :value="value"
-                        color="white"
-                        line-width="2"
-                        padding="16"
-                    ></v-sparkline>
+                        <v-progress-circular class="chart"
+                        :value="46"
+                        :rotate="-270"
+                        color="#806EF1"
+                        size="208"
+                        width="15"
+
+                        >46%</v-progress-circular>
                     </v-sheet>
+                    <div
+                    class="d-flex justify-center mb-6"
+                    >
+                        <v-spacer class="order-1"></v-spacer>
+                        <v-icon class="order-2 pr-2">mdi-circle</v-icon>
+                        <h4 class="order-3 pr-6">Online</h4>
+                        <v-icon class="order-4 pr-2" color="#806EF1">mdi-circle</v-icon>
+                        <h4 class="order-5">Offline</h4>
+                        <v-spacer class="order-6"></v-spacer>
+                    </div>
                 </v-card>
             </div>
 
@@ -251,18 +260,30 @@
                 <v-card-subtitle>Kategori Class</v-card-subtitle>
                     <v-sheet
                     class="mx-auto"
-                    color="cyan"
-                    elevation="12"
+                    color="white"
                     max-width="calc(100%)"
                     >
-                    <v-sparkline
-                        :labels="labels"
-                        :value="value"
-                        color="white"
-                        line-width="2"
-                        padding="16"
-                    ></v-sparkline>
+                    <v-progress-circular class="chart"
+                        :value="64"
+                        :rotate="-270"
+                        color="#806EF1"
+                        size="208"
+                        width="15"
+
+                        >64%
+                    </v-progress-circular>
                     </v-sheet>
+
+                    <div
+                    class="d-flex justify-center mb-6"
+                    >
+                        <v-spacer class="order-1"></v-spacer>
+                        <v-icon class="order-2 pr-2">mdi-circle</v-icon>
+                        <h4 class="order-3 pr-6">Online</h4>
+                        <v-icon class="order-4 pr-2" color="#806EF1">mdi-circle</v-icon>
+                        <h4 class="order-5">Offline</h4>
+                        <v-spacer class="order-6 pb-7"></v-spacer>
+                    </div>
                 </v-card>
             </div>
 
@@ -272,9 +293,17 @@
 </template>
 
 <script>
+import ChartRegis from "@/components/JumlahRegisChart.vue"
+import ChartBook from "@/components/LaporanBookChart.vue"
+const gradients = ["#0E9CFF", "#FFFFFF"];
+
 export default {
     setup() {
         
+    },
+    components:{
+        ChartRegis,
+        ChartBook,
     },
     inject: {
       theme: {
@@ -284,25 +313,34 @@ export default {
 
     data: () => ({
       labels: [
-        '12am',
-        '3am',
-        '6am',
-        '9am',
-        '12pm',
-        '3pm',
-        '6pm',
-        '9pm',
+        'Mei',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sept',
       ],
       value: [
-        200,
-        675,
-        410,
-        390,
-        310,
-        460,
-        250,
-        240,
+        60,
+        15,
+        0,
+        25,
+        10,
       ],
+      labels2: [
+        'Mei',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sept',
+      ],
+      value2: [
+        50,
+        70,
+        23,
+        40,
+        65,
+      ],
+      gradients: gradients,
     }),
 }
 </script>
@@ -389,5 +427,12 @@ export default {
     color: #0291CB !important;
     text-align: left;
     font-weight: bold;
+}
+
+.chart{
+    transform: translateX(-50%);
+    left:50%;
+    margin-top: 26px;
+    margin-bottom: 26px;
 }
 </style>

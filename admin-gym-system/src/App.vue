@@ -12,7 +12,7 @@
             <v-img
             alt="Gym Management Logo"
             contain
-            src="@/assets/Logo.png"
+            src="@/assets/logo.png"
             height="127px"
             width="212px"
           />
@@ -110,7 +110,7 @@ export default {
       drawer: false,
       group: null,
       page: "Dashboard",
-      selectedItem: 1,
+      selectedItem: 0,
     }),
 
     watch: {
