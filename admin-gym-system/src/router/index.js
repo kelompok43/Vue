@@ -10,6 +10,7 @@ import Berita from "@/views/Berita.vue"
 import JadwalLatihan from "@/views/JadwalLatihan.vue"
 import Login from "@/views/LoginView.vue";
 import Registrasi from "../views/Registrasi.vue";
+import TambahKelas from "../views/TambahKelas.vue";
 
 Vue.use(VueRouter);
 
@@ -58,6 +59,11 @@ const routes = [
         path: "/registrasi",
         name: "Registrasi",
         component: Registrasi,
+    },
+    {
+        path: "/tambahKelas",
+        name: "TambahKelas",
+        component: TambahKelas,
     },
     {
         path: "/Login",

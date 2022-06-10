@@ -31,16 +31,32 @@
         >
           <v-list-item class="navIcon"
             v-for="(item, index) in items"
-            :key="index"
-            @click="press(item.title)"
+            :key="'A'+index"
+            @click="press(item.title); changeExpKelas(item.title);"
           >
-            <v-list-item-icon>
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-item-icon>
 
-            <v-list-item-content>
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
-            </v-list-item-content>
+          <v-list-item-icon>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
+
+          <v-list-item-content v-if="expandKelas && item.title=='Data Kelas'">
+            <v-list-item 
+              class="navIcon"
+              v-for="(kelas, index) in subItems"
+              :key="'B'+index"
+              @click="press(kelas.title)"
+            >
+              <v-list-item-content>
+                <v-list-item-title>{{ kelas.title }}</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            
+          </v-list-item-content>
+          
           </v-list-item>
         </v-list-item-group>
       </v-list>
@@ -108,7 +124,12 @@ export default {
         { title: 'Jadwal Latihan', icon: 'mdi-calendar-month' },
         { title: 'Berita', icon: 'mdi-newspaper-variant' },
       ],
+      subItems:[
+        { title: 'Online'},
+        { title: 'Offline'},
+      ],
       drawer: false,
+      expandKelas: false,
       group: null,
       page: "Dashboard",
       selectedItem: 0,
@@ -124,7 +145,15 @@ export default {
       press(path){
         this.page = path;
         this.$router.push({name: path})
-    }
+    },
+      changeExpKelas(param){
+        if(param == "Data Kelas"){
+          this.expandKelas = !this.expandKelas;
+        }
+        else{
+          this.expandKelas = false;
+        }
+      }
   },
   }
 </script>
@@ -150,5 +179,15 @@ export default {
 .navIcon:visited{
   color: #F48743;
   background: red;
+}
+
+.navIcon{
+  max-height: 40px;
+  max-width: 224px;
+}
+
+.expansion .v-expansion-panels{
+  max-height: 40px;
+  max-width: 224px;
 }
 </style>
