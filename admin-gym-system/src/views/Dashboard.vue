@@ -305,7 +305,7 @@ export default {
 
 <style scoped>
 .order-2 .v-image {
-  background-image: url("../assets/frame.jpg");
+  background-image: url("../assets/frameCard.jpg");
 }
 
 .order-2 .v-card {
@@ -328,7 +328,7 @@ export default {
 }
 
 .order-4 .v-image {
-  background-image: url("../assets/frame.jpg");
+  background-image: url("../assets/frameCard.jpg");
 }
 
 .order-4 .v-card {
@@ -352,7 +352,7 @@ export default {
 }
 
 .order-6 .v-image {
-  background-image: url("../assets/frame.jpg");
+  background-image: url("../assets/frameCard.jpg");
 }
 
 .order-6 .v-card {
