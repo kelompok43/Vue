@@ -30,8 +30,8 @@ export default{
                         10,
                     ],
                     backgroundColor: [
-                        "#0E9CFF",
-
+                        'rgba(86, 179, 245, 0.2)',
+                        'rgba(161, 216, 255, 0.2)',
                     ],
                     borderColor: [
                         "#0291CB"

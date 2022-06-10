@@ -11,7 +11,7 @@
                       <v-img 
                         width="500px"
                         height="500px"
-                        src="../assets/gambar.jpg"
+                        src="@/assets/gambar.jpg"
                         class="ms-auto"
                         >
                       <v-card-text class="white--text mt-3">
@@ -19,7 +19,7 @@
                         <v-img 
                         max-width="200px"
                         max-height="200px"
-                        src="../assets/frameputih.png"
+                        src="@/assets/frameputih.png"
                         class="mx-auto"
                         ></v-img>
                       </v-card-text>
@@ -30,7 +30,7 @@
                         <v-img 
                         max-width="170px"
                         max-height="170px"
-                        src="../assets/Frame.jpg"
+                        src="@/assets/logo.jpg"
                         class="mx-auto"
                         ></v-img><br>
                         <!-- <h1
@@ -85,4 +85,6 @@ export default {
 h3 {
   color: #F48743;
 }
+
+
 </style>

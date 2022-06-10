@@ -193,18 +193,6 @@
                     elevation="12"
                     max-width="calc(100%)"
                     >
-                    <!-- <v-sparkline
-                        fill
-                        :labels="labels"
-                        :value="value"
-                        :gradient ="gradients"
-                        color="#0291CB"
-                        line-width="1"
-                        padding="16"
-                        :smooth="16"
-                        auto-draw
-                        stroke-linecap="round"
-                    ></v-sparkline> -->
                     <ChartBook/>
                     </v-sheet>
                 </v-card>
@@ -295,7 +283,6 @@
 <script>
 import ChartRegis from "@/components/JumlahRegisChart.vue"
 import ChartBook from "@/components/LaporanBookChart.vue"
-const gradients = ["#0E9CFF", "#FFFFFF"];
 
 export default {
     setup() {
@@ -312,35 +299,6 @@ export default {
     },
 
     data: () => ({
-      labels: [
-        'Mei',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sept',
-      ],
-      value: [
-        60,
-        15,
-        0,
-        25,
-        10,
-      ],
-      labels2: [
-        'Mei',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sept',
-      ],
-      value2: [
-        50,
-        70,
-        23,
-        40,
-        65,
-      ],
-      gradients: gradients,
     }),
 }
 </script>

@@ -8,14 +8,14 @@ import DataPemesanan from "@/views/DataPemesanan.vue"
 import DataPelatih from "@/views/DataPelatih.vue"
 import Berita from "@/views/Berita.vue"
 import JadwalLatihan from "@/views/JadwalLatihan.vue"
-import Home from "../views/Home.vue";
+import Login from "@/views/LoginView.vue";
 import Registrasi from "../views/Registrasi.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
     {
-        path: "/Dashboard",
+        path: "/",
         name: "Dashboard",
         component: Dashboard,
     },
@@ -55,9 +55,16 @@ const routes = [
         component: Berita,
     },
     {
-        path: "/",
-        name: "Home",
-        component: Home,
+        path: "/registrasi",
+        name: "Registrasi",
+        component: Registrasi,
+    },
+    {
+        path: "/Login",
+        name: "Login",
+        component: Login,
+        children: [
+        ]
     },
     {
         path: "/about",
@@ -67,11 +74,6 @@ const routes = [
         // which is lazy-loaded when the route is visited.
         component: () =>
             import(/* webpackChunkName: "about" */ "../views/About.vue"),
-    },
-    {
-        path: "/registrasi",
-        name: "Registrasi",
-        component: Registrasi,
     },
 ];
 

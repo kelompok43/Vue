@@ -9,7 +9,7 @@
       <v-list-item>
         <div class="d-flex align-center pa-52px">
           <v-list-item-content>
-            <v-img
+            <v-img class="navLogo"
             alt="Gym Management Logo"
             contain
             src="@/assets/logo.png"
@@ -88,6 +88,7 @@
     <v-main>
       <router-view />
     </v-main>
+    
   </v-app>
 </template>
 
@@ -133,8 +134,9 @@ export default {
     background-color: #FEE9CC;
 }
 
-.v-image__image, .v-image__placeholder {
+.navLogo .v-image__image, .v-image__placeholder {
     max-width: 70%;
+    left: 10%
 }
 
 * {
