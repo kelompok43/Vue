@@ -123,7 +123,7 @@
                           <v-text-field
                             label="Masukkan kuota kelas"
                             name="kuotaKelas"
-                            type="text"
+                            type="number"
                             outlined
                             color="orange"
                             max-width="100px"

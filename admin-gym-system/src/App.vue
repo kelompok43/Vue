@@ -43,19 +43,7 @@
             <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-list-item-content>
 
-          <v-list-item-content v-if="expandKelas && item.title=='Data Kelas'">
-            <v-list-item 
-              class="navIcon"
-              v-for="(kelas, index) in subItems"
-              :key="'B'+index"
-              @click="press(kelas.title)"
-            >
-              <v-list-item-content>
-                <v-list-item-title>{{ kelas.title }}</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-            
-          </v-list-item-content>
+            <nav-bar-data-kelas v-if="expandKelas && item.title=='Data Kelas'"/>
           
           </v-list-item>
         </v-list-item-group>
@@ -109,8 +97,10 @@
 </template>
 
 <script>
+import NavBarDataKelas from './components/NavBarDataKelas.vue';
 
 export default {
+  components: { NavBarDataKelas },
   name: 'App',
 
     data: () => ({
