@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-navigation-drawer 
+    <!-- <v-navigation-drawer 
       v-model="drawer"
       fixed
       app
@@ -48,17 +48,94 @@
           </v-list-item>
         </v-list-item-group>
       </v-list>
-    </v-navigation-drawer>
+    </v-navigation-drawer> -->
     
+    <v-navigation-drawer
+      v-model="drawer"
+      :mini-variant.sync="mini"
+      permanent
+      color="#FEFEFE"
+      app
+    >
+    <v-list-item class="px-2 pt-1">
+        <v-list-item-avatar>
+            <v-list-item-content>
+            <v-img class="navLogo"
+            alt="Gym Management Logo"
+            contain
+            src="@/assets/logo.png"
+            height="127px"
+            width="212px"
+          />
+          </v-list-item-content>
+        </v-list-item-avatar>
+        <v-list-item-title class="ml-4 text-capitalize">FITNESS GYM</v-list-item-title>
+    </v-list-item>
+      <v-list shaped  class="clickable">
+        <template v-for="item in items2">
+          <v-list-group
+            v-if="item.children"
+            :key="item.text"
+            v-model="item.model"
+            :prepend-icon="item['icon-ctr']"
+            :append-icon="item.model ? item.icon : item['icon-alt']"
+            @click="press(item.text)"
+            active-class="orange--text"
+          >
+            <template v-slot:activator>
+              <v-list-item-content>
+                <v-list-item-title >
+                  {{ item.text }}
+                </v-list-item-title>
+              </v-list-item-content>
+            </template>
+            <v-list-item
+              v-for="(child, i) in item.children"
+              :key="i"
+              route :to="child.route"
+              active-class="orange--text"
+            >
+              <v-list-item-action v-if="child.icon">
+                <v-icon>{{ child.icon }}</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>
+                  {{ child.text }}
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-group>
+          <v-list-item
+            v-else
+            :key="item.text"
+            active-class="orange--text"
+            route :to="item.route"
+            @click="press(item.text)"
+          >
+            <v-list-item-action>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>
+                {{ item.text }}
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </template>  
+    
+      </v-list>
+
+    </v-navigation-drawer>
+
     <v-app-bar
       app
       color="#FEFEFE"
-      fixed
     >
-    <v-app-bar-nav-icon 
+    <!-- <v-app-bar-nav-icon 
       @click.stop="drawer = !drawer"
       color="#F48743">
-    </v-app-bar-nav-icon>
+    </v-app-bar-nav-icon> -->
+    <v-app-bar-nav-icon @click.stop="mini = !mini"  class="clickable"/>
 
       <div class="d-flex align-center">
         <v-toolbar-title
@@ -97,10 +174,10 @@
 </template>
 
 <script>
-import NavBarDataKelas from './components/NavBarDataKelas.vue';
+// import NavBarDataKelas from './components/NavBarDataKelas.vue';
 
 export default {
-  components: { NavBarDataKelas },
+  // components: { NavBarDataKelas },
   name: 'App',
 
     data: () => ({
@@ -118,11 +195,34 @@ export default {
         { title: 'Online'},
         { title: 'Offline'},
       ],
-      drawer: false,
+      // drawer: false,
       expandKelas: false,
       group: null,
       page: "Dashboard",
       selectedItem: 0,
+      items2: [
+        { icon: 'mdi-view-dashboard', text: 'Dashboard' , route:'/'},
+        { icon: 'mdi-badge-account-horizontal-outline', text: 'Data Member' , route:'/DataMember'},
+        {
+          icon: 'mdi-chevron-up',
+          'icon-alt': 'mdi-chevron-down',
+          'icon-ctr': 'mdi-dumbbell',
+          text: 'Data Kelas',
+          model: false,
+          children: [
+        { text: 'Offline', route:'/DataKelasOffline' },
+        { text: 'Online', route:'/DataKelasOnline' },
+          ],
+        },
+        { icon: 'mdi-cart', text: 'Data Pemesanan', route:'/DataPemesanan' },
+        { icon: 'mdi-badge-account-horizontal-outline', text: 'Data Pelatih', route:'/DataPelatih' },
+        { icon: 'mdi-badge-account-horizontal-outline', text: 'Data Admin', route:'/DataAdmin' },
+        { icon: 'mdi-calendar-month', text: 'Jadwal Latihan', route:'/JadwalLatihan' },
+        { icon: 'mdi-newspaper-variant', text: 'Berita', route:'/Berita'},
+      ],
+      drawer: null,
+      mini: false,
+      fab: false,
     }),
 
     watch: {
@@ -134,7 +234,7 @@ export default {
     methods :{
       press(path){
         this.page = path;
-        this.$router.push({name: path})
+        // this.$router.push({name: path})
     },
       changeExpKelas(param){
         if(param == "Data Kelas"){

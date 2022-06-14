@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Dashboard from "@/views/Dashboard.vue"
-import DataKelas from "@/views/DataKelas.vue"
+import DataKelasOffline from "@/views/DataKelasOffline.vue"
 import DataAdmin from "@/views/DataAdmin.vue"
 import DataMember from "@/views/DataMember.vue"
 import DataPemesanan from "@/views/DataPemesanan.vue"
@@ -19,11 +19,17 @@ const routes = [
         path: "/",
         name: "Dashboard",
         component: Dashboard,
+        children:[{
+            path: "/Dashboard",
+            name: "Dashboard",
+            component: Dashboard,
+        },
+        ]
     },
     {
-        path: "/DataKelas",
-        name: "Data Kelas",
-        component: DataKelas,
+        path: "/DataKelasOffline",
+        name: "Data Kelas Offline",
+        component: DataKelasOffline,
     },
     {
         path: "/DataAdmin",

@@ -12,7 +12,7 @@
 
         <v-card class="tabel">
           <v-card-title class="judul"> Tabel Kelas Offline </v-card-title>
-          <v-card-subtitle>
+          <v-card-subtitle class="d-flex justify-end mb-6">
             <v-text-field
               v-model="search"
               append-icon="mdi-magnify"
@@ -200,9 +200,26 @@ export default {
   margin-left: 21px;
 }
 
-.v-card__title[data-v-5b3e9aa0] {
-    padding: 16px;
-    color: blue;
-    left: 0;
+.v-card__title{
+    align-items: center;
+    display: block;
+    color: #026DAA;
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.0125em;
+    line-height: 21px;
+    word-break: break-all;
+}
+
+.v-input {
+    align-items: flex-start;
+    display: flex;
+    flex: none;
+    font-size: 16px;
+    letter-spacing: normal;
+    max-width: 100%;
+    text-align: left;
+    justify-content: end;
 }
 </style>
