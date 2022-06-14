@@ -30,7 +30,7 @@
                         <v-img 
                         max-width="170px"
                         max-height="170px"
-                        src="@/assets/logo.jpg"
+                        src="@/assets/icon.png"
                         class="mx-auto"
                         ></v-img><br>
                         <!-- <h1

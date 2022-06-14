@@ -12,7 +12,7 @@
             <v-img class="navLogo"
             alt="Gym Management Logo"
             contain
-            src="@/assets/logo.png"
+            src="@/assets/icon.png"
             height="127px"
             width="212px"
           />
