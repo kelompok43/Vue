@@ -292,7 +292,8 @@ export default {
         ChartRegis,
         ChartBook,
     },
-    inject: {
+    
+    Navigasiinject: {
       theme: {
         default: { isDark: false },
       },
