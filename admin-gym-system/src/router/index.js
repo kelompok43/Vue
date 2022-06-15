@@ -9,51 +9,58 @@ import DataPelatih from "@/views/DataPelatih.vue"
 import Berita from "@/views/Berita.vue"
 import JadwalLatihan from "@/views/JadwalLatihan.vue"
 import Login from "@/views/LoginView.vue";
-import Registrasi from "../views/Registrasi.vue";
+import Registrasi from "@/views/Registrasi.vue";
+import Navigasi from "@/components/Navigasi.vue"
 
 Vue.use(VueRouter);
 
 const routes = [
     {
         path: "/",
-        name: "Dashboard",
-        component: Dashboard,
+        component: Navigasi,
+        children:[{
+            path: "/",
+            name: "Dashboard",
+            component: Dashboard,
+        },
+        {
+            path: "/DataKelas",
+            name: "Data Kelas",
+            component: DataKelas,
+        },
+        {
+            path: "/DataAdmin",
+            name: "Data Admin",
+            component: DataAdmin,
+        },
+        {
+            path: "/DataMember",
+            name: "Data Member",
+            component: DataMember,
+        },
+        {
+            path: "/DataPelatih",
+            name: "Data Pelatih",
+            component: DataPelatih,
+        },
+        {
+            path: "/DataPemesanan",
+            name: "Data Pemesanan",
+            component: DataPemesanan,
+        },
+        {
+            path: "/JadwalLatihan",
+            name: "Jadwal Latihan",
+            component: JadwalLatihan,
+        },
+        {
+            path: "/Berita",
+            name: "Berita",
+            component: Berita,
+        },
+        ]
     },
-    {
-        path: "/DataKelas",
-        name: "Data Kelas",
-        component: DataKelas,
-    },
-    {
-        path: "/DataAdmin",
-        name: "Data Admin",
-        component: DataAdmin,
-    },
-    {
-        path: "/DataMember",
-        name: "Data Member",
-        component: DataMember,
-    },
-    {
-        path: "/DataPelatih",
-        name: "Data Pelatih",
-        component: DataPelatih,
-    },
-    {
-        path: "/DataPemesanan",
-        name: "Data Pemesanan",
-        component: DataPemesanan,
-    },
-    {
-        path: "/JadwalLatihan",
-        name: "Jadwal Latihan",
-        component: JadwalLatihan,
-    },
-    {
-        path: "/Berita",
-        name: "Berita",
-        component: Berita,
-    },
+    
     {
         path: "/registrasi",
         name: "Registrasi",
@@ -82,5 +89,13 @@ const router = new VueRouter({
     base: process.env.BASE_URL,
     routes,
 });
+
+
+router.beforeEach((to, from, next) =>{
+    const isAuthenticated = JSON.parse(localStorage.getItem('authenticated'));
+    if(to.name !== "Login" && !isAuthenticated) next({ name: "Login"});
+    if(to.name === "Login" && isAuthenticated) next({ name: "Dashboard"});
+    else next();
+})
 
 export default router;

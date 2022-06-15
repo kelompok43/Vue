@@ -56,7 +56,7 @@
                         <h3 class="text-right mt-4">Forgot your password ?</h3>
                       </v-card-text>
                       <div class="text-center mt-3">
-                        <v-btn color="#F48743" dark width="500px">LOGIN</v-btn>
+                        <v-btn color="#F48743" dark width="500px" @click="Login">LOGIN</v-btn>
                       </div>
                       <br>
                     </v-col>
@@ -77,6 +77,12 @@ export default {
   }),
   props: {
     source: String
+  },
+  methods:{
+    Login(){
+      localStorage.setItem("authenticated", true);
+      this.$router.push({name: "Dashboard" });
+    }
   }
 };
 </script>
