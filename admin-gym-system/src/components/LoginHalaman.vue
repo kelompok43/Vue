@@ -15,7 +15,7 @@
                         class="ms-auto"
                         >
                       <v-card-text class="white--text mt-3">
-                        <br><br><br><br><br><br><br><br> <br>
+                        <br><br><br><br><br><br><br><br><br>
                         <v-img 
                         max-width="400px"
                         max-height="400px"
@@ -30,7 +30,7 @@
                         <v-img 
                         max-width="170px"
                         max-height="170px"
-                        src="../assets/Frame.jpg"
+                        src="@/assets/icon.png"
                         class="mx-auto"
                         ></v-img><br>
                         <!-- <h1
@@ -44,7 +44,6 @@
                             type="text"
                             color="orange"
                           />
-
                           <v-text-field
                             id="password"
                             label="Password"
@@ -57,7 +56,7 @@
                         <h3 class="text-right mt-4">Lupa Password?</h3>
                       </v-card-text>
                       <div class="text-center mt-3">
-                        <v-btn color="#F48743" dark width="500px">LOGIN</v-btn>
+                        <v-btn color="#F48743" dark width="500px" @click="Login">LOGIN</v-btn>
                       </div>
                       <br>
                     </v-col>
@@ -78,6 +77,12 @@ export default {
   }),
   props: {
     source: String
+  },
+  methods:{
+    Login(){
+      localStorage.setItem("authenticated", true);
+      this.$router.push({name: "Dashboard" });
+    }
   }
 };
 </script>
@@ -86,4 +91,6 @@ export default {
 h3 {
   color: #F48743;
 }
+
+
 </style>
