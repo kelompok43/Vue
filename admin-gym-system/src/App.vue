@@ -4,7 +4,6 @@
       <div class="d-flex align-center">
         <v-btn
         href="/"
-        target="_blank"
         text
       >
         <span class="mr-2">Home</span>
@@ -23,12 +22,19 @@
         target="_blank"
         text
       >
-        <span class="mr-2">Registrasi</span>
+        <span class="mr-2">Form Data Admin</span>
         <v-icon>mdi-open-in-new</v-icon>
       </v-btn>
+      <v-btn
+        href="/editmember"
+        target="_blank"
+        text
+      >
+        <span class="mr-2">Form Data Member</span>
+        <v-icon>mdi-open-in-new</v-icon>
+      </v-btn>
+
       </div>
-
-
       <v-spacer></v-spacer>
     </v-app-bar>
 
@@ -47,3 +53,10 @@ export default {
   }),
 };
 </script>
+
+<style>
+* {
+  font-family: 'Poppins', sans-serif !important;
+}
+
+</style>
