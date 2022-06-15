@@ -20,5 +20,6 @@ export default {
 
 * {
     justify-content: center;
+    font-family: 'Poppins', sans-serif !important;
 }
 </style>
