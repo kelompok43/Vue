@@ -8,18 +8,15 @@
         app
         >
         <v-list-item class="px-2 pt-1">
-            <v-list-item-avatar>
-                <v-list-item-content>
+            <v-list-item-content>
                 <v-img class="navLogo"
                 alt="Gym Management Logo"
                 contain
                 src="@/assets/logo.png"
-                height="127px"
+                max-height="127px"
                 width="212px"
-            />
+                />
             </v-list-item-content>
-            </v-list-item-avatar>
-            <v-list-item-title class="ml-4 text-capitalize">FITNESS GYM</v-list-item-title>
         </v-list-item>
         <v-list shaped  class="clickable">
             <template v-for="item in items">
@@ -33,13 +30,13 @@
                 active-class="orange--text"
             >
                 <template v-slot:activator>
-                <v-list-item-content>
+                <v-list-item-content class="grey--text">
                     <v-list-item-title >
                     {{ item.text }}
                     </v-list-item-title>
                 </v-list-item-content>
                 </template>
-                <v-list-item
+                <v-list-item class="grey--text"
                 v-for="(child, i) in item.children"
                 :key="i"
                 route :to="child.route"
@@ -55,7 +52,7 @@
                 </v-list-item-content>
                 </v-list-item>
             </v-list-group>
-            <v-list-item
+            <v-list-item class="grey--text"
                 v-else
                 :key="item.text"
                 active-class="orange--text"
@@ -79,12 +76,14 @@
         <v-app-bar
         app
         color="#FEFEFE"
+        height="80px"
         >
-        <v-app-bar-nav-icon @click.stop="mini = !mini"  class="clickable"/>
+
+        <v-icon @click="mini = !mini" class="mr-4">mdi-menu</v-icon>
 
         <div class="d-flex align-center">
             <v-toolbar-title
-            class="font-weight-bold"
+            class="judulHalaman"
             > {{this.page}} </v-toolbar-title>
         </div>
 
@@ -95,7 +94,7 @@
             <v-btn text
             v-bind="attrs"
             v-on="on">
-                <span class="mr-2">SuperAdmin</span>
+                <span class="nameUser mr-2">SuperAdmin</span>
                 <v-icon color="#BBBBBB">mdi-account-circle</v-icon>
             </v-btn>
             </template>
@@ -178,6 +177,25 @@ export default {
     color: #F48743 !important;
     caret-color: #FEE9CC !important;
     background-repeat: repeat-x;
+}
+
+.navLogo .v-image__image, .v-image__placeholder {
+    max-width: 70%;
+    left: 10%
+}
+
+* {
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 18px;
+}
+
+.nameUser {
+    color: #BBBBBB;
+}
+
+.judulHalaman {
+    font-weight: bold;
+    font-size: 34px !important;
 }
 
 </style>

@@ -21,5 +21,6 @@ export default {
 * {
     justify-content: center;
     font-family: 'Poppins', sans-serif !important;
+    font-weight: 600;
 }
 </style>
