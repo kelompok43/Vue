@@ -9,8 +9,8 @@
                   <v-row>
                     <v-col cols="12" md="6">
                       <v-img 
-                        width="700px"
-                        height="700px"
+                        max-width="1000px"
+                        max-height="1000px"
                         src="../assets/gambar.jpg"
                         class="ms-auto"
                         >
