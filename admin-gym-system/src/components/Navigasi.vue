@@ -79,7 +79,7 @@
         height="80px"
         >
 
-        <v-icon @click="mini = !mini" class="mr-4">mdi-menu</v-icon>
+        <v-icon @click="mini = !mini" class="mr-4">mdi-arrow-right-drop-circle</v-icon>
 
         <div class="d-flex align-center">
             <v-toolbar-title
