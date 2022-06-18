@@ -186,6 +186,7 @@ export default {
 
 * {
     font-family: 'Poppins', sans-serif !important;
+    font-weight: 600 !important;
     font-size: 18px;
 }
 
@@ -194,7 +195,6 @@ export default {
 }
 
 .judulHalaman {
-    font-weight: bold;
     font-size: 34px !important;
 }
 
