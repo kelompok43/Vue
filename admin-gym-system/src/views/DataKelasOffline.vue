@@ -1,41 +1,135 @@
 <template>
     <v-container fluid>
-        <v-btn
-            class="tambahKelas"
-            width="300px"
-            color="#F48743"
-            dark
-            @click="add('TambahKelas')"
-            >
-            Tambahkan Kelas
-        </v-btn>
+        <div class="text-center d-flex justify-start mb-6">
+            <div class="my-2 mx-3">
+                <v-btn
+                    class="tambahKelas"
+                    width="300px"
+                    color="#F48743"
+                    dark
+                    @click="add('TambahKelas')"
+                    >
+                    Tambahkan Kelas
+                </v-btn>
+            </div>
+        </div>
 
-        <v-card class="tabel">
-          <v-card-title class="judul"> Tabel Kelas Offline </v-card-title>
-          <v-card-subtitle class="d-flex justify-end mb-6">
-            <v-text-field
-              v-model="search"
-              append-icon="mdi-magnify"
-              label="Search"
-              single-line
-              hide-details
-            ></v-text-field>
-          </v-card-subtitle>
-          <v-data-table
-            :headers="headers"
-            :items="kelasoffline"
-            :search="search"
-          ></v-data-table>
-        </v-card>
+        <div>
+            <v-sheet :color="`white ${theme.isDark ? 'darken-2' : 'lighten-4'}`" class="pa-4 ma-3">
+                <div class="judul"> Tabel data pelatih </div>
+                <div class="d-flex justify-end">
+                    <div class="d-flex align-center mb-6 mx-4">show</div>
+                    <v-text-field 
+                    v-model="search"
+                    outlined single-line 
+                    label="cari disini" 
+                    append-icon="mdi-magnify" 
+                    class="shrink"
+                    >
+                    </v-text-field>
+                </div>
+                <div class="ma-5">
+                    <v-sheet :color="`grey ${theme.isDark ? 'darken-2' : 'lighten-4'}`" class="pa-5">
+                      <v-row>
+                        <v-col>
+                          <v-data-table
+                              :headers="headers"
+                              :items="kelasoffline"
+                              :search="search"
+                              hide-default-footer
+                              class="elevation-1"
+                              :page.sync="page"
+                              @page-count="pageCount = $event"
+                              :items-per-page="itemsPerPage"
+                          >
+                          <template v-slot:[`item.description`]="{ item }" max-width="100px">
+                            <v-textarea
+                              rows="4"
+                              hide-details
+                              max-height="200px"
+                              disabled
+                              color="#000000"
+                              :value="item.description"
+                            ></v-textarea>
+                          </template>
+                        
+                            <template v-slot:top>
+                              <v-dialog v-model="dialogDelete" max-width="400px">
+                                <v-card>
+                                  <v-card-title class="text-h5">Yakin ingin menghapus data ini?</v-card-title>
+                                  <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="primary" text @click="closeDelete">Cancel</v-btn>
+                                    <v-btn color="primary" text @click="deleteItemConfirm">OK</v-btn>
+                                    <v-spacer></v-spacer>
+                                  </v-card-actions>
+                                </v-card>
+                              </v-dialog>
+                            </template>
+
+                            <template v-slot:[`item.actions`]="{ item }">
+                                  <v-btn
+                                    class="mr-2"
+                                    color="#04BAED"
+                                    dark
+                                    width= "93.5px"
+                                    height= "26px"
+                                  >
+                                      Edit
+                                  </v-btn>
+
+                              <v-btn
+                                  color="#FE8E93"
+                                  dark
+                                  width= "93.5px"
+                                  height= "26px"
+                                  @click="deleteItem(item)"
+                              >
+                                  Hapus
+                              </v-btn>
+                            </template>
+                          </v-data-table>
+                        </v-col>
+                      </v-row>
+                      <v-row>
+                        <v-col>
+                          <div class="d-flex justify-end mt-4">
+                          <v-sheet :color="`#FEE9CC ${theme.isDark ? 'darken-2' : 'lighten-4'}`" class="pa-5">
+                            <template>
+                              <div class="text-center">
+                                <v-pagination
+                                  v-model="page"
+                                  :length="6"
+                                ></v-pagination>
+                                </div>
+                            </template>
+                          </v-sheet>
+                          </div>
+                        </v-col>
+                      </v-row>
+                    </v-sheet>
+                </div>
+            </v-sheet>
+        </div>
 
     </v-container>
 </template>
 
 <script>
 export default {
+    inject: {
+      theme: {
+        default: { isDark: false },
+      },
+    },
     data () {
       return {
         search: '',
+        dialogDelete: false,
+        selectedItemIndex: -1,
+        page: 1,
+        pageCount: 0,
+        itemsPerPage : 10,
         headers: [
           {
             text: 'No', 
@@ -55,7 +149,7 @@ export default {
           { text: 'Jam Mulai', value: 'TimeStart' },
           { text: 'Jam Selesai', value: 'TimeEnd' },
           { text: 'Kuota', value: 'Quota' },
-          { text: 'Action', value: 'Action' },
+          { text: 'Action', value: 'actions' },
         ],
         kelasoffline: [
           {
@@ -68,7 +162,6 @@ export default {
             TimeStart: '07.00 AM',
             TimeEnd: '09.00 AM',
             Quota: 30,
-            Action: 'Edit Hapus'
           },
           {
             number: 2,
@@ -80,7 +173,6 @@ export default {
             TimeStart: '08.00 AM',
             TimeEnd: '11.00 AM',
             Quota: 30,
-            Action: 'Edit Hapus'
           },
           {
             number: 3,
@@ -92,7 +184,6 @@ export default {
             TimeStart: '08.00 PM',
             TimeEnd: '11.00 PM',
             Quota: 30,
-            Action: 'Edit Hapus'
           },
           {
             number: 4,
@@ -104,7 +195,6 @@ export default {
             TimeStart: '08.00 AM',
             TimeEnd: '011.00 AM',
             Quota: 30,
-            Action: 'Edit Hapus'
           },
           {
             number: 5,
@@ -116,7 +206,6 @@ export default {
             TimeStart: '08.00 AM',
             TimeEnd: '011.00 AM',
             Quota: 30,
-            Action: 'Edit Hapus'
           },
           {
             number: 6,
@@ -128,7 +217,6 @@ export default {
             TimeStart: '08.00 AM',
             TimeEnd: '011.00 AM',
             Quota: 30,
-            Action: 'Edit Hapus'
           },
           {
             number: 7,
@@ -140,7 +228,6 @@ export default {
             TimeStart: '08.00 AM',
             TimeEnd: '011.00 AM',
             Quota: 30,
-            Action: 'Edit Hapus'
           },
           {
             number: 8,
@@ -152,7 +239,6 @@ export default {
             TimeStart: '08.00 AM',
             TimeEnd: '011.00 AM',
             Quota: 30,
-            Action: 'Edit Hapus'
           },
           {
             number: 9,
@@ -164,7 +250,6 @@ export default {
             TimeStart: '08.00 AM',
             TimeEnd: '011.00 AM',
             Quota: 30,
-            Action: 'Edit Hapus'
           },
           {
             number: 10,
@@ -176,7 +261,6 @@ export default {
             TimeStart: '08.00 AM',
             TimeEnd: '011.00 AM',
             Quota: 30,
-            Action: 'Edit Hapus'
           },
         ],
       }
@@ -184,7 +268,21 @@ export default {
     methods :{
       add(path){
         this.$router.push({name: path})
-    }
+      },
+      closeDelete(){
+        this.dialogDelete = false
+        this.$nextTick(() => {
+          this.selectedItemIndex = -1
+        })
+      },
+      deleteItemConfirm(){
+        this.identity.splice(this.selectedItemIndex, 1)
+        this.closeDelete()
+      },
+      deleteItem(item){
+        this.selectedItemIndex = this.identity.indexOf(item)
+        this.dialogDelete = true
+      }
   },
 }
 </script>
@@ -195,31 +293,34 @@ export default {
   margin-left: 21px;
 }
 
-.v-sheet.v-card.tabel{
-  margin-top: 33px;
-  margin-left: 21px;
-}
+  tbody tr:nth-of-type(even) {
+    background-color: rgba(236, 237, 237);
+  }
 
-.v-card__title{
+  tbody tr:nth-of-type(odd) {
+    background-color: rgb(250 ,250, 250);
+  }
+
+  .v-data-table-header {
+    background-color: rgba(182, 183, 187);
+    color: white;
+  }
+
+  .judul {
     align-items: center;
     display: block;
     color: #026DAA;
     font-family: Poppins;
-    font-size: 14px;
+    font-size: 20px;
     font-weight: 600;
     letter-spacing: 0.0125em;
     line-height: 21px;
     word-break: break-all;
-}
+  }
 
-.v-input {
-    align-items: flex-start;
-    display: flex;
-    flex: none;
-    font-size: 16px;
-    letter-spacing: normal;
-    max-width: 100%;
-    text-align: left;
-    justify-content: end;
-}
+  .v-data-table > .v-data-table__wrapper > table > tbody > tr > td{
+    padding: 0 16px;
+    transition: height 0.2s cubic-bezier(0.4, 0, 0.6, 1);
+    color: #88898A;
+  }
 </style>
