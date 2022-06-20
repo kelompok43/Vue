@@ -29,7 +29,7 @@
                     </v-text-field>
                 </div>
                 <div class="ma-5">
-                    <v-sheet :color="`grey ${theme.isDark ? 'darken-2' : 'lighten-4'}`" class="pa-5">
+                    <v-sheet :color="`grey ${theme.isDark ? 'darken-2' : 'lighten-4'}`" class="px-5 py-0">
                       <v-row>
                         <v-col>
                           <v-data-table
@@ -37,17 +37,28 @@
                               :items="kelasoffline"
                               :search="search"
                               hide-default-footer
-                              class="elevation-1"
                               :page.sync="page"
                               @page-count="pageCount = $event"
                               :items-per-page="itemsPerPage"
+                              hide-default-header
                           >
+                          <template v-slot:header="{ props: { headers } }">
+                              <thead class="MyHeader">
+                                <tr>
+                                  <th v-for="(h,index) in headers" :class="h.class" :key="index">
+                                    <span class="JudulHeader">{{h.text}}</span>
+                                  </th>
+                                </tr>
+                              </thead>
+                          </template>
                           <template v-slot:[`item.description`]="{ item }" max-width="100px">
                             <v-textarea
                               rows="4"
                               hide-details
                               max-height="200px"
-                              disabled
+                              readonly
+                              no-resize
+                              
                               color="#000000"
                               :value="item.description"
                             ></v-textarea>
@@ -91,14 +102,20 @@
                           </v-data-table>
                         </v-col>
                       </v-row>
+                    </v-sheet>
                       <v-row>
                         <v-col>
                           <div class="d-flex justify-end mt-4">
-                          <v-sheet :color="`#FEE9CC ${theme.isDark ? 'darken-2' : 'lighten-4'}`" class="pa-5">
+                          <v-sheet color="#FEE9CC" class="pa-5" :rounded="'lg'">
                             <template>
-                              <div class="text-center">
-                                <v-pagination
+                              <div>
+                                <v-pagination 
+                                  color="#F48743"
                                   v-model="page"
+                                  previous-aria-label="Prev"
+                                  next-aria-label="Next"
+                                  wrapper-aria-label
+                                  total-visible
                                   :length="6"
                                 ></v-pagination>
                                 </div>
@@ -107,7 +124,6 @@
                           </div>
                         </v-col>
                       </v-row>
-                    </v-sheet>
                 </div>
             </v-sheet>
         </div>
@@ -129,7 +145,7 @@ export default {
         selectedItemIndex: -1,
         page: 1,
         pageCount: 0,
-        itemsPerPage : 10,
+        itemsPerPage : 5,
         headers: [
           {
             text: 'No', 
@@ -323,4 +339,17 @@ export default {
     transition: height 0.2s cubic-bezier(0.4, 0, 0.6, 1);
     color: #88898A;
   }
+
+  .MyHeader {
+    background-color: #F6F6F6 !important;
+  }
+  .JudulHeader{
+    
+    font-weight: 900 !important;
+  }
+  .pagination {
+    background-color: #FEE9CC;
+    color: #F48743;
+  }
+
 </style>
