@@ -10,7 +10,9 @@ import Berita from "@/views/Berita.vue"
 import JadwalLatihan from "@/views/JadwalLatihan.vue"
 import Login from "@/views/LoginView.vue";
 import Registrasi from "../views/Registrasi.vue";
-import TambahKelas from "../views/TambahKelas.vue";
+import TambahKelasOffline from "../views/TambahKelasOffline.vue";
+import TambahKelasOnline from "../views/TambahKelasOnline.vue";
+import DataKelasOnline from "@/views/DataKelasOnline.vue";
 
 Vue.use(VueRouter);
 
@@ -30,6 +32,11 @@ const routes = [
         path: "/DataKelasOffline",
         name: "Data Kelas Offline",
         component: DataKelasOffline,
+    },
+    {
+        path: "/DataKelasOnline",
+        name: "Data Kelas Online",
+        component: DataKelasOnline,
     },
     {
         path: "/DataAdmin",
@@ -67,9 +74,14 @@ const routes = [
         component: Registrasi,
     },
     {
-        path: "/tambahKelas",
-        name: "TambahKelas",
-        component: TambahKelas,
+        path: "/tambahKelasOffline",
+        name: "TambahKelasOffline",
+        component: TambahKelasOffline,
+    },
+    {
+        path: "/tambahKelasOnline",
+        name: "TambahKelasOnline",
+        component: TambahKelasOnline,
     },
     {
         path: "/Login",

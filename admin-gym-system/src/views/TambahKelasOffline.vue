@@ -4,15 +4,16 @@
           <v-col cols="12" sm="8" md="8">
             <v-card class="elevation-12">
                     <v-col cols="12" md="8">
-                        <h3 class="text-left mt-4 blue--text">Tambah Kelas Offline Baru</h3>
+                      <h3 class="text-left mt-4 blue--text">Tambah Kelas Offline Baru</h3>
                       <v-card-text class="mt-5">
-                        <!-- <h1
-                          class="text-center display-2 orange--text text--accent-3"
-                        >Fitness Gym</h1> -->
-                            <h4>Nama Kelas</h4> <br>
+                        <v-form v-model="valid">
+                          <h4>Nama Kelas</h4> <br>
                           <v-text-field
+                            v-model="namaKelas"
+                            :rules="nameRules"
+                            :counter="10"
                             label="Masukkan nama kelas"
-                            name="namaKelas"
+                            required
                             type="text"
                             outlined
                             color="orange"
@@ -20,8 +21,10 @@
                           />
                             <h4>Tanggal</h4> <br>
                           <v-text-field
-                            id="tanggallahir"
-                            name="date"
+                            v-model="tanggal"
+                            :rules="dateRules"
+                            label="Masukkan tanggal"
+                            required
                             type="date"
                             outlined
                             color="orange"
@@ -37,8 +40,10 @@
                             >
                             <template v-slot:activator="{ on, attrs }">
                                 <v-text-field
-                                label="Masukkan jam mulai"
                                 v-model="timeStart"
+                                :rules="timeStartRules"
+                                label="Masukkan jam mulai"
+                                required
                                 type="text"
                                 outlined
                                 color="orange"
@@ -83,8 +88,10 @@
                             >
                             <template v-slot:activator="{ on, attrs }">
                                 <v-text-field
-                                label="Masukkan jam selesai"
                                 v-model="timeEnd"
+                                :rules="timeEndRules"
+                                label="Masukkan jam selesai"
+                                required
                                 type="text"
                                 outlined
                                 color="orange"
@@ -118,11 +125,13 @@
                                 </v-btn>
                             </v-time-picker>
                             </v-dialog>
-                            <h3>{{cek()}}</h3>
+
                           <h4>Kuota Kelas</h4> <br>
                           <v-text-field
+                            v-model="kuota"
+                            :rules="kuotaRules"
                             label="Masukkan kuota kelas"
-                            name="kuotaKelas"
+                            required
                             type="number"
                             outlined
                             color="orange"
@@ -138,10 +147,15 @@
 
                           <h4>Deskripsi</h4> <br>
                           <v-textarea
+                            v-model="Deskripsi"
+                            :rules="descRules"
+                            label ="Masukkan deskripsi singkat kelas"
+                            required
+                            type="text"
                             outlined
-                            name="alamat"
                             color="orange"
                             ></v-textarea>
+                        </v-form>
                       </v-card-text>
                       <div class="text-left mt-5 ms-3">
                         <v-btn color="#F48743" dark width="200px">Save</v-btn>
@@ -158,17 +172,29 @@
 export default {
     data: () => ({
       items: ['Peter', 'Alan', 'VanXaiver', 'John', 'Steven'],
-      timeStart: null,
-      timeEnd: null,
       modal1: false,
       modal2: false,
+      valid: false,
+      namaKelas:null,
+      tanggal:null,
+      timeStart: null,
+      timeEnd: null,
+      kuota:null,
+      namaPelatih:null,
+      Deskripsi:null,
+      nameRules: [
+        v => !!v || 'Nama kelas tidak boleh kosong',
+        v => v.length <= 10 || 'Nama kelas harus kurang dari 10 huruf',
+      ],
+      dateRules: [ v => !!v || 'Tanggal tidak boleh kosong',],
+      timeStartRules: [ v => !!v || 'Jam mulai tidak boleh kosong',],
+      timeEndRules: [ v => !!v || 'Jam selesai tidak boleh kosong',],
+      kuotaRules: [ v => !!v || 'Kuota Kelas tidak boleh kosong',],
+      descRules: [ v => !!v || 'Deskripsi tidak boleh kosong',],
     }),
 
     methods:{
-        cek(){
-            console.log("test1  :" + this.timeStart);
-            console.log("test2  :" + this.timeEnd);
-        }
+
     },
 }
 </script>
