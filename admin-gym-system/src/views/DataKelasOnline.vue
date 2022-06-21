@@ -52,16 +52,10 @@
                               </thead>
                           </template>
                           <template v-slot:[`item.description`]="{ item }" max-width="100px">
-                            <v-textarea
-                              rows="4"
-                              hide-details
-                              max-height="200px"
-                              readonly
-                              no-resize
-                              
-                              color="#000000"
-                              :value="item.description"
-                            ></v-textarea>
+                            <v-container id
+                              class="deskripsi"
+                            > {{item.description}}
+                            </v-container>
                           </template>
                         
                             <template v-slot:top>
@@ -204,7 +198,7 @@ export default {
             Trainer: 'Alif',
             Date: '05/06/2022',
             TimeStart: '08.00 AM',
-            TimeEnd: '011.00 AM',
+            TimeEnd: '10.00 AM',
             Rating: "4/5",
           },
           {
@@ -214,7 +208,7 @@ export default {
             Trainer: 'Alif',
             Date: '05/06/2022',
             TimeStart: '08.00 AM',
-            TimeEnd: '011.00 AM',
+            TimeEnd: '9.00 AM',
             Rating: "4/5",
           },
           {
@@ -224,7 +218,7 @@ export default {
             Trainer: 'Alif',
             Date: '05/06/2022',
             TimeStart: '08.00 AM',
-            TimeEnd: '011.00 AM',
+            TimeEnd: '12.00 AM',
             Rating: "4/5",
           },
           {
@@ -234,7 +228,7 @@ export default {
             Trainer: 'Alif',
             Date: '05/06/2022',
             TimeStart: '08.00 AM',
-            TimeEnd: '011.00 AM',
+            TimeEnd: '12.00 AM',
             Rating: "4/5",
           },
           {
@@ -244,7 +238,7 @@ export default {
             Trainer: 'Alif',
             Date: '05/06/2022',
             TimeStart: '08.00 AM',
-            TimeEnd: '011.00 AM',
+            TimeEnd: '10.00 AM',
             Rating: "4/5",
           },
           {
@@ -254,7 +248,7 @@ export default {
             Trainer: 'Alif',
             Date: '05/06/2022',
             TimeStart: '08.00 AM',
-            TimeEnd: '011.00 AM',
+            TimeEnd: '10.00 AM',
             Rating: "4/5",
           },
           {
@@ -264,7 +258,7 @@ export default {
             Trainer: 'Alif',
             Date: '05/06/2022',
             TimeStart: '08.00 AM',
-            TimeEnd: '011.00 AM',
+            TimeEnd: '12.00 AM',
             Rating: "4/5",
           },
         ],
@@ -339,6 +333,10 @@ export default {
   .pagination {
     background-color: #FEE9CC;
     color: #F48743;
+  }
+  .deskripsi{
+    width:300px;
+    font-size: 14px;
   }
 
 </style>

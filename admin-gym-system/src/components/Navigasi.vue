@@ -79,7 +79,7 @@
         height="80px"
         >
 
-        <v-icon @click="mini = !mini" class="mr-4">mdi-arrow-right-drop-circle</v-icon>
+        <v-icon @click="mini = !mini" class="mr-4">mdi-menu</v-icon>
 
         <div class="d-flex align-center">
             <v-toolbar-title
@@ -185,8 +185,8 @@ export default {
 }
 
 * {
-    font-family: 'Poppins', sans-serif !important;
-    font-weight: 600 !important;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
     font-size: 18px;
 }
 

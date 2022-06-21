@@ -51,17 +51,11 @@
                                 </tr>
                               </thead>
                           </template>
-                          <template v-slot:[`item.description`]="{ item }" max-width="100px">
-                            <v-textarea
-                              rows="4"
-                              hide-details
-                              max-height="200px"
-                              readonly
-                              no-resize
-                              
-                              color="#000000"
-                              :value="item.description"
-                            ></v-textarea>
+                         <template v-slot:[`item.description`]="{ item }" max-width="100px">
+                            <v-container id
+                              class="deskripsi"
+                            > {{item.description}}
+                            </v-container>
                           </template>
                         
                             <template v-slot:top>
@@ -209,7 +203,7 @@ export default {
             Location: 'Ruangan 3',
             Date: '05/06/2022',
             TimeStart: '08.00 AM',
-            TimeEnd: '011.00 AM',
+            TimeEnd: '01.00 PM',
             Quota: 30,
           },
           {
@@ -220,7 +214,7 @@ export default {
             Location: 'Ruangan 3',
             Date: '05/06/2022',
             TimeStart: '08.00 AM',
-            TimeEnd: '011.00 AM',
+            TimeEnd: '02.00 PM',
             Quota: 30,
           },
           {
@@ -231,7 +225,7 @@ export default {
             Location: 'Ruangan 3',
             Date: '05/06/2022',
             TimeStart: '08.00 AM',
-            TimeEnd: '011.00 AM',
+            TimeEnd: '10.00 AM',
             Quota: 30,
           },
           {
@@ -242,7 +236,7 @@ export default {
             Location: 'Ruangan 3',
             Date: '05/06/2022',
             TimeStart: '08.00 AM',
-            TimeEnd: '011.00 AM',
+            TimeEnd: '9.00 AM',
             Quota: 30,
           },
           {
@@ -253,7 +247,7 @@ export default {
             Location: 'Ruangan 3',
             Date: '05/06/2022',
             TimeStart: '08.00 AM',
-            TimeEnd: '011.00 AM',
+            TimeEnd: '11.30 AM',
             Quota: 30,
           },
           {
@@ -264,7 +258,7 @@ export default {
             Location: 'Ruangan 3',
             Date: '05/06/2022',
             TimeStart: '08.00 AM',
-            TimeEnd: '011.00 AM',
+            TimeEnd: '12.00 AM',
             Quota: 30,
           },
           {
@@ -275,7 +269,7 @@ export default {
             Location: 'Ruangan 3',
             Date: '05/06/2022',
             TimeStart: '08.00 AM',
-            TimeEnd: '011.00 AM',
+            TimeEnd: '9.30 AM',
             Quota: 30,
           },
         ],
@@ -304,10 +298,10 @@ export default {
 </script>
 
 <style scoped>
-.v-btn.tambahKelas{
-  margin-top: 25px;
-  margin-left: 21px;
-}
+  .v-btn.tambahKelas{
+    margin-top: 25px;
+    margin-left: 21px;
+  }
 
   tbody tr:nth-of-type(even) {
     background-color: rgba(236, 237, 237);
@@ -315,11 +309,6 @@ export default {
 
   tbody tr:nth-of-type(odd) {
     background-color: rgb(250 ,250, 250);
-  }
-
-  .v-data-table-header {
-    background-color: rgba(182, 183, 187);
-    color: white;
   }
 
   .judul {
@@ -334,22 +323,20 @@ export default {
     word-break: break-all;
   }
 
-  .v-data-table > .v-data-table__wrapper > table > tbody > tr > td{
-    padding: 0 16px;
-    transition: height 0.2s cubic-bezier(0.4, 0, 0.6, 1);
-    color: #88898A;
-  }
-
   .MyHeader {
     background-color: #F6F6F6 !important;
   }
   .JudulHeader{
-    
     font-weight: 900 !important;
   }
   .pagination {
     background-color: #FEE9CC;
     color: #F48743;
+  }
+
+  .deskripsi{
+    width:300px;
+    font-size: 14px;
   }
 
 </style>

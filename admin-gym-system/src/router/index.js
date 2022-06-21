@@ -27,11 +27,6 @@ const routes = [
             component: Dashboard,
         },
         {
-            path: "/DataKelas",
-            name: "Data Kelas",
-            component: DataKelas,
-        },
-        {
             path: "/DataKelasOffline",
             name: "Data Kelas Offline",
             component: DataKelasOffline,

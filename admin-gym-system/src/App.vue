@@ -20,7 +20,7 @@ export default {
 
 * {
     justify-content: center;
-    font-weight: 600 !important;
+    font-weight: 600;
 }
 
 .navIcon{
