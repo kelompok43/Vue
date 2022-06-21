@@ -217,19 +217,19 @@
                     max-width="calc(100%)"
                     >
                         <v-progress-circular class="chart"
-                        :value="46"
-                        :rotate="-270"
+                        :value="valueJenisClass"
+                        :rotate="-90"
                         color="#806EF1"
                         size="208"
                         width="15"
 
-                        >46%</v-progress-circular>
+                        ><span class="grey--text">{{hitungPercent(valueJenisClass)}}</span></v-progress-circular>
                     </v-sheet>
                     <div
                     class="d-flex justify-center mb-6"
                     >
                         <v-spacer class="order-1"></v-spacer>
-                        <v-icon class="order-2 pr-2">mdi-circle</v-icon>
+                        <v-icon class="order-2 pr-2" color="d8d8d8">mdi-circle</v-icon>
                         <h4 class="order-3 pr-6">Online</h4>
                         <v-icon class="order-4 pr-2" color="#806EF1">mdi-circle</v-icon>
                         <h4 class="order-5">Offline</h4>
@@ -252,13 +252,13 @@
                     max-width="calc(100%)"
                     >
                     <v-progress-circular class="chart"
-                        :value="64"
-                        :rotate="-270"
+                        :value="valueKategoriClass"
+                        :rotate="-90"
                         color="#806EF1"
                         size="208"
                         width="15"
 
-                        >64%
+                        ><span class="grey--text">{{hitungPercent(valueKategoriClass)}}</span>
                     </v-progress-circular>
                     </v-sheet>
 
@@ -266,7 +266,7 @@
                     class="d-flex justify-center mb-6"
                     >
                         <v-spacer class="order-1"></v-spacer>
-                        <v-icon class="order-2 pr-2">mdi-circle</v-icon>
+                        <v-icon class="order-2 pr-2" color="d8d8d8">mdi-circle</v-icon>
                         <h4 class="order-3 pr-6">Online</h4>
                         <v-icon class="order-4 pr-2" color="#806EF1">mdi-circle</v-icon>
                         <h4 class="order-5">Offline</h4>
@@ -292,14 +292,24 @@ export default {
         ChartRegis,
         ChartBook,
     },
-    inject: {
+    
+    Navigasiinject: {
       theme: {
         default: { isDark: false },
       },
     },
 
     data: () => ({
+        valueJenisClass : 64,
+        valueKategoriClass : 36,
     }),
+
+    methods:{
+        hitungPercent(param){
+            const percent = 100 - param;
+            return(percent);
+        }
+    }
 }
 </script>
 
@@ -393,4 +403,10 @@ export default {
     margin-top: 26px;
     margin-bottom: 26px;
 }
+
+* {
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 600 !important;
+}
+
 </style>
