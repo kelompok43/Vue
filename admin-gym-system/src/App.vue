@@ -8,8 +8,8 @@
 
 <script>
 export default {
+  // components: { NavBarDataKelas },
   name: 'App',
-
   }
 </script>
 
@@ -21,5 +21,15 @@ export default {
 * {
     justify-content: center;
     font-weight: 600 !important;
+}
+
+.navIcon{
+  max-height: 40px;
+  max-width: 224px;
+}
+
+.expansion .v-expansion-panels{
+  max-height: 40px;
+  max-width: 224px;
 }
 </style>

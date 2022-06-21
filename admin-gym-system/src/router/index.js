@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Dashboard from "@/views/Dashboard.vue"
-import DataKelas from "@/views/DataKelas.vue"
+import DataKelasOffline from "@/views/DataKelasOffline.vue"
 import DataAdmin from "@/views/DataAdmin.vue"
 import DataMember from "@/views/DataMember.vue"
 import DataPemesanan from "@/views/DataPemesanan.vue"
@@ -9,6 +9,9 @@ import DataPelatih from "@/views/DataPelatih.vue"
 import Berita from "@/views/Berita.vue"
 import JadwalLatihan from "@/views/JadwalLatihan.vue"
 import Login from "@/views/LoginView.vue";
+import TambahKelasOffline from "../views/TambahKelasOffline.vue";
+import TambahKelasOnline from "../views/TambahKelasOnline.vue";
+import DataKelasOnline from "@/views/DataKelasOnline.vue";
 import Registrasi from "@/views/Registrasi.vue";
 import Navigasi from "@/components/Navigasi.vue"
 
@@ -27,6 +30,16 @@ const routes = [
             path: "/DataKelas",
             name: "Data Kelas",
             component: DataKelas,
+        },
+        {
+            path: "/DataKelasOffline",
+            name: "Data Kelas Offline",
+            component: DataKelasOffline,
+        },
+        {
+            path: "/DataKelasOnline",
+            name: "Data Kelas Online",
+            component: DataKelasOnline,
         },
         {
             path: "/DataAdmin",
@@ -58,6 +71,16 @@ const routes = [
             name: "Berita",
             component: Berita,
         },
+        {
+            path: "/tambahKelasOffline",
+            name: "TambahKelasOffline",
+            component: TambahKelasOffline,
+        },
+        {
+            path: "/tambahKelasOnline",
+            name: "TambahKelasOnline",
+            component: TambahKelasOnline,
+        },
         ]
     },
     
@@ -66,6 +89,7 @@ const routes = [
         name: "Registrasi",
         component: Registrasi,
     },
+
     {
         path: "/Login",
         name: "Login",
