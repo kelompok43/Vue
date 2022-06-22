@@ -2,6 +2,9 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Registrasi from "../views/Registrasi.vue";
+import RegistrasiMember from "../views/RegistrasiMember.vue";
+import DataAdmin from "../views/DataAdmin.vue";
+import DataMember from "../views/DataMember.vue";
 
 Vue.use(VueRouter);
 
@@ -24,6 +27,21 @@ const routes = [
     path: "/registrasi",
     name: "Registrasi",
     component: Registrasi,
+  },
+  {
+    path: "/registrasimember",
+    name: "RegistrasiMember",
+    component: RegistrasiMember,
+  },
+  {
+    path: "/dataadmin",
+    name: "DataAdmin",
+    component: DataAdmin,
+  },
+  {
+    path: "/datamember",
+    name: "DataMember",
+    component: DataMember,
   },
 ];
 
