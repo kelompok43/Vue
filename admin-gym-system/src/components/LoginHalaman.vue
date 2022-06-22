@@ -1,6 +1,6 @@
 <template>
   <v-app id="login">
-    <v-content>
+    <v-main>
       <v-container class="fill-height" fluid>
         <v-row align="center" justify="center">
           <v-col cols="12" sm="8" md="12">
@@ -37,12 +37,14 @@
                           class="text-center display-2 orange--text text--accent-3"
                         >Fitness Gym</h1> -->
                         <h2 class="text-center mt-4">Selamat Datang</h2>
-                        <v-form>
-                          <v-text-field
+                        <v-form
+                        lazy-validation>
+                          <v-text-field :rules="emailRules"
                             label="Email"
                             name="Email"
                             type="text"
                             color="orange"
+                            required
                           />
 
                           <v-text-field
@@ -57,7 +59,7 @@
                         <h3 class="text-right mt-4">Lupa Password?</h3>
                       </v-card-text>
                       <div class="text-center mt-3">
-                        <v-btn color="#F48743" dark width="500px">LOGIN</v-btn>
+                        <v-btn color="#F48743" dark width="500px" v-on:click="login">LOGIN</v-btn>
                       </div>
                       <br>
                     </v-col>
@@ -67,15 +69,35 @@
           </v-col>
         </v-row>
       </v-container>
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   data: () => ({
-    step: 1
+    step: 1,
+    valid: false,
+    return: {
+      email:'',
+      password:'',
+      emailRules: [
+        v => !!v || 'Email is required'
+      ]
+    }
   }),
+  methods: {
+    async login(){
+      let result = await axios.post(
+        'https://virtserver.swaggerhub.com/G2731/GymMembership/1.0/admin/login'
+      )
+       .then(() => {
+            this.$router.push({ path: "/" });
+            })
+      console.log("login berhasil", result)
+    }
+  },
   props: {
     source: String
   }
