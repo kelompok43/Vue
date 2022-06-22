@@ -86,7 +86,14 @@ export default {
       ]
     }
   }),
-  methods: {
+  props: {
+    source: String
+  },
+  methods:{
+    Login(){
+      localStorage.setItem("authenticated", true);
+      this.$router.push({name: "Dashboard" });
+    },
     async login(){
       let result = await axios.post(
         'https://virtserver.swaggerhub.com/G2731/GymMembership/1.0/admin/login'
@@ -95,15 +102,6 @@ export default {
             this.$router.push({ path: "/" });
             })
       console.log("login berhasil", result)
-    }
-  },
-  props: {
-    source: String
-  },
-  methods:{
-    Login(){
-      localStorage.setItem("authenticated", true);
-      this.$router.push({name: "Dashboard" });
     }
   }
 };
