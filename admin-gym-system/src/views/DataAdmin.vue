@@ -216,7 +216,7 @@ export default {
         },
         {
           no: 9,
-          bidangKeahlian: 'Strenght and Condition',
+          bidangKeahlian: 'Strengh and Condition',
           name: 'Darrell Steward',
           email: 'debra.holt@example.com',
           phoneNumber: '(704) 555-0127',
