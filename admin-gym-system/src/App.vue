@@ -57,6 +57,7 @@ export default {
 <style>
 * {
   font-family: 'Poppins', sans-serif !important;
+  font-weight: 600;
 }
 
 </style>
