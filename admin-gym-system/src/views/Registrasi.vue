@@ -6,7 +6,7 @@
           <v-col cols="12" sm="8" md="8">
             <v-card class="elevation-12">
                     <v-col cols="12" md="8">
-                        <h3 class="text-left mt-4 blue--text">Tambahkan admin operasional baru</h3>
+                        <h3 class="text-left ms-3 mt-4 blue--text">Tambahkan admin operasional baru</h3>
                       <v-card-text class="mt-5">
                         <!-- <h1
                           class="text-center display-2 orange--text text--accent-3"
@@ -57,10 +57,66 @@
                             outlined
                             color="orange"
                             ></v-select>
+                            <h4>Email</h4> <br>
+                          <v-text-field
+                            label="Masukkan Email"
+                            name="email"
+                            type="text"
+                            outlined
+                            color="orange"
+                            max-width="100px"
+                          />
+                          <h4>Password</h4> <br>
+                          <v-text-field
+                            label="Password"
+                            name="password"
+                            type="password"
+                            outlined
+                            color="orange"
+                            max-width="100px"
+                          />
                         </v-form>
                       </v-card-text>
                       <div class="text-left mt-5 ms-3">
-                        <v-btn color="#F48743" dark width="200px">Save</v-btn>
+                        <!-- <v-btn color="#F48743" dark width="200px">Save</v-btn> -->
+                        <v-dialog
+                          v-model="dialog"
+                          persistent
+                          max-width="500"
+                        >
+                          <template v-slot:activator="{ on, attrs }">
+                            <v-btn
+                              color="#F48743"
+                              dark
+                              width="200px"
+                              v-bind="attrs"
+                              v-on="on"
+                            >
+                              Save
+                            </v-btn>
+                          </template>
+                          <v-card>
+                            <v-card-title class="justify-center"><strong>
+                              KONFIRMASI
+                              </strong></v-card-title><br>
+                            <v-card-text>Apakah data yang anda masukkan sudah benar?</v-card-text>
+                            <v-card-actions class="justify-center">
+                              <v-btn
+                                color="error"
+                                @click="dialog = false;"
+                              >
+                                Batal
+                              </v-btn>
+                              <v-btn
+                                color="success"
+                                
+                                @click="dialog = false;"
+                              >
+                                Ya
+                              </v-btn>
+                            </v-card-actions>
+                          </v-card>
+                        </v-dialog>
                       </div> <br>
                       <br>
                     </v-col>
@@ -76,6 +132,7 @@
 export default {
     data: () => ({
       items: ['Admin Operasional', 'Member'],
+      dialog: false,
     }),
 }
 </script>
