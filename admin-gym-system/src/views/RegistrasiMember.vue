@@ -1,10 +1,12 @@
 <template>
-      <v-container fluid>
+    <v-app id="login">
+    <v-content>
+      <v-container class="fill-height" fluid>
         <v-row align="center" justify="center">
-          <v-col cols="12" sm="8" md="8">
+          <v-col cols="12" sm="8" md="8" >
             <v-card class="elevation-12">
                     <v-col cols="12" md="8">
-                        <h3 class="text-left ms-3 mt-4 blue--text">Tambahkan admin operasional baru</h3>
+                        <h3 class="text-left ms-3 mt-4 blue--text">Edit Data User</h3>
                       <v-card-text class="mt-5">
                         <!-- <h1
                           class="text-center display-2 orange--text text--accent-3"
@@ -19,7 +21,16 @@
                             color="orange"
                             max-width="100px"
                           />
-                            <h4>Tanggal Lahir</h4> <br>
+                            <h4>Email</h4> <br>
+                          <v-text-field
+                            label="Masukkan Email"
+                            name="email"
+                            type="text"
+                            outlined
+                            color="orange"
+                            max-width="100px"
+                          />
+                          <h4>Tanggal Lahir</h4> <br>
                           <v-text-field
                             id="tanggallahir"
                             name="date"
@@ -42,6 +53,15 @@
                                 value="radio-2"
                             ></v-radio>
                             </v-radio-group>
+                            <h4>Nomor Ponsel</h4> <br>
+                          <v-text-field
+                            label="Masukkan Nomor Ponsel"
+                            name="nomorponsel"
+                            type="text"
+                            outlined
+                            color="orange"
+                            max-width="100px"
+                          />
 
                           <h4>Alamat</h4> <br>
                           <v-textarea
@@ -49,34 +69,15 @@
                             name="alamat"
                             
                             ></v-textarea>
-                          <h4>Role</h4> <br>
+                          <h4>Status</h4> <br>
                             <v-select
                             :items="items"
                             outlined
                             color="orange"
                             ></v-select>
-                            <h4>Email</h4> <br>
-                          <v-text-field
-                            label="Masukkan Email"
-                            name="email"
-                            type="text"
-                            outlined
-                            color="orange"
-                            max-width="100px"
-                          />
-                          <h4>Password</h4> <br>
-                          <v-text-field
-                            label="Password"
-                            name="password"
-                            type="password"
-                            outlined
-                            color="orange"
-                            max-width="100px"
-                          />
                         </v-form>
                       </v-card-text>
                       <div class="text-left mt-5 ms-3">
-                        <!-- <v-btn color="#F48743" dark width="200px">Save</v-btn> -->
                         <v-dialog
                           v-model="dialog"
                           persistent
@@ -122,6 +123,8 @@
           </v-col>
         </v-row>
       </v-container>
+    </v-content>
+  </v-app>
 </template>
 
 <script>
