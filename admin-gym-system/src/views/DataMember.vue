@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <template>
 <v-app>
     <v-container>
