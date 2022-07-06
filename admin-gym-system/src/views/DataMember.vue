@@ -1,6 +1,4 @@
-<<<<<<< HEAD
 <template>
-<v-app>
     <v-container>
         <div class="text-center d-flex justify-start mb-6">
             <div class="my-2 mx-3">
@@ -9,73 +7,118 @@
             width="300px"
             color="#F48743"
             dark
-            @click="add('EditMember')"
+            @click="add('RegistrasiMember')"
             >
             Tambahkan Member
         </v-btn>
             </div>
         </div>
         <div>
-            <v-card>
             <v-sheet :color="`white ${theme.isDark ? 'darken-2' : 'lighten-4'}`" class="pa-4 ma-3">
-                <div> Tabel data Member </div>
+                <div class="judul"> Tabel Data Member </div>
                 <div class="d-flex justify-end">
                     <div class="d-flex align-center mb-6 mx-4">show</div>
                     <v-text-field 
                     v-model="search"
-                    outlined 
-                    single-line 
+                    outlined single-line 
                     label="cari disini" 
                     append-icon="mdi-magnify" 
-                    class="shrink"></v-text-field>
+                    class="shrink"
+                    >
+                    </v-text-field>
                 </div>
                 <div class="ma-5">
-                    <v-sheet :color="`grey ${theme.isDark ? 'darken-2' : 'lighten-4'}`" class="pa-5">
-                      <v-data-table
-                          :headers="headers"
-                          :items="identity"
-                          :search="search"
-                          :items-per-page="10"
-                          hide-default-footer
-                          class="elevation-1"
-                      >
-                        <template slot="items" slot-scope="props">
-                            <td>{{ props.item.no }}</td>
-                            <td class="text-xs-right">{{ props.item.bidangKeahlian }}</td>
-                            <td class="text-xs-right">{{ props.item.name }}</td>
-                            <td class="text-xs-right">{{ props.item.email }}</td>
-                            <td class="text-xs-right">{{ props.item.phoneNumber }}</td>
-                            <td class="text-xs-right">{{ props.item.alamat }}</td>
-                            <td class="text-xs-right">{{ props.item.jenisKelamin }}</td>
-                            <td class="text-xs-right">{{ props.item.action }}
-                              <!-- <template>
+                    <v-sheet :color="`grey ${theme.isDark ? 'darken-2' : 'lighten-4'}`" class="px-5 py-0">
+                      <v-row>
+                        <v-col>
+                          <v-data-table
+                              :headers="headers"
+                              :items="identity"
+                              :search="search"
+                              hide-default-footer
+                              :page.sync="page"
+                              @page-count="pageCount = $event"
+                              :items-per-page="itemsPerPage"
+                              hide-default-header
+                          >
+                          <template v-slot:header="{ props: { headers } }">
+                              <thead class="MyHeader">
+                                <tr>
+                                  <th v-for="(h,index) in headers" :class="h.class" :key="index">
+                                    <span class="JudulHeader">{{h.text}}</span>
+                                  </th>
+                                </tr>
+                              </thead>
+                          </template>
+                          <template v-slot:[`item.description`]="{ item }" max-width="100px">
+                            <v-container id
+                              class="deskripsi"
+                            > {{item.description}}
+                            </v-container>
+                          </template>
+                        
+                            <template v-slot:top>
+                              <v-dialog v-model="dialogDelete" max-width="400px">
+                                <v-card>
+                                  <v-card-title class="text-h5">Yakin ingin menghapus data ini?</v-card-title>
+                                  <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="primary" text @click="closeDelete">Cancel</v-btn>
+                                    <v-btn color="primary" text @click="deleteItemConfirm">OK</v-btn>
+                                    <v-spacer></v-spacer>
+                                  </v-card-actions>
+                                </v-card>
+                              </v-dialog>
+                            </template>
+                            <template v-slot:[`item.actions`]="{ item }">
+                                  <v-btn
+                                    class="mr-2"
+                                    color="#04BAED"
+                                    dark
+                                    width= "93.5px"
+                                    height= "26px"
+                                  >
+                                      Edit
+                                  </v-btn>
                               <v-btn
-                                class="ma-2"
-                                color="secondary"  
-                              >test</v-btn>
-                              </template> -->
-                            </td>
-                        </template>
-                      </v-data-table>
-                      <div class="d-flex justify-end mt-4">
-                        <v-sheet :color="`#FEE9CC ${theme.isDark ? 'darken-2' : 'lighten-4'}`" class="pa-5">
-                        <template>
-                          <div class="text-center">
-                            <v-pagination
-                              v-model="page"
-                              :length="6"
-                            ></v-pagination>
-                            </div>
-                        </template>
-                        </v-sheet>
-                      </div>
+                                  color="#FE8E93"
+                                  dark
+                                  width= "93.5px"
+                                  height= "26px"
+                                  @click="deleteItem(item)"
+                              >
+                                  Hapus
+                              </v-btn>
+                            </template>
+                          </v-data-table>
+                        </v-col>
+                      </v-row>
                     </v-sheet>
+                      <v-row>
+                        <v-col>
+                          <div class="d-flex justify-end mt-4">
+                          <v-sheet color="#FEE9CC" class="pa-5" :rounded="'lg'">
+                            <template>
+                              <div>
+                                <v-pagination 
+                                  color="#F48743"
+                                  v-model="page"
+                                  previous-aria-label="Prev"
+                                  next-aria-label="Next"
+                                  wrapper-aria-label
+                                  total-visible
+                                  :length="6"
+                                ></v-pagination>
+                                </div>
+                            </template>
+                          </v-sheet>
+                          </div>
+                        </v-col>
+                      </v-row>
                 </div>
             </v-sheet>
-            </v-card>
         </div>
     </v-container>
-</v-app>
 </template>
 
 <script>
@@ -90,9 +133,23 @@ export default {
       },
     },
      methods :{
-      add(EditMember){
-        this.$router.push({name: EditMember})
-    }
+      add(RegistrasiMember){
+        this.$router.push({name: RegistrasiMember})
+    },
+    closeDelete(){
+       this.dialogDelete = false
+       this.$nextTick(() => {
+         this.selectedItemIndex = -1
+       })
+     },
+     deleteItemConfirm(){
+       this.identity.splice(this.selectedItemIndex, 1)
+       this.closeDelete()
+     },
+     deleteItem(item){
+       this.selectedItemIndex = this.identity.indexOf(item)
+       this.dialogDelete = true
+     },
   },
     data () {
       return {
@@ -131,7 +188,7 @@ export default {
         },
         {
           text: 'Action',
-          value: 'action'
+          value: 'actions'
         }
       ],
       identity: [
@@ -242,6 +299,9 @@ export default {
 </script>
 
 <style>
+.v-main__wrap {
+    background-color: #FEE9CC;
+}
   tbody tr:nth-of-type(even) {
     background-color: rgba(236, 237, 237);
   }
