@@ -97,6 +97,10 @@ export default {
       return {
         search:'',
         page: 1,
+        dialogDelete: false,
+        selectedItemIndex: -1,
+        pageCount: 0,
+        itemsPerPage : 10,
         headers: [
         {
           text: 'No',
