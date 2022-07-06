@@ -47,6 +47,7 @@
                             required
                           />
                           <v-text-field
+                          :rules="passwordRules"
                             id="password"
                             label="Password"
                             name="password"
@@ -78,12 +79,16 @@ export default {
   data: () => ({
     step: 1,
     valid: false,
+    emailRules: [
+        v => !!v || 'Email is required'
+      ],
+      passwordRules: [
+        v => !!v || 'Password required'
+      ],
     return: {
       email:'',
       password:'',
-      emailRules: [
-        v => !!v || 'Email is required'
-      ]
+      
     }
   }),
   methods: {
