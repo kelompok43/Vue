@@ -81,7 +81,7 @@
                         <v-dialog
                           v-model="dialog"
                           persistent
-                          max-width="500"
+                          width="800"
                         >
                           <template v-slot:activator="{ on, attrs }">
                             <v-btn
@@ -94,21 +94,24 @@
                               Save
                             </v-btn>
                           </template>
-                          <v-card>
-                            <v-card-title class="justify-center"><strong>
+                          <v-card height="250px">
+                            <v-card-title class="judul"><strong>
                               KONFIRMASI
-                              </strong></v-card-title><br>
-                            <v-card-text>Apakah data yang anda masukkan sudah benar?</v-card-text>
+                              </strong></v-card-title><br><br>
+                            <v-card-text class="desc">Apakah data yang anda masukkan sudah benar?</v-card-text>
                             <v-card-actions class="justify-center">
-                              <v-btn
+                              <br><br><br>
+                              
+                              <v-btn class="btnbatal"
+                                width="150px"
                                 color="error"
                                 @click="dialog = false;"
                               >
                                 Batal
                               </v-btn>
-                              <v-btn
+                              <v-btn class="btnya"
+                                width="150px"
                                 color="success"
-                                
                                 @click="dialog = false;"
                               >
                                 Ya
@@ -135,3 +138,17 @@ export default {
     }),
 }
 </script>
+
+<style scoped>
+.judul {
+  font-size: 50px;
+}
+.desc {
+  font-size: 25px;
+  text-align: center;
+}
+.btnbatal {
+  margin-left: 10px;
+  margin-right: 45px;
+}
+</style>

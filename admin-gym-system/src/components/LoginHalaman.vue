@@ -47,6 +47,7 @@
                             required
                           />
                           <v-text-field
+                          :rules="passwordRules"
                             id="password"
                             label="Password"
                             name="password"
@@ -58,7 +59,7 @@
                         <h3 class="text-right mt-4">Lupa Password?</h3>
                       </v-card-text>
                       <div class="text-center mt-3">
-                        <v-btn color="#F48743" dark width="500px" @click="Login">LOGIN</v-btn>
+                        <v-btn color="#F48743" dark width="500px" @click="login">LOGIN</v-btn>
                       </div>
                       <br>
                     </v-col>
@@ -78,12 +79,16 @@ export default {
   data: () => ({
     step: 1,
     valid: false,
+    emailRules: [
+        v => !!v || 'Email is required'
+      ],
+      passwordRules: [
+        v => !!v || 'Password required'
+      ],
     return: {
       email:'',
       password:'',
-      emailRules: [
-        v => !!v || 'Email is required'
-      ]
+      
     }
   }),
   props: {
@@ -99,11 +104,21 @@ export default {
         'https://virtserver.swaggerhub.com/G2731/GymMembership/1.0/admin/login'
       )
        .then(() => {
-            this.$router.push({ path: "/" });
+            localStorage.setItem("authenticated", true);
+            this.$router.push({ name: "Dashboard" });
             })
       console.log("login berhasil", result)
     }
-  }
+  },
+  props: {
+    source: String
+  },
+  // methods:{
+  //   Login(){
+  //     localStorage.setItem("authenticated", true);
+  //     this.$router.push({name: "Dashboard" });
+  //   }
+  // }
 };
 </script>
 

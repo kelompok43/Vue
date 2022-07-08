@@ -96,6 +96,24 @@ export default {
     add() {
       this.$router.push({ name: "RegistrasiMember" });
     },
+     methods :{
+      add(){
+        this.$router.push({name: "RegistrasiMember"})
+    },
+    closeDelete(){
+       this.dialogDelete = false
+       this.$nextTick(() => {
+         this.selectedItemIndex = -1
+       })
+     },
+     deleteItemConfirm(){
+       this.identity.splice(this.selectedItemIndex, 1)
+       this.closeDelete()
+     },
+     deleteItem(item){
+       this.selectedItemIndex = this.identity.indexOf(item)
+       this.dialogDelete = true
+     },
   },
   data() {
     return {
@@ -137,9 +155,9 @@ export default {
           value: "jenisKelamin",
         },
         {
-          text: "Action",
-          value: "action",
-        },
+          text: 'Action',
+          value: 'actions'
+        }
       ],
       identity: [
         {
@@ -249,9 +267,12 @@ export default {
 </script>
 
 <style>
-tbody tr:nth-of-type(even) {
-  background-color: rgba(236, 237, 237);
+.v-main__wrap {
+    background-color: #FEE9CC;
 }
+  tbody tr:nth-of-type(even) {
+    background-color: rgba(236, 237, 237);
+  }
 
 tbody tr:nth-of-type(odd) {
   background-color: rgb(250, 250, 250);

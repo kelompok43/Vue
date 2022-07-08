@@ -89,13 +89,12 @@ const routes = [
         name: "RegistrasiMember",
         component: RegistrasiMember,
       },
+      {
+        path: "/registrasi",
+        name: "Registrasi",
+        component: Registrasi,
+      },
     ],
-  },
-
-  {
-    path: "/registrasi",
-    name: "Registrasi",
-    component: Registrasi,
   },
 
   {
