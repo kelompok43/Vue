@@ -8,20 +8,28 @@
 
 <script>
 export default {
+  // components: { NavBarDataKelas },
   name: 'App',
-
   }
 </script>
 
 <style>
-
-* {
-  font-family: 'Poppins', sans-serif !important;
-  font-weight: 600;
-}
-
 .v-main__wrap {
     background-color: #FEE9CC;
 }
 
+* {
+    justify-content: center;
+    font-weight: 600;
+}
+
+.navIcon{
+  max-height: 40px;
+  max-width: 224px;
+}
+
+.expansion .v-expansion-panels{
+  max-height: 40px;
+  max-width: 224px;
+}
 </style>
