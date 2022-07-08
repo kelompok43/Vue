@@ -139,6 +139,7 @@ export default {
 <style scoped>
 .judul {
   font-size: 50px;
+  justify-content: center;
 }
 .desc {
   font-size: 25px;
