@@ -42,7 +42,7 @@
                         <v-text-field
                           :rules="emailRules"
                           label="Email"
-                          name="Email"
+                          v-model="email"
                           type="text"
                           color="orange"
                           required
@@ -51,7 +51,7 @@
                           :rules="passwordRules"
                           id="password"
                           label="Password"
-                          name="password"
+                          v-model="password"
                           type="password"
                           color="orange"
                           required
@@ -84,30 +84,26 @@ export default {
     valid: false,
     emailRules: [(v) => !!v || "Email is required"],
     passwordRules: [(v) => !!v || "Password required"],
-    return: {
-      email: "",
-      password: "",
-    },
+    email: "",
+    password: "",
   }),
   props: {
     source: String,
   },
   methods: {
-    methods: {
-      async login() {
-        console.log(this.email);
-        const result = await axios
-          .post("https://api.gms.mirfanrafif.me/admin/login", {
-            email: this.email,
-            password: this.password,
-          })
-          .then(() => {
-            localStorage.setItem("authenticated", true);
-            this.$router.push({ name: "Dashboard" });
-          });
-        console.log("login berhasil", Response);
-        console.warn(result);
-      },
+    async login() {
+      console.log(this.email);
+      const result = await axios
+        .post("https://api.gms.mirfanrafif.me/admin/login", {
+          email: this.email,
+          password: this.password,
+        })
+        .then(() => {
+          localStorage.setItem("authenticated", true);
+          this.$router.push({ name: "Dashboard" });
+        });
+      console.log("login berhasil", Response);
+      console.warn(result);
     },
   },
 };

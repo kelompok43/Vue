@@ -126,7 +126,7 @@ export default {
         model: false,
         children: [
           { text: "Data Member", route: "/DataMember" },
-          { text: "Tipe Membership", route: "/DataKelasOnline" },
+          { text: "Tipe Membership", route: "/TipeMembership" },
         ],
       },
       {

@@ -16,6 +16,9 @@ import Navigasi from "@/components/Navigasi.vue";
 import TipeKelas from "@/views/TipeKelas.vue";
 import DataRekening from "@/views/DataRekening.vue"
 import RegistrasiMember from "@/views/RegistrasiMember.vue"
+import TipeMembership from "@/views/TipeMembership.vue"
+import TambahRekening from "@/views/TambahRekening.vue"
+import TambahPelatih from "@/views/TambahPelatih.vue"
 
 Vue.use(VueRouter);
 
@@ -93,6 +96,21 @@ const routes = [
         path: "/registrasi",
         name: "Registrasi",
         component: Registrasi,
+      },
+      {
+        path: "/TipeMembership",
+        name: "TipeMembership",
+        component: TipeMembership,
+      },
+      {
+        path: "/TambahRekening",
+        name: "TambahRekening",
+        component: TambahRekening,
+      },
+      {
+        path: "/TambahPelatih",
+        name: "TambahPelatih",
+        component: TambahPelatih,
       },
     ],
   },
