@@ -208,8 +208,10 @@ export default {
       this.dialogDelete = true;
     },
     editItem(item) {
-      this.selectedItemIndex = this.identity.indexOf(item);
-      this.editedItem = Object.assign({}, item);
+      this.selectedItemIndex = this.kelasonlineFromStore.indexOf(item);
+      this.$store.dispatch("updateIndex", this.selectedItemIndex);
+      this.$router.push({ name: "EditKelasOnline"});
+      console.log(this.selectedItemIndex);
     },
   },
   computed: {
@@ -265,13 +267,13 @@ tbody tr:nth-of-type(odd) {
 .JudulHeader {
   font-weight: 900 !important;
 }
-.pagination {
-  background-color: #ffffff;
-  color: #f48743;
-}
 .deskripsi {
   width: 300px;
   font-size: 14px;
+}
+.pagination {
+  background-color: #ffffff;
+  color: #f48743;
 }
 .theme--light.v-pagination .v-pagination__item:hover {
   background: #fee9cc !important;

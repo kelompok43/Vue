@@ -19,6 +19,7 @@ import RegistrasiMember from "@/views/RegistrasiMember.vue"
 import TipeMembership from "@/views/TipeMembership.vue"
 import TambahRekening from "@/views/TambahRekening.vue"
 import TambahPelatih from "@/views/TambahPelatih.vue"
+import EditKelasOnline from "@/components/EditKelasOnline.vue"
 
 Vue.use(VueRouter);
 
@@ -36,6 +37,11 @@ const routes = [
         path: "/DataKelasOffline",
         name: "Data Kelas Offline",
         component: DataKelasOffline,
+      },
+      {
+        path: "/EditKelasOnline",
+        name: "EditKelasOnline",
+        component: EditKelasOnline,
       },
       {
         path: "/DataKelasOnline",
