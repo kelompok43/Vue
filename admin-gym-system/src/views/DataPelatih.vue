@@ -47,7 +47,7 @@
                 :items-per-page="itemsPerPage"
               >
                 <template v-slot:top>
-                  <v-dialog v-model="dialog" max-width="500px">
+                  <v-dialog v-model="dialog" max-width="1200px">
                     <v-card>
                       <v-card-text>
                         <v-container>
@@ -243,13 +243,16 @@ export default {
       },
     };
   },
+
   created() {
     this.initialize();
   },
+
   methods: {
     add(path) {
       this.$router.push({ name: path });
     },
+
     initialize() {
       this.identity = [
         {
@@ -344,10 +347,12 @@ export default {
         },
       ];
     },
+
     deleteItem(item) {
       this.selectedItemIndex = this.identity.indexOf(item);
       this.dialogDelete = true;
     },
+
     closeDelete() {
       this.dialogDelete = false;
       this.$nextTick(() => {
@@ -358,6 +363,7 @@ export default {
       this.identity.splice(this.selectedItemIndex, 1);
       this.closeDelete();
     },
+
     editItem(item) {
       this.selectedItemIndex = this.identity.indexOf(item);
       this.editedItem = Object.assign({}, item);
@@ -371,6 +377,7 @@ export default {
         this.selectedItemIndex = -1;
       });
     },
+
     save() {
       if (this.selectedItemIndex > -1) {
         Object.assign(this.identity[this.selectedItemIndex], this.editedItem);
@@ -387,13 +394,16 @@ export default {
 tbody tr:nth-of-type(even) {
   background-color: rgb(250, 250, 250);
 }
+
 tbody tr:nth-of-type(odd) {
   background-color: rgb(255, 255, 255);
 }
+
 .v-data-table-header {
   background-color: rgba(245, 245, 245);
   color: white;
 }
+
 .judul {
   align-items: center;
   display: block;

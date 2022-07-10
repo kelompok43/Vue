@@ -19,18 +19,21 @@
         :color="`white ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
         class="pa-4 ma-3"
       >
-        <div class="judul">Tabel Kelas Online</div>
-        <div class="d-flex justify-end">
-          <div class="d-flex align-center mb-6 mx-4">show</div>
-          <v-text-field
-            v-model="search"
-            outlined
-            single-line
-            label="cari disini"
-            append-icon="mdi-magnify"
-            class="shrink"
-          >
-          </v-text-field>
+        <div class="d-flex mb-6">
+          <div class="judul order-1 pt-5 ms-5">Tabel Kelas Online</div>
+          <v-spacer class="order-2 pa-2"></v-spacer>
+          <div class="d-flex order-3 justify-end">
+            <div class="d-flex align-center mb-6 mx-4">show</div>
+            <v-text-field
+              v-model="search"
+              outlined
+              single-line
+              label="cari disini"
+              append-icon="mdi-magnify"
+              class="shrink"
+            >
+            </v-text-field>
+          </div>
         </div>
         <div class="ma-5">
           <v-sheet
@@ -92,7 +95,7 @@
                   </template>
 
                   <template v-slot:[`item2.no`]="{ item2 }">
-                    <v-text-field> {{item2}} </v-text-field>
+                    <v-text-field> {{ item2 }} </v-text-field>
                   </template>
 
                   <template v-slot:[`item.actions`]="{ item }">
@@ -102,6 +105,7 @@
                       dark
                       width="90px"
                       height="26px"
+                      @click="editItem(item)"
                     >
                       Edit
                     </v-btn>
@@ -122,17 +126,19 @@
           <v-row>
             <v-col>
               <div class="d-flex justify-end mt-4">
-                <v-sheet color="#FEE9CC" class="pa-5" :rounded="'lg'">
+                <v-sheet
+                  :color="`#FEE9CC ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
+                  class="pa-5"
+                >
                   <template>
-                    <div>
+                    <div class="text-center">
                       <v-pagination
-                        color="#F48743"
+                        class="halaman"
+                        next-icon="Next"
+                        prev-icon="Prev"
                         v-model="page"
-                        previous-aria-label="Prev"
-                        next-aria-label="Next"
-                        wrapper-aria-label
-                        total-visible
                         :length="6"
+                        color="#F48743"
                       ></v-pagination>
                     </div>
                   </template>
@@ -201,16 +207,20 @@ export default {
       this.selectedItemIndex = this.kelasonlineFromStore.indexOf(item);
       this.dialogDelete = true;
     },
+    editItem(item) {
+      this.selectedItemIndex = this.identity.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+    },
   },
-  computed:{
-    kelasonlineFromStore(){
+  computed: {
+    kelasonlineFromStore() {
       return this.$store.state.kelasonline;
-    }
+    },
   },
 };
 </script>
 
-<style scoped>
+<style>
 .v-btn.tambahKelas {
   margin-top: 25px;
   margin-left: 21px;
@@ -233,11 +243,13 @@ tbody tr:nth-of-type(odd) {
   align-items: center;
   display: block;
   color: #026daa;
-  font-family: Poppins;
-  font-size: 20px;
+  font-family: "Poppins";
+  font-style: normal;
   font-weight: 600;
-  letter-spacing: 0.0125em;
+  font-size: 23.4539px !important;
+  line-height: 140%;
   line-height: 21px;
+  letter-spacing: 0.015em;
   word-break: break-all;
 }
 
@@ -254,11 +266,26 @@ tbody tr:nth-of-type(odd) {
   font-weight: 900 !important;
 }
 .pagination {
-  background-color: #fee9cc;
+  background-color: #ffffff;
   color: #f48743;
 }
 .deskripsi {
   width: 300px;
   font-size: 14px;
 }
+.theme--light.v-pagination .v-pagination__item:hover {
+  background: #fee9cc !important;
+}
+
+.theme--light.v-pagination .v-pagination__item {
+  color: #f48743;
+}
+.theme--light.v-pagination .v-pagination__item--active {
+  color: #ffffff !important;
+}
+
+.v-pagination__navigation {
+  box-shadow: none;
+}
+
 </style>
