@@ -3,6 +3,9 @@
     <v-container class="fill-height" fluid>
       <v-row align="center" justify="center">
         <v-col cols="12" sm="8" md="8">
+          <v-alert v-if="sucess" dense text dismissible type="success" color="green darken-3" class="alertatas">
+              <strong>SUKSES!</strong> Data berhasil disimpan
+            </v-alert>
           <v-card class="elevation-12">
             <v-col cols="12" md="8">
               <h3 class="text-left ms-3 mt-4 blue--text">Edit Data User</h3>
@@ -12,7 +15,7 @@
                   <br />
                   <v-text-field
                     label="Masukkan Nama Lengkap"
-                    name="namalengkap"
+                    v-model="namaMember"
                     type="text"
                     outlined
                     color="orange"
@@ -22,7 +25,7 @@
                   <br />
                   <v-text-field
                     label="Masukkan Email"
-                    name="email"
+                    v-model="emailMember"
                     type="text"
                     outlined
                     color="orange"
@@ -32,13 +35,13 @@
                   <br />
                   <v-text-field
                     id="tanggallahir"
-                    name="date"
+                    v-model="tanggallahir"
                     type="date"
                     outlined
                     color="orange"
                   />
                   <h4>Jenis Kelamin</h4>
-                  <v-radio-group v-model="row" row>
+                  <v-radio-group>
                     <v-radio label="Laki-laki" value="radio-1"></v-radio>
 
                     <v-radio label="Perempuan" value="radio-2"></v-radio>
@@ -47,7 +50,7 @@
                   <br />
                   <v-text-field
                     label="Masukkan Nomor Ponsel"
-                    name="nomorponsel"
+                    v-model="phoneNumber"
                     type="text"
                     outlined
                     color="orange"
@@ -56,10 +59,10 @@
 
                   <h4>Alamat</h4>
                   <br />
-                  <v-textarea outlined name="alamat"></v-textarea>
+                  <v-textarea outlined v-model="alamat"></v-textarea>
                   <h4>Status</h4>
                   <br />
-                  <v-select :items="items" outlined color="orange"></v-select>
+                  <v-select :items="items" v-model="statusMember" outlined color="orange"></v-select>
                 </v-form>
               </v-card-text>
               <div class="text-left mt-5 ms-3">
@@ -97,7 +100,11 @@
                         class="btnya"
                         width="150px"
                         color="success"
-                        @click="dialog = false"
+                        @click="
+                        addMember();
+                        dialog = false;
+                        sucess = true;
+                        "
                       >
                         Ya
                       </v-btn>
@@ -121,7 +128,34 @@ export default {
   data: () => ({
     items: ["Admin Operasional", "Member"],
     dialog: false,
+    namaMember: null,
+    emailMember: null,
+    tanggallahir: null,
+    phoneNumber: null,
+    alamat: null,
+    statusMember: null,
+    message: {},
+    sucess: false,
   }),
+  methods: {
+    addMember() {
+      console.log(this.message);
+      this.message = {
+        number: 11,
+        name: this.namaMember,
+        email: this.emailMember,
+        tanggallahir: this.tanggallahir,
+        phoneNumber: this.phoneNumber,
+        alamat: this.alamat,
+        status: this.status,
+        tanggaljoin: "05/06/2021",
+        tanggalexpired: "05/07/2021",
+        statusMember: this.statusMember,
+      };
+      console.log(this.message);
+      this.$store.dispatch("addDataMember", this.message);
+    },
+  }
 };
 </script>
 
@@ -137,5 +171,8 @@ export default {
 .btnbatal {
   margin-left: 10px;
   margin-right: 45px;
+}
+.alertatas {
+  background: #B3EA78 !important;
 }
 </style>
