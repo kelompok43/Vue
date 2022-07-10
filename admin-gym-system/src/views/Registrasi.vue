@@ -2,6 +2,11 @@
   <v-container fluid>
     <v-row align="center" justify="center">
       <v-col cols="12" sm="8" md="8">
+        <div>
+            <v-alert v-if="sucess" dense text dismissible type="success" color="green darken-3" class="alertatas">
+              <strong>SUKSES!</strong> Data berhasil disimpan
+            </v-alert>
+            </div>
         <v-card class="elevation-12">
           <v-col cols="12" md="8">
             <h3 class="text-left ms-3 mt-4 blue--text">
@@ -16,7 +21,7 @@
                 <br />
                 <v-text-field
                   label="Masukkan Nama Lengkap"
-                  name="namalengkap"
+                  v-model="namaAdmin"
                   type="text"
                   outlined
                   color="orange"
@@ -26,7 +31,7 @@
                 <br />
                 <v-text-field
                   id="tanggallahir"
-                  name="date"
+                  v-model="tanggallahir"
                   type="date"
                   outlined
                   color="orange"
@@ -40,7 +45,7 @@
 
                 <h4>Alamat</h4>
                 <br />
-                <v-textarea outlined name="alamat"></v-textarea>
+                <v-textarea outlined v-model="alamat"></v-textarea>
                 <h4>Role</h4>
                 <br />
                 <v-select :items="items" outlined color="orange"></v-select>
@@ -48,7 +53,7 @@
                 <br />
                 <v-text-field
                   label="Masukkan Email"
-                  name="email"
+                  v-model="emailAdmin"
                   type="text"
                   outlined
                   color="orange"
@@ -58,7 +63,7 @@
                 <br />
                 <v-text-field
                   label="Password"
-                  name="password"
+                  v-model="passwordAdmin"
                   type="password"
                   outlined
                   color="orange"
@@ -102,7 +107,10 @@
                       class="btnya"
                       width="150px"
                       color="success"
-                      @click="dialog = false"
+                      @click="
+                      addAdmin();
+                        dialog = false;
+                        sucess = true;"
                     >
                       Ya
                     </v-btn>
@@ -125,7 +133,35 @@ export default {
   data: () => ({
     items: ["Admin Operasional", "Member"],
     dialog: false,
+    namaAdmin: null,
+    emailAdmin: null,
+    passwordAdmin: null,
+    tanggallahir: null,
+    tanggaljoin: null,
+    alamat: null,
+    message: {},
+    sucess: false,
   }),
+  methods: {
+    addAdmin() {
+      console.log(this.message);
+      this.message = {
+        number: 11,
+        phoneNumber: "(319) 555-0115",
+        name: this.namaAdmin,
+        emailAdmin: this.emailAdmin,
+        passwordAdmin: this.passwordAdmin,
+        tanggallahir: this.tanggallahir,
+        tanggaljoin: "05/06/2021",
+        alamat: this.alamat,
+        lastlogin: "Oct 13, 2021 at 08:09 pm",
+        staff: "false",
+        admin: "true",
+      };
+      console.log(this.message);
+      this.$store.dispatch("addDataAdmin", this.message);
+    },
+  }
 };
 </script>
 
@@ -141,5 +177,8 @@ export default {
 .btnbatal {
   margin-left: 10px;
   margin-right: 45px;
+}
+.alertatas {
+  background: #B3EA78 !important;
 }
 </style>
