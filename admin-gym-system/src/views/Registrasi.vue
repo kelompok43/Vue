@@ -1,7 +1,7 @@
 <template>
       <v-container fluid>
         <v-row align="center" justify="center">
-          <v-col cols="12" sm="8" md="8">
+          <v-col cols="12" sm="8" md="12">
             <v-card class="elevation-12">
                     <v-col cols="12" md="8">
                         <h3 class="text-left ms-3 mt-4 blue--text">Tambahkan admin operasional baru</h3>
