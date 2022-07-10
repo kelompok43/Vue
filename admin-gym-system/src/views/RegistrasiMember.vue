@@ -1,9 +1,8 @@
 <template>
-    <v-app id="login">
     <v-content>
       <v-container class="fill-height" fluid>
         <v-row align="center" justify="center">
-          <v-col cols="12" sm="8" md="8" >
+          <v-col cols="12" sm="8" md="12" >
             <v-card class="elevation-12">
                     <v-col cols="12" md="8">
                         <h3 class="text-left ms-3 mt-4 blue--text">Edit Data User</h3>
@@ -127,7 +126,6 @@
         </v-row>
       </v-container>
     </v-content>
-  </v-app>
 </template>
 
 <script>
