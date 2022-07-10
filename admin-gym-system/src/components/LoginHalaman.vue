@@ -9,8 +9,8 @@
                   <v-row>
                     <v-col cols="12" md="6">
                       <v-img 
-                        max-width="1000px"
-                        max-height="1000px"
+                        width="700px"
+                        height="700px"
                         src="../assets/gambar.jpg"
                         class="ms-auto"
                         >
@@ -79,7 +79,7 @@ export default {
   data: () => ({
     step: 1,
     email:'',
-      password:'',
+    password:'',
     valid: false,
     emailRules: [
         v => !!v || 'Email is required'
@@ -88,14 +88,7 @@ export default {
         v => !!v || 'Password required'
       ],
   }),
-  props: {
-    source: String
-  },
-  methods:{
-    Login(){
-      localStorage.setItem("authenticated", true);
-      this.$router.push({name: "Dashboard" });
-    },
+  methods: {
     async login(){
       console.log(this.email)
           const result = await axios.post(
@@ -117,12 +110,6 @@ export default {
   props: {
     source: String
   },
-  // methods:{
-  //   Login(){
-  //     localStorage.setItem("authenticated", true);
-  //     this.$router.push({name: "Dashboard" });
-  //   }
-  // }
 };
 </script>
 
