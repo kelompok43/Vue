@@ -15,7 +15,7 @@
         </div>
         <div>
             <v-sheet :color="`white ${theme.isDark ? 'darken-2' : 'lighten-4'}`" class="pa-4 ma-3">
-                <div class="judul"> Tabel Data Admin </div>
+                <div class="judul blue--text"> Tabel Data Admin </div>
                 <div class="d-flex justify-end">
                     <div class="d-flex align-center mb-6 mx-4">show</div>
                     <v-text-field 
