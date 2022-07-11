@@ -1,10 +1,11 @@
 <template>
   <v-container fluid>
+    {{ ambilData() }}
     <v-row align="center" justify="center">
       <v-col cols="12" sm="8" md="8">
         <v-card class="elevation-12">
           <v-col cols="12" md="8">
-            <h3 class="text-left mt-4 blue--text">Tambah Kelas Online Baru</h3>
+            <h3 class="text-left mt-4 blue--text">Edit Kelas Online</h3>
             <v-alert v-if="sucess" dense text type="success">
               <strong>SUKSES!</strong> Data berhasil disimpan
             </v-alert>
@@ -15,6 +16,7 @@
                 <v-text-field
                   v-model="namaKelas"
                   :rules="nameRules"
+                  :disabled="isUpdating"
                   :counter="10"
                   label="Masukkan nama kelas"
                   required
@@ -177,7 +179,7 @@
                     v-bind="attrs"
                     v-on="on"
                   >
-                    Save
+                    Edit
                   </v-btn>
                 </template>
                 <v-card height="250px">
@@ -203,7 +205,7 @@
                       width="150px"
                       color="success"
                       @click="
-                        addKelas();
+                        editKelas();
                         dialog = false;
                         sucess = true;
                       "
@@ -236,6 +238,7 @@ export default {
     timeStart: null,
     timeEnd: null,
     link: null,
+    isUpdating: false,
     namaPelatih: null,
     Deskripsi: null,
     trainer: null,
@@ -257,20 +260,19 @@ export default {
   }),
 
   methods: {
-    // isURL(str) {
-    //   let url;
-
-    //   try {
-    //     url = new URL(str);
-    //   } catch (_) {
-    //     return false;
-    //   }
-
-    //   return url.protocol === "http:" || url.protocol === "https:";
-    // },
-    addKelas() {
+    ambilData() {
+      this.namaKelas = this.kelasonlineFromStore[this.indexyangDipilih].name;
+      this.tanggal = this.kelasonlineFromStore[this.indexyangDipilih].Date;
+      this.Deskripsi =
+        this.kelasonlineFromStore[this.indexyangDipilih].description;
+      this.trainer = this.kelasonlineFromStore[this.indexyangDipilih].Trainer;
+      this.timeStart =
+        this.kelasonlineFromStore[this.indexyangDipilih].TimeStart;
+      this.timeEnd = this.kelasonlineFromStore[this.indexyangDipilih].TimeEnd;
+    },
+    editKelas() {
       this.message = {
-        number: 11,
+        number: this.indexyangDipilih + 1,
         name: this.namaKelas,
         description: this.Deskripsi,
         Trainer: this.trainer,
@@ -279,7 +281,15 @@ export default {
         TimeEnd: this.timeEnd,
         Rating: "5/5",
       };
-      this.$store.dispatch("addKelasOnline", this.message);
+      this.$store.dispatch("editKelasOnline", this.message);
+    },
+  },
+  computed: {
+    kelasonlineFromStore() {
+      return this.$store.state.kelasonline;
+    },
+    indexyangDipilih() {
+      return this.$store.state.IndexDipilih;
     },
   },
 };

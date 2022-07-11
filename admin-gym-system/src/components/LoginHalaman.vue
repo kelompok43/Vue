@@ -94,9 +94,9 @@ export default {
     async login() {
       console.log(this.email);
       const result = await axios
-        .post("https://virtserver.swaggerhub.com/jiranmuhammad7/gms-api/1.0.0/admin/login", {
+        .post("https://api.gms.mirfanrafif.me/admin/login", {
           email: this.email,
-          password: this.password
+          password: this.password,
         })
         .then(() => {
           localStorage.setItem("authenticated", true);
@@ -106,12 +106,6 @@ export default {
       console.warn(result);
     },
   },
-  // methods: {
-  //   async login() {
-  //     localStorage.setItem("authenticated", true);
-  //         this.$router.push({ name: "Dashboard" });
-  //   },
-  // },
 };
 </script>
 
