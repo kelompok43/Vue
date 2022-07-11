@@ -19,18 +19,21 @@
         :color="`white ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
         class="pa-4 ma-3"
       >
-        <div class="judul">Tabel Kelas Offline</div>
-        <div class="d-flex justify-end">
-          <div class="d-flex align-center mb-6 mx-4">show</div>
-          <v-text-field
-            v-model="search"
-            outlined
-            single-line
-            label="cari disini"
-            append-icon="mdi-magnify"
-            class="shrink"
-          >
-          </v-text-field>
+        <div class="d-flex mb-6">
+          <div class="judul order-1 pt-5 ms-5">Tabel Kelas Offline</div>
+          <v-spacer class="order-2 pa-2"></v-spacer>
+          <div class="d-flex order-3 justify-end">
+            <div class="d-flex align-center mb-6 mx-4">show</div>
+            <v-text-field
+              v-model="search"
+              outlined
+              single-line
+              label="cari disini"
+              append-icon="mdi-magnify"
+              class="shrink"
+            >
+            </v-text-field>
+          </div>
         </div>
         <div class="ma-5">
           <v-sheet
