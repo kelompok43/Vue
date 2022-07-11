@@ -119,10 +119,13 @@
           <v-row>
             <v-col>
               <div class="d-flex justify-end mt-4">
-                <v-sheet color="#FEE9CC" class="pa-5" :rounded="'lg'">
+                <v-sheet class="pa-5" :rounded="'lg'">
                   <template>
                     <div>
                       <v-pagination
+                        class="halaman"
+                        next-icon="Next"
+                        prev-icon="Prev"
                         color="#F48743"
                         v-model="page"
                         previous-aria-label="Prev"
@@ -325,7 +328,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .v-btn.tambahKelas {
   margin-top: 25px;
   margin-left: 21px;
@@ -357,13 +360,29 @@ tbody tr:nth-of-type(odd) {
 .JudulHeader {
   font-weight: 900 !important;
 }
-.pagination {
-  background-color: #fee9cc;
-  color: #f48743;
-}
 
 .deskripsi {
   width: 300px;
   font-size: 14px;
+}
+
+.pagination {
+  background-color: #ffffff;
+  color: #f48743;
+}
+
+.theme--light.v-pagination .v-pagination__item:hover {
+  background: #fee9cc !important;
+}
+
+.theme--light.v-pagination .v-pagination__item {
+  color: #f48743;
+}
+.theme--light.v-pagination .v-pagination__item--active {
+  color: #ffffff !important;
+}
+
+.v-pagination__navigation {
+  box-shadow: none;
 }
 </style>
