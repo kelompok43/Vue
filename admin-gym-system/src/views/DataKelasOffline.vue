@@ -19,18 +19,21 @@
         :color="`white ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
         class="pa-4 ma-3"
       >
-        <div class="judul">Tabel Kelas Offline</div>
-        <div class="d-flex justify-end">
-          <div class="d-flex align-center mb-6 mx-4">show</div>
-          <v-text-field
-            v-model="search"
-            outlined
-            single-line
-            label="cari disini"
-            append-icon="mdi-magnify"
-            class="shrink"
-          >
-          </v-text-field>
+        <div class="d-flex mb-6">
+          <div class="judul order-1 pt-5 ms-5">Tabel Kelas Offline</div>
+          <v-spacer class="order-2 pa-2"></v-spacer>
+          <div class="d-flex order-3 justify-end">
+            <div class="d-flex align-center mb-6 mx-4">show</div>
+            <v-text-field
+              v-model="search"
+              outlined
+              single-line
+              label="cari disini"
+              append-icon="mdi-magnify"
+              class="shrink"
+            >
+            </v-text-field>
+          </div>
         </div>
         <div class="ma-5">
           <v-sheet
@@ -119,10 +122,13 @@
           <v-row>
             <v-col>
               <div class="d-flex justify-end mt-4">
-                <v-sheet color="#FEE9CC" class="pa-5" :rounded="'lg'">
+                <v-sheet class="pa-5" :rounded="'lg'">
                   <template>
                     <div>
                       <v-pagination
+                        class="halaman"
+                        next-icon="Next"
+                        prev-icon="Prev"
                         color="#F48743"
                         v-model="page"
                         previous-aria-label="Prev"
@@ -325,7 +331,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .v-btn.tambahKelas {
   margin-top: 25px;
   margin-left: 21px;
@@ -357,13 +363,29 @@ tbody tr:nth-of-type(odd) {
 .JudulHeader {
   font-weight: 900 !important;
 }
-.pagination {
-  background-color: #fee9cc;
-  color: #f48743;
-}
 
 .deskripsi {
   width: 300px;
   font-size: 14px;
+}
+
+.pagination {
+  background-color: #ffffff;
+  color: #f48743;
+}
+
+.theme--light.v-pagination .v-pagination__item:hover {
+  background: #fee9cc !important;
+}
+
+.theme--light.v-pagination .v-pagination__item {
+  color: #f48743;
+}
+.theme--light.v-pagination .v-pagination__item--active {
+  color: #ffffff !important;
+}
+
+.v-pagination__navigation {
+  box-shadow: none;
 }
 </style>

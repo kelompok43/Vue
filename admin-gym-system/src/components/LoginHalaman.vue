@@ -94,10 +94,20 @@ export default {
     async login() {
       console.log(this.email);
       const result = await axios
+<<<<<<< HEAD
         .post("https://api.gms.mirfanrafif.me/admin/login", {
           email: this.email,
           password: this.password,
         })
+=======
+        .post(
+          "https://virtserver.swaggerhub.com/jiranmuhammad7/gms-api/1.0.0/admin/login",
+          {
+            email: this.email,
+            password: this.password,
+          }
+        )
+>>>>>>> 30e78f954e2aac03cc901c71c2d21b736d3ec080
         .then(() => {
           localStorage.setItem("authenticated", true);
           this.$router.push({ name: "Dashboard" });

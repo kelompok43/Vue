@@ -258,8 +258,12 @@ export default new Vuex.Store({
         admin: "True",
       },
     ],
+    IndexDipilih: null,
   },
   mutations: {
+    setIndex(state, payload) {
+      state.IndexDipilih = payload;
+    },
     setKelasOnline(state, payload) {
       state.kelasonline.push({
         number: payload.number,
@@ -271,6 +275,17 @@ export default new Vuex.Store({
         TimeEnd: payload.TimeEnd,
         Rating: payload.Rating,
       });
+    },
+    editKelasOnline(state, payload) {
+      console.log(payload);
+      console.log(state.IndexDipilih);
+      //Object.assign(state.kelasonline[this.state.IndexDipilih], payload);
+      state.kelasonline[state.IndexDipilih].name = payload.name;
+      state.kelasonline[state.IndexDipilih].description =payload.description;
+      state.kelasonline[state.IndexDipilih].Trainer = payload.Trainer;
+      state.kelasonline[state.IndexDipilih].Date = payload.Date;
+      state.kelasonline[state.IndexDipilih].TimeStart = payload.TimeStart;
+      state.kelasonline[state.IndexDipilih].TimeEnd = payload.TimeEnd;
     },
     setDataAdmin(state, payload) {
       state.dataadmin.push({
@@ -293,6 +308,12 @@ export default new Vuex.Store({
     },
     addDataAdmin(store, param) {
       store.commit("setDataAdmin", param);
+     },
+    updateIndex(store, param) {
+      store.commit("setIndex", param);
+    },
+    editKelasOnline(store, param1) {
+      store.commit("editKelasOnline", param1);
     },
   },
   modules: {},
