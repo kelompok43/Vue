@@ -40,7 +40,7 @@
               <v-col>
                 <v-data-table
                   :headers="headers"
-                  :items="identity"
+                  :items="dataadminFromStore"
                   :search="search"
                   hide-default-footer
                   :page.sync="page"
@@ -160,13 +160,9 @@ export default {
       headers: [
         {
           text: "No",
-          value: "no",
-        },
-        {
-          text: "Bidang Keahlian",
-          align: "left",
-          filterable: false,
-          value: "bidangKeahlian",
+          value: "number",
+          align: "start",
+          sortable: false,
         },
         {
           text: "Nama",
@@ -181,118 +177,32 @@ export default {
           value: "phoneNumber",
         },
         {
+          text: "Tanggal Lahir",
+          value: "tanggallahir",
+        },
+        {
           text: "Alamat",
           value: "alamat",
         },
         {
-          text: "Jenis Kelamin",
-          value: "jenisKelamin",
+          text: "Date Joined",
+          value: "tanggaljoin",
+        },
+        {
+          text: "Last Login",
+          value: "lastlogin",
+        },
+        {
+          text: "Staff",
+          value: "staff",
+        },
+        {
+          text: "Admin",
+          value: "admin",
         },
         {
           text: "Action",
           value: "actions",
-        },
-      ],
-      identity: [
-        {
-          no: 1,
-          bidangKeahlian: "Cycling",
-          name: "Peter",
-          email: "jackson.graham@example.com",
-          phoneNumber: "(252) 555-0126",
-          alamat: "775 Rolling Green Rd.",
-          jenisKelamin: "Female",
-          action: "edit",
-        },
-        {
-          no: 2,
-          bidangKeahlian: "Cycling",
-          name: "Jacob Jones",
-          email: "nevaeh.simmons@example.com",
-          phoneNumber: "(684) 555-0102",
-          alamat: "7529 E. Pecan St.",
-          jenisKelamin: "Female",
-          action: "edit",
-        },
-        {
-          no: 3,
-          bidangKeahlian: "Cycling",
-          name: "Eleanor Pena",
-          email: "kenzi.lawson@example.com",
-          phoneNumber: "(629) 555-0129",
-          alamat: "8558 Green Rd.",
-          jenisKelamin: "Female",
-          action: "edit",
-        },
-        {
-          no: 4,
-          bidangKeahlian: "Body & Mind",
-          name: "Floyd Miles",
-          email: "tim.jennings@example.com",
-          phoneNumber: "(205) 555-0100",
-          alamat: "8558 Green Rd.",
-          jenisKelamin: "Female",
-          action: "edit",
-        },
-        {
-          no: 5,
-          bidangKeahlian: "Body & Mind",
-          name: "6.0",
-          email: "deanna.curtis@example.com",
-          phoneNumber: "(907) 555-0101",
-          alamat: "775 Rolling Green Rd.",
-          jenisKelamin: "Female",
-          action: "edit",
-        },
-        {
-          no: 6,
-          bidangKeahlian: "Body & Mind",
-          name: "Marvin McKinney",
-          email: "nathan.roberts@example.com",
-          phoneNumber: "(603) 555-0123",
-          alamat: "3890 Poplar Dr.",
-          jenisKelamin: "male",
-          action: "edit",
-        },
-        {
-          no: 7,
-          bidangKeahlian: "Cardio",
-          name: "Darrell Steward",
-          email: "debra.holt@example.com",
-          phoneNumber: "(307) 555-0133",
-          alamat: "8080 Railroad St.",
-          jenisKelamin: "Female",
-          action: "edit",
-        },
-        {
-          no: 8,
-          bidangKeahlian: "Cardio",
-          name: "Jerome Bell",
-          email: "bill.sanders@example.com",
-          phoneNumber: "(319) 555-0115",
-          alamat: "7529 E. Pecan St.",
-          jenisKelamin: "male",
-          action: "edit",
-        },
-        {
-          no: 9,
-          bidangKeahlian: "Strengh and Condition",
-          name: "Darrell Steward",
-          email: "debra.holt@example.com",
-          phoneNumber: "(704) 555-0127",
-          alamat: "8080 Railroad St.",
-          jenisKelamin: "Female",
-          action: "edit",
-        },
-        {
-          no: 10,
-          bidangKeahlian: "Strenght and Condition",
-          name: "Jerome Bell",
-          email: "bill.sanders@example.com",
-          phoneNumber: "(225) 555-0118",
-          alamat: "3605 Parker Rd.",
-          jenisKelamin: "male",
-          action: "edit",
         },
       ],
     };
@@ -308,13 +218,18 @@ export default {
       });
     },
     deleteItemConfirm() {
-      this.identity.splice(this.selectedItemIndex, 1);
+      this.dataadminFromStore.splice(this.selectedItemIndex, 1);
       this.closeDelete();
     },
     deleteItem(item) {
-      this.selectedItemIndex = this.identity.indexOf(item);
+      this.selectedItemIndex = this.dataadminFromStore.indexOf(item);
       this.dialogDelete = true;
     },
+  },
+  computed:{
+    dataadminFromStore(){
+      return this.$store.state.dataadmin;
+    }
   },
 };
 </script>
