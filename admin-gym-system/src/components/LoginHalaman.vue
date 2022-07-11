@@ -79,7 +79,7 @@
 </template>
 
 <script>
-// import axios from "axios";
+import axios from "axios";
 export default {
   data: () => ({
     step: 1,
@@ -93,25 +93,23 @@ export default {
   props: {
     source: String,
   },
-  // methods: {
-  //   async login() {
-  //     console.log(this.email);
-  //     const result = await axios
-  //       .post("https://api.gms.mirfanrafif.me/admin/login", {
-  //         email: 'superadmin@gmail.com',
-  //         password: 'passwordsuperadmin'
-  //       })
-  //       .then(() => {
-          
-  //       });
-  //     console.log("login berhasil", Response);
-  //     console.warn(result);
-  //   },
-  // },
   methods: {
     async login() {
-      localStorage.setItem("authenticated", true);
-      this.$router.push({ name: "Dashboard" });
+      console.log(this.email);
+      const result = await axios
+        .post(
+          "https://virtserver.swaggerhub.com/jiranmuhammad7/gms-api/1.0.0/admin/login",
+          {
+            email: this.email,
+            password: this.password,
+          }
+        )
+        .then(() => {
+          localStorage.setItem("authenticated", true);
+          this.$router.push({ name: "Dashboard" });
+        });
+      console.log("login berhasil", Response);
+      console.warn(result);
     },
   },
 };
