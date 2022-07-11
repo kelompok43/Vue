@@ -48,12 +48,14 @@
                           required
                         />
                         <v-text-field
+                          :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
                           :rules="passwordRules"
+                          :type="show ? 'text' : 'password'"
                           id="password"
                           label="Password"
                           v-model="password"
-                          type="password"
                           color="orange"
+                          @click:append="show = !show"
                           required
                         />
                       </v-form>
@@ -86,6 +88,7 @@ export default {
     passwordRules: [(v) => !!v || "Password required"],
     email: "",
     password: "",
+    show: false,
   }),
   props: {
     source: String,
@@ -108,7 +111,7 @@ export default {
   methods: {
     async login() {
       localStorage.setItem("authenticated", true);
-          this.$router.push({ name: "Dashboard" });
+      this.$router.push({ name: "Dashboard" });
     },
   },
 };
