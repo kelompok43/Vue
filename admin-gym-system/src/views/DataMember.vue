@@ -2,13 +2,7 @@
   <v-container fluid>
     <div class="d-flex justify-start mb-6">
       <div class="my-2 mx-3">
-        <v-btn
-          class="mt-8 ms-4"
-          width="300px"
-          color="#F48743"
-          dark
-          @click="add()"
-        >
+        <v-btn width="300px" color="#F48743" dark @click="add()">
           Tambahkan Member
         </v-btn>
       </div>
@@ -16,17 +10,18 @@
     <div>
       <v-sheet
         :color="`white ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
-        class="pa-4"
+        class="pa-4 ma-3 rounded-lg"
       >
         <div class="d-flex mb-6">
           <div class="judul order-1 pt-5 ms-5">Tabel Data Member</div>
           <v-spacer class="order-2 pa-2"></v-spacer>
           <div class="d-flex order-3 justify-end">
-            <div class="d-flex align-center mb-6 mx-4">show</div>
+            <div class="d-flex align-center mb-6 mx-4">Search :</div>
             <v-text-field
               v-model="search"
               outlined
               single-line
+              dense
               label="cari disini"
               append-icon="mdi-magnify"
               class="shrink"
@@ -42,8 +37,8 @@
             <v-row>
               <v-col>
                 <v-data-table
-                  :headers="headers"
                   :items="users"
+                  :headers="headers"
                   hide-default-footer
                   :page.sync="page"
                   @page-count="
@@ -68,39 +63,54 @@
                   </template>
 
                   <template v-slot:top>
-                    <v-dialog v-model="dialogDelete" max-width="400px">
-                      <v-card>
-                        <v-card-title class="text-h5"
-                          >Yakin ingin menghapus data ini?</v-card-title
+                    <v-dialog v-model="dialogDelete" presistent width="800">
+                      <v-card height="250px">
+                        <v-card-title class="judul"
+                          ><strong> KONFIRMASI </strong></v-card-title
+                        ><br /><br />
+                        <v-card-text class="desc"
+                          >Apakah yakin untuk menghapus data ini?</v-card-text
                         >
-                        <v-card-actions>
-                          <v-spacer></v-spacer>
-                          <v-btn color="primary" text @click="closeDelete"
-                            >Cancel</v-btn
+                        <v-card-actions class="justify-center">
+                          <br /><br /><br />
+
+                          <v-btn
+                            class="btnbatal"
+                            width="150px"
+                            color="error"
+                            @click="closeDelete"
                           >
-                          <v-btn color="primary" text @click="deleteItemConfirm"
-                            >OK</v-btn
+                            Batal
+                          </v-btn>
+
+                          <v-btn
+                            class="btnya"
+                            width="150px"
+                            color="success"
+                            @click="deleteItemConfirm"
                           >
-                          <v-spacer></v-spacer>
+                            Ya
+                          </v-btn>
                         </v-card-actions>
                       </v-card>
                     </v-dialog>
                   </template>
+
                   <template v-slot:[`item.actions`]="{ item }">
                     <v-btn
                       class="mr-2"
                       color="#04BAED"
                       dark
-                      width="93.5px"
-                      height="26px"
+                      width="45%"
+                      max-height="26px"
                     >
                       Edit
                     </v-btn>
                     <v-btn
                       color="#FE8E93"
                       dark
-                      width="93.5px"
-                      height="26px"
+                      width="45%"
+                      max-height="26px"
                       @click="deleteItem(item)"
                     >
                       Hapus
@@ -113,17 +123,14 @@
           <v-row>
             <v-col>
               <div class="d-flex justify-end mt-4">
-                <v-sheet color="#FEE9CC" class="pa-5" :rounded="'lg'">
+                <v-sheet color="#FFFFFF" class="pa-5" :rounded="'lg'">
                   <template>
-                    <div>
+                    <div class="text-center">
                       <v-pagination
-                        color="#F48743"
+                        class="halaman"
                         v-model="page"
-                        previous-aria-label="Prev"
-                        next-aria-label="Next"
-                        wrapper-aria-label
-                        total-visible
                         :length="totalPage"
+                        color="#F48743"
                       ></v-pagination>
                     </div>
                   </template>
@@ -166,7 +173,6 @@ export default {
     },
     async getAllUser() {
       const user = await this.$store.dispatch("getAllUser");
-      console.log("user dari method: ", user);
       this.users = user;
     },
     hitungPage(totalitem) {
@@ -184,6 +190,7 @@ export default {
       selectedItemIndex: -1,
       pageCount: 0,
       itemsPerPage: 10,
+      number: 1,
       headers: [
         {
           text: "No",
@@ -249,5 +256,68 @@ tbody tr:nth-of-type(odd) {
 .v-data-table-header {
   background-color: rgba(182, 183, 187);
   color: white;
+}
+.judul {
+  align-items: center;
+  display: block;
+  color: #026daa;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 23.4539px !important;
+  line-height: 140%;
+  line-height: 21px;
+  letter-spacing: 0.015em;
+  word-break: break-all;
+}
+
+.v-data-table > .v-data-table__wrapper > table > tbody > tr > td {
+  padding: 0 16px;
+  transition: height 0.2s cubic-bezier(0.4, 0, 0.6, 1);
+  color: #88898a;
+}
+
+.MyHeader {
+  background-color: #f6f6f6 !important;
+}
+.JudulHeader {
+  font-weight: 900 !important;
+}
+.deskripsi {
+  width: 300px;
+  font-size: 14px;
+}
+.pagination {
+  background-color: #ffffff;
+  color: #f48743;
+}
+.theme--light.v-pagination .v-pagination__item:hover {
+  background: #fee9cc !important;
+}
+
+.theme--light.v-pagination .v-pagination__item {
+  color: #f48743;
+}
+.theme--light.v-pagination .v-pagination__item--active {
+  color: #ffffff !important;
+}
+
+.v-pagination__navigation {
+  box-shadow: none;
+}
+.judul {
+  font-size: 50px;
+  justify-content: center !important;
+}
+.desc {
+  font-size: 25px;
+  text-align: center;
+}
+.btnbatal {
+  margin-left: 10px;
+  margin-right: 45px;
+}
+.alertatas {
+  background: #b3ea78 !important;
 }
 </style>

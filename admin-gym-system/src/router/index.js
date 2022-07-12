@@ -19,6 +19,7 @@ import RegistrasiMember from "@/views/RegistrasiMember.vue"
 import TipeMembership from "@/views/TipeMembership.vue"
 import TambahRekening from "@/views/TambahRekening.vue"
 import TambahPelatih from "@/views/TambahPelatih.vue"
+import TambahBerita from "@/views/TambahBerita.vue"
 import EditKelasOnline from "@/components/EditKelasOnline.vue"
 
 Vue.use(VueRouter);
@@ -72,6 +73,11 @@ const routes = [
         path: "/Berita",
         name: "Berita",
         component: Berita,
+      },
+      {
+        path: "/tambahBerita",
+        name: "TambahBerita",
+        component: TambahBerita,
       },
       {
         path: "/tambahKelasOffline",

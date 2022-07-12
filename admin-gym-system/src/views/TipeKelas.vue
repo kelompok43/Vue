@@ -2,13 +2,7 @@
   <v-container fluid>
     <div class="d-flex justify-start mb-6">
       <div class="my-2 mx-3">
-        <v-btn
-          class="mt-8 ms-4"
-          width="300px"
-          color="#F48743"
-          dark
-          @click="add()"
-        >
+        <v-btn width="300px" color="#F48743" dark @click="add()">
           Tambahkan Tipe
         </v-btn>
       </div>
@@ -16,20 +10,23 @@
     <div>
       <v-sheet
         :color="`white ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
-        class="pa-4"
+        class="pa-4 ma-3 rounded-lg"
       >
-        <div class="judul">Tabel Data Member</div>
-        <div class="d-flex justify-end">
-          <div class="d-flex align-center mb-6 mx-4">show</div>
-          <v-text-field
-            v-model="search"
-            outlined
-            single-line
-            label="cari disini"
-            append-icon="mdi-magnify"
-            class="shrink"
-          >
-          </v-text-field>
+        <div class="d-flex mb-6">
+          <div class="judul order-1 pt-5 ms-5">Tabel Data Tipe Kelas</div>
+          <v-spacer class="order-2 pa-2"></v-spacer>
+          <div class="d-flex order-3 justify-end">
+            <div class="d-flex align-center mb-6 mx-4">Search :</div>
+            <v-text-field
+              v-model="search"
+              outlined
+              single-line
+              label="cari disini"
+              append-icon="mdi-magnify"
+              class="shrink"
+            >
+            </v-text-field>
+          </div>
         </div>
         <div class="ma-5">
           <v-sheet
@@ -42,11 +39,14 @@
                   :headers="headers"
                   :items="identity"
                   :search="search"
+                  hide-default-header
                   hide-default-footer
                   :page.sync="page"
-                  @page-count="pageCount = $event"
+                  @page-count="
+                    pageCount = $event;
+                    hitungPage($event);
+                  "
                   :items-per-page="itemsPerPage"
-                  hide-default-header
                 >
                   <template v-slot:header="{ props: { headers } }">
                     <thead class="MyHeader">
@@ -62,11 +62,17 @@
                     </thead>
                   </template>
                   <template
-                    v-slot:[`item.description`]="{ item }"
+                    v-slot:[`item.deskripsi`]="{ item }"
                     max-width="100px"
                   >
                     <v-container id class="deskripsi">
-                      {{ item.description }}
+                      {{ item.deskripsi }}
+                    </v-container>
+                  </template>
+
+                  <template v-slot:[`item.foto`]="{ item }" max-width="100px">
+                    <v-container id class="deskripsi justify-start">
+                      {{ item.foto }}
                     </v-container>
                   </template>
 
@@ -94,16 +100,16 @@
                       class="mr-2"
                       color="#04BAED"
                       dark
-                      width="93.5px"
-                      height="26px"
+                      width="45%"
+                      max-height="26px"
                     >
                       Edit
                     </v-btn>
                     <v-btn
                       color="#FE8E93"
                       dark
-                      width="93.5px"
-                      height="26px"
+                      width="45%"
+                      max-height="26px"
                       @click="deleteItem(item)"
                     >
                       Hapus
@@ -167,15 +173,19 @@ export default {
       this.selectedItemIndex = this.identity.indexOf(item);
       this.dialogDelete = true;
     },
+    hitungPage(totalitem) {
+      this.totalPage = totalitem;
+    },
   },
   data() {
     return {
+      totalPage: null,
       search: "",
       page: 1,
       dialogDelete: false,
       selectedItemIndex: -1,
       pageCount: 0,
-      itemsPerPage: 10,
+      itemsPerPage: 8,
       headers: [
         {
           text: "No",
@@ -183,12 +193,12 @@ export default {
           value: "no",
         },
         {
-          text: "Tipe",
-          value: "tipe",
+          text: "Nama Kelas",
+          value: "name",
         },
         {
-          text: "Harga",
-          value: "harga",
+          text: "Foto",
+          value: "foto",
         },
         {
           text: "Deskripsi",
@@ -202,63 +212,73 @@ export default {
       identity: [
         {
           no: 1,
-          tipe: "Member 1 Bulan",
-          harga: "Rp. 200.000,00",
-          deskripsi: "jackson.graham@example.com",
+          name: "Cycling",
+          foto: "https://user-images.githubusercontent.com/77964982/178594801-3c963074-3aa7-4b95-ac43-a8b1f34f18fb.png",
+          deskripsi:
+            "Fill the burn of a 3-part spin workout and explore different terrains without even leaving the gym",
         },
         {
-          no: 1,
-          tipe: "Member 1 Bulan",
-          harga: "Rp. 200.000,00",
-          deskripsi: "jackson.graham@example.com",
+          no: 2,
+          name: "Cycling",
+          foto: "https://user-images.githubusercontent.com/77964982/178594801-3c963074-3aa7-4b95-ac43-a8b1f34f18fb.png",
+          deskripsi:
+            "Fill the burn of a 3-part spin workout and explore different terrains without even leaving the gym",
         },
         {
-          no: 1,
-          tipe: "Member 1 Bulan",
-          harga: "Rp. 200.000,00",
-          deskripsi: "jackson.graham@example.com",
+          no: 3,
+          name: "Mind & Body ",
+          foto: "https://user-images.githubusercontent.com/77964982/178594801-3c963074-3aa7-4b95-ac43-a8b1f34f18fb.png",
+          deskripsi:
+            "Find your center with a combination of Yoga, Tai Chi, and Pilates",
         },
         {
-          no: 1,
-          tipe: "Member 1 Bulan",
-          harga: "Rp. 200.000,00",
-          deskripsi: "jackson.graham@example.com",
+          no: 4,
+          name: "Mind & Body ",
+          foto: "https://user-images.githubusercontent.com/77964982/178594801-3c963074-3aa7-4b95-ac43-a8b1f34f18fb.png",
+          deskripsi:
+            "Find your center with a combination of Yoga, Tai Chi, and Pilates",
         },
         {
-          no: 1,
-          tipe: "Member 1 Bulan",
-          harga: "Rp. 200.000,00",
-          deskripsi: "jackson.graham@example.com",
+          no: 5,
+          name: "Cardio",
+          foto: "https://user-images.githubusercontent.com/77964982/178594801-3c963074-3aa7-4b95-ac43-a8b1f34f18fb.png",
+          deskripsi:
+            "Train like a warrior for an all over body workout that all leave you lean and toned",
         },
         {
-          no: 1,
-          tipe: "Member 1 Bulan",
-          harga: "Rp. 200.000,00",
-          deskripsi: "jackson.graham@example.com",
+          no: 6,
+          name: "Cardio",
+          foto: "https://user-images.githubusercontent.com/77964982/178594801-3c963074-3aa7-4b95-ac43-a8b1f34f18fb.png",
+          deskripsi:
+            "Train like a warrior for an all over body workout that all leave you lean and toned",
         },
         {
-          no: 1,
-          tipe: "Member 1 Bulan",
-          harga: "Rp. 200.000,00",
-          deskripsi: "jackson.graham@example.com",
+          no: 7,
+          name: "Strength And Conditioning",
+          foto: "https://user-images.githubusercontent.com/77964982/178594801-3c963074-3aa7-4b95-ac43-a8b1f34f18fb.png",
+          deskripsi:
+            "Sculp and shape your whole body using light barbell weights and high reps",
         },
         {
-          no: 1,
-          tipe: "Member 1 Bulan",
-          harga: "Rp. 200.000,00",
-          deskripsi: "jackson.graham@example.com",
+          no: 8,
+          name: "Strength And Conditioning",
+          foto: "https://user-images.githubusercontent.com/77964982/178594801-3c963074-3aa7-4b95-ac43-a8b1f34f18fb.png",
+          deskripsi:
+            "Sculp and shape your whole body using light barbell weights and high reps",
         },
         {
-          no: 1,
-          tipe: "Member 1 Bulan",
-          harga: "Rp. 200.000,00",
-          deskripsi: "jackson.graham@example.com",
+          no: 9,
+          name: "Cardio",
+          foto: "https://user-images.githubusercontent.com/77964982/178594801-3c963074-3aa7-4b95-ac43-a8b1f34f18fb.png",
+          deskripsi:
+            "Sculp and shape your whole body using light barbell weights and high reps",
         },
         {
-          no: 1,
-          tipe: "Member 1 Bulan",
-          harga: "Rp. 200.000,00",
-          deskripsi: "jackson.graham@example.com",
+          no: 10,
+          name: "Strength And Conditioning",
+          foto: "https://user-images.githubusercontent.com/77964982/178594801-3c963074-3aa7-4b95-ac43-a8b1f34f18fb.png",
+          deskripsi:
+            "Sculp and shape your whole body using light barbell weights and high reps",
         },
       ],
     };
@@ -281,5 +301,55 @@ tbody tr:nth-of-type(odd) {
 .v-data-table-header {
   background-color: rgba(182, 183, 187);
   color: white;
+}
+.judul {
+  align-items: center;
+  display: block;
+  color: #026daa;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 23.4539px !important;
+  line-height: 140%;
+  line-height: 21px;
+  letter-spacing: 0.015em;
+  word-break: break-all;
+}
+
+.v-data-table > .v-data-table__wrapper > table > tbody > tr > td {
+  padding: 0 16px;
+  transition: height 0.2s cubic-bezier(0.4, 0, 0.6, 1);
+  color: #88898a;
+}
+
+.MyHeader {
+  background-color: #f6f6f6 !important;
+}
+.JudulHeader {
+  font-weight: 900 !important;
+}
+.deskripsi {
+  width: 300px;
+  font-size: 14px;
+  left: 0 !important;
+  justify-content: start !important;
+}
+.pagination {
+  background-color: #ffffff;
+  color: #f48743;
+}
+.theme--light.v-pagination .v-pagination__item:hover {
+  background: #fee9cc !important;
+}
+
+.theme--light.v-pagination .v-pagination__item {
+  color: #f48743;
+}
+.theme--light.v-pagination .v-pagination__item--active {
+  color: #ffffff !important;
+}
+
+.v-pagination__navigation {
+  box-shadow: none;
 }
 </style>

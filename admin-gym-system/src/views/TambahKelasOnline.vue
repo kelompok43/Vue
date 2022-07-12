@@ -284,3 +284,21 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.judul {
+  font-size: 50px;
+  justify-content: center;
+}
+.desc {
+  font-size: 25px;
+  text-align: center;
+}
+.btnbatal {
+  margin-left: 10px;
+  margin-right: 45px;
+}
+.alertatas {
+  background: #b3ea78 !important;
+}
+</style>

@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    {{ ambilData() }}
+    {{ambilData()}}
     <v-row align="center" justify="center">
       <v-col cols="12" sm="8" md="8">
         <v-card class="elevation-12">
@@ -290,6 +290,24 @@ export default {
     },
     indexyangDipilih() {
       return this.$store.state.IndexDipilih;
+    },
+    namaKelas(){
+      return this.kelasonlineFromStore[this.indexyangDipilih].name;
+    },
+    Deskripsi(){
+      return this.kelasonlineFromStore[this.indexyangDipilih].Date;
+    },
+    tanggal(){
+      return this.kelasonlineFromStore[this.indexyangDipilih].description;
+    },
+    trainer(){
+      return this.kelasonlineFromStore[this.indexyangDipilih].Trainer
+    },
+    timeStart(){
+      return this.kelasonlineFromStore[this.indexyangDipilih].TimeStart;
+    },
+    timeEnd(){
+      return this.kelasonlineFromStore[this.indexyangDipilih].TimeEnd;
     },
   },
 };

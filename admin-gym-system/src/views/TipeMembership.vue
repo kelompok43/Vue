@@ -2,34 +2,31 @@
   <v-container fluid>
     <div class="d-flex justify-start mb-6">
       <div class="my-2 mx-3">
-        <v-btn
-          class="mt-8 ms-4"
-          width="300px"
-          color="#F48743"
-          dark
-          @click="add()"
-        >
-          Tambahkan Tipe
+        <v-btn width="300px" color="#F48743" dark @click="add()">
+          Tambahkan Membership
         </v-btn>
       </div>
     </div>
     <div>
       <v-sheet
         :color="`white ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
-        class="pa-4"
+        class="pa-4 ma-3 rounded-lg"
       >
-        <div class="judul">Tabel Data Member</div>
-        <div class="d-flex justify-end">
-          <div class="d-flex align-center mb-6 mx-4">show</div>
-          <v-text-field
-            v-model="search"
-            outlined
-            single-line
-            label="cari disini"
-            append-icon="mdi-magnify"
-            class="shrink"
-          >
-          </v-text-field>
+        <div class="d-flex mb-6">
+          <div class="judul order-1 pt-5 ms-5">Tabel Kelas Online</div>
+          <v-spacer class="order-2 pa-2"></v-spacer>
+          <div class="d-flex order-3 justify-end">
+            <div class="d-flex align-center mb-6 mx-4">show</div>
+            <v-text-field
+              v-model="search"
+              outlined
+              single-line
+              label="cari disini"
+              append-icon="mdi-magnify"
+              class="shrink"
+            >
+            </v-text-field>
+          </div>
         </div>
         <div class="ma-5">
           <v-sheet
@@ -44,7 +41,10 @@
                   :search="search"
                   hide-default-footer
                   :page.sync="page"
-                  @page-count="pageCount = $event"
+                  @page-count="
+                    pageCount = $event;
+                    hitungPage($event);
+                  "
                   :items-per-page="itemsPerPage"
                   hide-default-header
                 >
@@ -94,7 +94,7 @@
                       class="mr-2"
                       color="#04BAED"
                       dark
-                      width="93.5px"
+                      width="90px"
                       height="26px"
                     >
                       Edit
@@ -102,7 +102,7 @@
                     <v-btn
                       color="#FE8E93"
                       dark
-                      width="93.5px"
+                      width="90px"
                       height="26px"
                       @click="deleteItem(item)"
                     >
@@ -116,17 +116,14 @@
           <v-row>
             <v-col>
               <div class="d-flex justify-end mt-4">
-                <v-sheet color="#FEE9CC" class="pa-5" :rounded="'lg'">
+                <v-sheet color="#FFFFFF" class="pa-5" :rounded="'lg'">
                   <template>
                     <div>
                       <v-pagination
                         color="#F48743"
                         v-model="page"
-                        previous-aria-label="Prev"
-                        next-aria-label="Next"
-                        wrapper-aria-label
                         total-visible
-                        :length="6"
+                        :length="totalPage"
                       ></v-pagination>
                     </div>
                   </template>
@@ -167,9 +164,13 @@ export default {
       this.selectedItemIndex = this.identity.indexOf(item);
       this.dialogDelete = true;
     },
+    hitungPage(totalitem) {
+      this.totalPage = totalitem;
+    },
   },
   data() {
     return {
+      totalPage: null,
       search: "",
       page: 1,
       dialogDelete: false,
@@ -281,5 +282,53 @@ tbody tr:nth-of-type(odd) {
 .v-data-table-header {
   background-color: rgba(182, 183, 187);
   color: white;
+}
+.judul {
+  align-items: center;
+  display: block;
+  color: #026daa;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 23.4539px !important;
+  line-height: 140%;
+  line-height: 21px;
+  letter-spacing: 0.015em;
+  word-break: break-all;
+}
+
+.v-data-table > .v-data-table__wrapper > table > tbody > tr > td {
+  padding: 0 16px;
+  transition: height 0.2s cubic-bezier(0.4, 0, 0.6, 1);
+  color: #88898a;
+}
+
+.MyHeader {
+  background-color: #f6f6f6 !important;
+}
+.JudulHeader {
+  font-weight: 900 !important;
+}
+.deskripsi {
+  width: 300px;
+  font-size: 14px;
+}
+.pagination {
+  background-color: #ffffff;
+  color: #f48743;
+}
+.theme--light.v-pagination .v-pagination__item:hover {
+  background: #fee9cc !important;
+}
+
+.theme--light.v-pagination .v-pagination__item {
+  color: #f48743;
+}
+.theme--light.v-pagination .v-pagination__item--active {
+  color: #ffffff !important;
+}
+
+.v-pagination__navigation {
+  box-shadow: none;
 }
 </style>

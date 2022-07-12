@@ -17,19 +17,22 @@
         :color="`white ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
         class="pa-4 ma-3 rounded-lg"
       >
-        <div class="judul">Tabel Data Rekening</div>
-        <div class="d-flex justify-end">
-          <div class="d-flex align-center mb-6 mx-4">Search :</div>
-          <v-text-field
-            v-model="search"
-            outlined
-            single-line
-            dense
-            label="cari disini"
-            append-icon="mdi-magnify"
-            class="shrink"
-          >
-          </v-text-field>
+        <div class="d-flex mb-6">
+          <div class="judul order-1 pt-5 ms-5">Tabel Data Rekening</div>
+          <v-spacer class="order-2 pa-2"></v-spacer>
+          <div class="d-flex order-3 justify-end">
+            <div class="d-flex align-center mb-6 mx-4">Search :</div>
+            <v-text-field
+              v-model="search"
+              outlined
+              single-line
+              dense
+              label="cari disini"
+              append-icon="mdi-magnify"
+              class="shrink"
+            >
+            </v-text-field>
+          </div>
         </div>
         <div>
           <v-row>
@@ -39,9 +42,13 @@
                 :items="identity"
                 :search="search"
                 hide-default-footer
+                hide-default-header
                 class="elevation-1"
                 :page.sync="page"
-                @page-count="pageCount = $event"
+                @page-count="
+                  pageCount = $event;
+                  hitungPage($event);
+                "
                 :items-per-page="itemsPerPage"
               >
                 <template v-slot:top>
@@ -93,29 +100,51 @@
                     </v-card>
                   </v-dialog>
 
-                  <v-dialog v-model="dialogDelete" max-width="400px">
-                    <v-card>
-                      <v-card-title class="text-h6">Konfirmasi</v-card-title>
-                      <v-card-text class="text-center"
-                        >Apakah anda yakin untuk menghapus data
-                        ini?</v-card-text
+                  <v-dialog v-model="dialogDelete" presistent width="800">
+                    <v-card height="250px">
+                      <v-card-title class="judul"
+                        ><strong> KONFIRMASI </strong></v-card-title
+                      ><br /><br />
+                      <v-card-text class="desc"
+                        >Apakah yakin untuk menghapus data ini?</v-card-text
                       >
-                      <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn depressed color="error" text @click="closeDelete"
-                          >Batal</v-btn
-                        >
+                      <v-card-actions class="justify-center">
+                        <br /><br /><br />
+
                         <v-btn
-                          depressed
-                          color="success"
-                          text
-                          @click="deleteItemConfirm"
-                          >Ya</v-btn
+                          class="btnbatal"
+                          width="150px"
+                          color="error"
+                          @click="closeDelete"
                         >
-                        <v-spacer></v-spacer>
+                          Batal
+                        </v-btn>
+
+                        <v-btn
+                          class="btnya"
+                          width="150px"
+                          color="success"
+                          @click="deleteItemConfirm"
+                        >
+                          Ya
+                        </v-btn>
                       </v-card-actions>
                     </v-card>
                   </v-dialog>
+                </template>
+
+                <template v-slot:header="{ props: { headers } }">
+                  <thead class="MyHeader">
+                    <tr>
+                      <th
+                        v-for="(h, index) in headers"
+                        :class="h.class"
+                        :key="index"
+                      >
+                        <span class="JudulHeader">{{ h.text }}</span>
+                      </th>
+                    </tr>
+                  </thead>
                 </template>
 
                 <template v-slot:[`item.actions`]="{ item }">
@@ -156,7 +185,7 @@
                     <div class="text-center">
                       <v-pagination
                         v-model="page"
-                        :length="6"
+                        :length="totalPage"
                         color="#F48743"
                       ></v-pagination>
                     </div>
@@ -181,6 +210,7 @@ export default {
   },
   data() {
     return {
+      totalPage: null,
       search: "",
       dialogDelete: false,
       dialog: false,
@@ -270,6 +300,9 @@ export default {
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
+    hitungPage(totalitem) {
+      this.totalPage = totalitem;
+    },
 
     close() {
       this.dialog = false;
@@ -311,5 +344,68 @@ tbody tr:nth-of-type(odd) {
   letter-spacing: 0.0125em;
   line-height: 21px;
   word-break: break-all;
+}
+.judul {
+  align-items: center;
+  display: block;
+  color: #026daa;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 23.4539px !important;
+  line-height: 140%;
+  line-height: 21px;
+  letter-spacing: 0.015em;
+  word-break: break-all;
+}
+
+.v-data-table > .v-data-table__wrapper > table > tbody > tr > td {
+  padding: 0 16px;
+  transition: height 0.2s cubic-bezier(0.4, 0, 0.6, 1);
+  color: #88898a;
+}
+
+.MyHeader {
+  background-color: #f6f6f6 !important;
+}
+.JudulHeader {
+  font-weight: 900 !important;
+}
+.deskripsi {
+  width: 300px;
+  font-size: 14px;
+}
+.pagination {
+  background-color: #ffffff;
+  color: #f48743;
+}
+.theme--light.v-pagination .v-pagination__item:hover {
+  background: #fee9cc !important;
+}
+
+.theme--light.v-pagination .v-pagination__item {
+  color: #f48743;
+}
+.theme--light.v-pagination .v-pagination__item--active {
+  color: #ffffff !important;
+}
+
+.v-pagination__navigation {
+  box-shadow: none;
+}
+.judul {
+  font-size: 50px;
+  justify-content: center !important;
+}
+.desc {
+  font-size: 25px;
+  text-align: center;
+}
+.btnbatal {
+  margin-left: 10px;
+  margin-right: 45px;
+}
+.alertatas {
+  background: #b3ea78 !important;
 }
 </style>
