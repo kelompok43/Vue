@@ -18,18 +18,21 @@
         :color="`white ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
         class="pa-4"
       >
-        <div class="judul">Tabel Data Member</div>
-        <div class="d-flex justify-end">
-          <div class="d-flex align-center mb-6 mx-4">show</div>
-          <v-text-field
-            v-model="search"
-            outlined
-            single-line
-            label="cari disini"
-            append-icon="mdi-magnify"
-            class="shrink"
-          >
-          </v-text-field>
+        <div class="d-flex mb-6">
+          <div class="judul order-1 pt-5 ms-5">Tabel Data Member</div>
+          <v-spacer class="order-2 pa-2"></v-spacer>
+          <div class="d-flex order-3 justify-end">
+            <div class="d-flex align-center mb-6 mx-4">show</div>
+            <v-text-field
+              v-model="search"
+              outlined
+              single-line
+              label="cari disini"
+              append-icon="mdi-magnify"
+              class="shrink"
+            >
+            </v-text-field>
+          </div>
         </div>
         <div class="ma-5">
           <v-sheet
@@ -43,7 +46,10 @@
                   :items="users"
                   hide-default-footer
                   :page.sync="page"
-                  @page-count="pageCount = $event"
+                  @page-count="
+                    pageCount = $event;
+                    hitungPage($event);
+                  "
                   :items-per-page="itemsPerPage"
                   hide-default-header
                 >
@@ -116,8 +122,8 @@
                         previous-aria-label="Prev"
                         next-aria-label="Next"
                         wrapper-aria-label
-
-                        :length="20"
+                        total-visible
+                        :length="totalPage"
                       ></v-pagination>
                     </div>
                   </template>
@@ -126,7 +132,6 @@
             </v-col>
           </v-row>
         </div>
-        <p>{{ users }}</p>
       </v-sheet>
     </div>
   </v-container>
@@ -164,10 +169,14 @@ export default {
       console.log("user dari method: ", user);
       this.users = user;
     },
+    hitungPage(totalitem) {
+      this.totalPage = totalitem;
+    },
   },
   data() {
     return {
-      itemUser:[],
+      totalPage: null,
+      itemUser: [],
       users: [],
       search: "",
       page: 1,
@@ -190,7 +199,7 @@ export default {
         },
         {
           text: "Tanggal Lahir",
-          value: "Gadada di",
+          value: "dob",
         },
         {
           text: "Nomor Ponsel",
@@ -215,108 +224,6 @@ export default {
         {
           text: "Action",
           value: "actions",
-        },
-      ],
-      identity: [
-        {
-          no: 1,
-          bidangKeahlian: "Cycling",
-          name: "Peter",
-          email: "jackson.graham@example.com",
-          phoneNumber: "(252) 555-0126",
-          alamat: "775 Rolling Green Rd.",
-          jenisKelamin: "Female",
-          action: "edit",
-        },
-        {
-          no: 2,
-          bidangKeahlian: "Cycling",
-          name: "Jacob Jones",
-          email: "nevaeh.simmons@example.com",
-          phoneNumber: "(684) 555-0102",
-          alamat: "7529 E. Pecan St.",
-          jenisKelamin: "Female",
-          action: "edit",
-        },
-        {
-          no: 3,
-          bidangKeahlian: "Cycling",
-          name: "Eleanor Pena",
-          email: "kenzi.lawson@example.com",
-          phoneNumber: "(629) 555-0129",
-          alamat: "8558 Green Rd.",
-          jenisKelamin: "Female",
-          action: "edit",
-        },
-        {
-          no: 4,
-          bidangKeahlian: "Body & Mind",
-          name: "Floyd Miles",
-          email: "tim.jennings@example.com",
-          phoneNumber: "(205) 555-0100",
-          alamat: "8558 Green Rd.",
-          jenisKelamin: "Female",
-          action: "edit",
-        },
-        {
-          no: 5,
-          bidangKeahlian: "Body & Mind",
-          name: "6.0",
-          email: "deanna.curtis@example.com",
-          phoneNumber: "(907) 555-0101",
-          alamat: "775 Rolling Green Rd.",
-          jenisKelamin: "Female",
-          action: "edit",
-        },
-        {
-          no: 6,
-          bidangKeahlian: "Body & Mind",
-          name: "Marvin McKinney",
-          email: "nathan.roberts@example.com",
-          phoneNumber: "(603) 555-0123",
-          alamat: "3890 Poplar Dr.",
-          jenisKelamin: "male",
-          action: "edit",
-        },
-        {
-          no: 7,
-          bidangKeahlian: "Cardio",
-          name: "Darrell Steward",
-          email: "debra.holt@example.com",
-          phoneNumber: "(307) 555-0133",
-          alamat: "8080 Railroad St.",
-          jenisKelamin: "Female",
-          action: "edit",
-        },
-        {
-          no: 8,
-          bidangKeahlian: "Cardio",
-          name: "Jerome Bell",
-          email: "bill.sanders@example.com",
-          phoneNumber: "(319) 555-0115",
-          alamat: "7529 E. Pecan St.",
-          jenisKelamin: "male",
-          action: "edit",
-        },
-        {
-          no: 9,
-          bidangKeahlian: "Strenght and Condition",
-          name: "Darrell Steward",
-          email: "debra.holt@example.com",
-          phoneNumber: "(704) 555-0127",
-          alamat: "8080 Railroad St.",
-          jenisKelamin: "Female",
-          action: "edit",
-        },
-        {
-          no: 10,
-          bidangKeahlian: "Strenght and Condition",
-          name: "Jerome Bell",
-          email: "bill.sanders@example.com",
-          phoneNumber: "(225) 555-0118",
-          alamat: "3605 Parker Rd.",
-          jenisKelamin: "male",
-          action: "edit",
         },
       ],
     };

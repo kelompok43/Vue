@@ -371,15 +371,12 @@ export default new Vuex.Store({
         })
         .then((response) => {
           if (response.data.message === "success") {
-            store.commit("setList", response.data);
-            console.log("response: ", response.data)
             return response.data.data;
           } else {
             store.commit("setInfo", response.data.message);
           }
         })
         .catch((error) => {
-          store.commit("setInfo", "Email atau Password salah");
           store.commit("setError", error);
         });
     },
