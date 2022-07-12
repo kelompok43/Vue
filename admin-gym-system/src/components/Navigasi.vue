@@ -171,6 +171,7 @@ export default {
     logout() {
       localStorage.setItem("authenticated", false);
       this.$router.push({ name: "Login" });
+      this.$store.commit("setToken", "");
     },
   },
 };
