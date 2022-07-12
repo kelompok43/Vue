@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import createPersistedState from "vuex-persistedstate";
+import axios from "axios";
 
 Vue.use(Vuex);
 const persistedDataState = createPersistedState({
@@ -11,8 +12,11 @@ export default new Vuex.Store({
   plugins: [persistedDataState],
   state: {
     token: null,
-    IndexDipilih: null,
     role: null,
+    error: null,
+    IndexDipilih: null,
+    info: null,
+    list: null,
     kelasonline: [
       {
         number: 1,
@@ -268,8 +272,23 @@ export default new Vuex.Store({
     ],
   },
   mutations: {
+    setToken(state, param) {
+      state.token = param;
+    },
+    setRole(state, param) {
+      state.role = param;
+    },
+    setList(state, param) {
+      state.list = param;
+    },
+    setInfo(state, param) {
+      state.info = param;
+    },
     setIndex(state, payload) {
       state.IndexDipilih = payload;
+    },
+    setError(state, payload) {
+      state.error = payload;
     },
     setKelasOnline(state, payload) {
       state.kelasonline.push({
@@ -321,6 +340,48 @@ export default new Vuex.Store({
     },
     editKelasOnline(store, param1) {
       store.commit("editKelasOnline", param1);
+    },
+    login(store, credentials) {
+      return axios
+        .post(`https://api.gms.mirfanrafif.me/admin/login`, {
+          email: credentials.email,
+          password: credentials.password,
+        })
+        .then((response) => {
+          if (response.data.message === "success") {
+            store.commit("setToken", response.data.token);
+            store.commit("setRole", response.data.data.role);
+            return response;
+          } else {
+            store.commit("setInfo", response.data.message);
+          }
+        })
+        .catch((error) => {
+          store.commit("setInfo", "Email atau Password salah");
+          store.commit("setError", error);
+        });
+    },
+    getAllUser(store) {
+      return axios
+        .get(`https://api.gms.mirfanrafif.me/user`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + store.state.token,
+          },
+        })
+        .then((response) => {
+          if (response.data.message === "success") {
+            store.commit("setList", response.data);
+            console.log("response: ", response.data)
+            return response.data.data;
+          } else {
+            store.commit("setInfo", response.data.message);
+          }
+        })
+        .catch((error) => {
+          store.commit("setInfo", "Email atau Password salah");
+          store.commit("setError", error);
+        });
     },
   },
   modules: {},

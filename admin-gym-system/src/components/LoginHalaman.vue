@@ -59,6 +59,7 @@
                           required
                         />
                       </v-form>
+                      <p v-if="errorText" class="error-text">{{ errorText }}</p>
                       <h3 class="text-right mt-4">Lupa Password?</h3>
                     </v-card-text>
                     <div class="text-center mt-3">
@@ -79,7 +80,6 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   data: () => ({
     step: 1,
@@ -89,23 +89,24 @@ export default {
     email: "",
     password: "",
     show: false,
+    errorText: "",
   }),
   props: {
     source: String,
   },
   methods: {
     async login() {
-      const result = await axios
-        .post("https://api.gms.mirfanrafif.me/admin/login", {
-          email: this.email,
-          password: this.password,
-        })
-        .then(() => {
-          localStorage.setItem("authenticated", true);
-          this.$router.push({ name: "Dashboard" });
-        });
-      console.log("login berhasil", this.response);
-      console.warn(result);
+      const result = await this.$store.dispatch("login", {
+        email: this.email,
+        password: this.password,
+      });
+
+      if (result) {
+        localStorage.setItem("authenticated", true);
+        this.$router.push({ name: "Dashboard" });
+      } else {
+        this.errorText = this.$store.state.info;
+      }
     },
   },
 };

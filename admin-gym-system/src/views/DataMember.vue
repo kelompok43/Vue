@@ -40,8 +40,7 @@
               <v-col>
                 <v-data-table
                   :headers="headers"
-                  :items="identity"
-                  :search="search"
+                  :items="users"
                   hide-default-footer
                   :page.sync="page"
                   @page-count="pageCount = $event"
@@ -60,14 +59,6 @@
                         </th>
                       </tr>
                     </thead>
-                  </template>
-                  <template
-                    v-slot:[`item.description`]="{ item }"
-                    max-width="100px"
-                  >
-                    <v-container id class="deskripsi">
-                      {{ item.description }}
-                    </v-container>
                   </template>
 
                   <template v-slot:top>
@@ -125,8 +116,8 @@
                         previous-aria-label="Prev"
                         next-aria-label="Next"
                         wrapper-aria-label
-                        total-visible
-                        :length="6"
+
+                        :length="20"
                       ></v-pagination>
                     </div>
                   </template>
@@ -135,13 +126,13 @@
             </v-col>
           </v-row>
         </div>
+        <p>{{ users }}</p>
       </v-sheet>
     </div>
   </v-container>
 </template>
 
 <script>
-import axios from "axios";
 export default {
   name: "DataMember",
   setup() {},
@@ -168,23 +159,16 @@ export default {
       this.selectedItemIndex = this.identity.indexOf(item);
       this.dialogDelete = true;
     },
-    async member() {
-      console.log(this.email);
-      const result = await axios
-        .get(
-          "https://virtserver.swaggerhub.com/jiranmuhammad7/gms-api/1.0.0/user",
-        )
-        .then(() => {
-          console.log(Response.data);
-          this.$router.push({ name: "Dashboard" });
-        });
-      console.log("login berhasil", Response);
-      console.warn(result);
+    async getAllUser() {
+      const user = await this.$store.dispatch("getAllUser");
+      console.log("user dari method: ", user);
+      this.users = user;
     },
   },
   data() {
-
     return {
+      itemUser:[],
+      users: [],
       search: "",
       page: 1,
       dialogDelete: false,
@@ -194,13 +178,7 @@ export default {
       headers: [
         {
           text: "No",
-          value: "no",
-        },
-        {
-          text: "Bidang Keahlian",
-          align: "left",
-          sortable: false,
-          value: "bidangKeahlian",
+          value: "id",
         },
         {
           text: "Nama",
@@ -211,16 +189,28 @@ export default {
           value: "email",
         },
         {
-          text: "Phone Number",
-          value: "phoneNumber",
+          text: "Tanggal Lahir",
+          value: "Gadada di",
+        },
+        {
+          text: "Nomor Ponsel",
+          value: "phone",
         },
         {
           text: "Alamat",
-          value: "alamat",
+          value: "address",
         },
         {
-          text: "Jenis Kelamin",
-          value: "jenisKelamin",
+          text: "Date Joined",
+          value: "created_at",
+        },
+        {
+          text: "Date Expired",
+          value: "updated_at",
+        },
+        {
+          text: "Status",
+          value: "status",
         },
         {
           text: "Action",
@@ -330,6 +320,9 @@ export default {
         },
       ],
     };
+  },
+  mounted() {
+    this.getAllUser();
   },
 };
 </script>
