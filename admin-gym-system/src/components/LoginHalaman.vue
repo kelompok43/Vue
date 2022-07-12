@@ -96,13 +96,10 @@ export default {
   methods: {
     async login() {
       const result = await axios
-        .post(
-          "https://virtserver.swaggerhub.com/jiranmuhammad7/gms-api/1.0.0/admin/login",
-          {
-            email: this.email,
-            password: this.password,
-          }
-        )
+        .post("https://api.gms.mirfanrafif.me/admin/login", {
+          email: this.email,
+          password: this.password,
+        })
         .then(() => {
           localStorage.setItem("authenticated", true);
           this.$router.push({ name: "Dashboard" });

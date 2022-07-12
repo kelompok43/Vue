@@ -11,6 +11,8 @@ export default new Vuex.Store({
   plugins: [persistedDataState],
   state: {
     token: null,
+    IndexDipilih: null,
+    role: null,
     kelasonline: [
       {
         number: 1,
@@ -264,7 +266,6 @@ export default new Vuex.Store({
         admin: "True",
       },
     ],
-    IndexDipilih: null,
   },
   mutations: {
     setIndex(state, payload) {
