@@ -1,10 +1,16 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex);
+const persistedDataState = createPersistedState({
+  paths: ["token"],
+});
 
 export default new Vuex.Store({
+  plugins: [persistedDataState],
   state: {
+    token: null,
     kelasonline: [
       {
         number: 1,
@@ -281,7 +287,7 @@ export default new Vuex.Store({
       console.log(state.IndexDipilih);
       //Object.assign(state.kelasonline[this.state.IndexDipilih], payload);
       state.kelasonline[state.IndexDipilih].name = payload.name;
-      state.kelasonline[state.IndexDipilih].description =payload.description;
+      state.kelasonline[state.IndexDipilih].description = payload.description;
       state.kelasonline[state.IndexDipilih].Trainer = payload.Trainer;
       state.kelasonline[state.IndexDipilih].Date = payload.Date;
       state.kelasonline[state.IndexDipilih].TimeStart = payload.TimeStart;
@@ -308,7 +314,7 @@ export default new Vuex.Store({
     },
     addDataAdmin(store, param) {
       store.commit("setDataAdmin", param);
-     },
+    },
     updateIndex(store, param) {
       store.commit("setIndex", param);
     },

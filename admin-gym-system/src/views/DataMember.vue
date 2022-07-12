@@ -141,6 +141,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "DataMember",
   setup() {},
@@ -167,8 +168,22 @@ export default {
       this.selectedItemIndex = this.identity.indexOf(item);
       this.dialogDelete = true;
     },
+    async member() {
+      console.log(this.email);
+      const result = await axios
+        .get(
+          "https://virtserver.swaggerhub.com/jiranmuhammad7/gms-api/1.0.0/user",
+        )
+        .then(() => {
+          console.log(Response.data);
+          this.$router.push({ name: "Dashboard" });
+        });
+      console.log("login berhasil", Response);
+      console.warn(result);
+    },
   },
   data() {
+
     return {
       search: "",
       page: 1,
