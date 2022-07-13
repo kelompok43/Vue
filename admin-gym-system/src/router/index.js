@@ -20,6 +20,7 @@ import TipeMembership from "@/views/TipeMembership.vue"
 import TambahRekening from "@/views/TambahRekening.vue"
 import TambahPelatih from "@/views/TambahPelatih.vue"
 import TambahBerita from "@/views/TambahBerita.vue"
+import TambahTipeKelas from "@/views/TambahTipeKelas.vue"
 import EditKelasOnline from "@/components/EditKelasOnline.vue"
 
 Vue.use(VueRouter);
@@ -93,6 +94,11 @@ const routes = [
         path: "/TipeKelas",
         name: "TipeKelas",
         component: TipeKelas,
+      },
+      {
+        path: "/tambahTipeKelas",
+        name: "TambahTipeKelas",
+        component: TambahTipeKelas,
       },
       {
         path: "/DataRekening",
