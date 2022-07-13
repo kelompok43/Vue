@@ -40,7 +40,7 @@
               <v-col>
                 <v-data-table
                   :headers="headers"
-                  :items="dataadminFromStore"
+                  :items="admins"
                   :search="search"
                   hide-default-footer
                   :page.sync="page"
@@ -152,6 +152,7 @@ export default {
   data() {
     return {
       search: "",
+      admins: [],
       dialogDelete: false,
       selectedItemIndex: -1,
       pageCount: 0,
@@ -160,7 +161,7 @@ export default {
       headers: [
         {
           text: "No",
-          value: "number",
+          value: "id",
           align: "start",
           sortable: false,
         },
@@ -174,15 +175,15 @@ export default {
         },
         {
           text: "Phone Number",
-          value: "phoneNumber",
+          value: "phone",
         },
         {
           text: "Tanggal Lahir",
-          value: "tanggallahir",
+          value: "dob",
         },
         {
           text: "Alamat",
-          value: "alamat",
+          value: "address",
         },
         {
           text: "Date Joined",
@@ -225,11 +226,19 @@ export default {
       this.selectedItemIndex = this.dataadminFromStore.indexOf(item);
       this.dialogDelete = true;
     },
+    async getAllAdmin() {
+      const admin = await this.$store.dispatch("getAllAdmin");
+      console.log("admin dari method: ", admin);
+      this.admins = admin;
+    },
   },
   computed:{
     dataadminFromStore(){
       return this.$store.state.dataadmin;
     }
+  },
+  mounted() {
+    this.getAllAdmin();
   },
 };
 </script>
