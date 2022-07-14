@@ -422,6 +422,25 @@ export default new Vuex.Store({
           store.commit("setError", error);
         });
     },
+    getAllPayment(store) {
+      return axios
+        .get(`https://api.gms.mirfanrafif.me/payment/method`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + store.state.token,
+          },
+        })
+        .then((response) => {
+          if (response.data.message === "success") {
+            return response.data.data;
+          } else {
+            store.commit("setInfo", response.data.message);
+          }
+        })
+        .catch((error) => {
+          store.commit("setError", error);
+        });
+    },
   },
   modules: {},
 });

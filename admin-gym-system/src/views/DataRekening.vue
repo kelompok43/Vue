@@ -36,7 +36,7 @@
             <v-col>
               <v-data-table
                 :headers="headers"
-                :items="identity"
+                :items="payments"
                 :search="search"
                 hide-default-footer
                 class="elevation-1"
@@ -182,6 +182,7 @@ export default {
   data() {
     return {
       search: "",
+      payments: [],
       dialogDelete: false,
       dialog: false,
       selectedItemIndex: -1,
@@ -189,18 +190,19 @@ export default {
       pageCount: 0,
       itemsPerPage: 10,
       headers: [
-        { text: "No", value: "no" },
-        { text: "Nama Bank", value: "namaBank" },
-        { text: "Nomor Rekening", value: "nomorRekening" },
-        { text: "Nama Pemilik", value: "namaPemilik" },
+        { text: "No", value: "id" },
+        { text: "Nama Bank", value: "name" },
+        { text: "bukti", value: "pictures" },
+        { text: "Nomor Rekening", value: "acc_number" },
+        { text: "Nama Pemilik", value: "acc_name" },
         { text: "Action", value: "actions" },
       ],
       identity: [],
       editedItem: {
         no: 0,
-        namaBank: "",
-        nomorRekening: 0,
-        namaPemilik: "",
+        name: "",
+        acc_number: 0,
+        acc_name: "",
       },
       defaultItem: {
         no: 0,
@@ -216,6 +218,11 @@ export default {
   methods: {
     add(path) {
       this.$router.push({ name: path });
+    },
+    async getAllPayment() {
+      const payment = await this.$store.dispatch("getAllPayment");
+      console.log("payment dari method: ", payment);
+      this.payments = payment;
     },
     initialize() {
       this.identity = [
@@ -252,7 +259,7 @@ export default {
       ];
     },
     deleteItem(item) {
-      this.selectedItemIndex = this.identity.indexOf(item);
+      this.selectedItemIndex = this.payments.indexOf(item);
       this.dialogDelete = true;
     },
     closeDelete() {
@@ -262,11 +269,11 @@ export default {
       });
     },
     deleteItemConfirm() {
-      this.identity.splice(this.selectedItemIndex, 1);
+      this.payments.splice(this.selectedItemIndex, 1);
       this.closeDelete();
     },
     editItem(item) {
-      this.selectedItemIndex = this.identity.indexOf(item);
+      this.selectedItemIndex = this.payments.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
@@ -282,10 +289,13 @@ export default {
       if (this.selectedItemIndex > -1) {
         Object.assign(this.identity[this.selectedItemIndex], this.editedItem);
       } else {
-        this.identity.push(this.editedItem);
+        this.payments.push(this.editedItem);
       }
       this.close();
     },
+  },
+  mounted() {
+    this.getAllPayment();
   },
 };
 </script>
