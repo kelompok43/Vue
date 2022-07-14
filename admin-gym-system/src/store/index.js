@@ -402,6 +402,26 @@ export default new Vuex.Store({
           store.commit("setError", error);
         });
     },
+    getAllMembership(store) {
+      return axios
+        .get(`https://api.gms.mirfanrafif.me/membership`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + store.state.token,
+          },
+        })
+        .then((response) => {
+          if (response.data.message === "success") {
+            console.log("response: ", response.data)
+            return response.data.data;
+          } else {
+            store.commit("setInfo", response.data.message);
+          }
+        })
+        .catch((error) => {
+          store.commit("setError", error);
+        });
+    },
   },
   modules: {},
 });

@@ -40,7 +40,7 @@
               <v-col>
                 <v-data-table
                   :headers="headers"
-                  :items="identity"
+                  :items="memberships"
                   :search="search"
                   hide-default-footer
                   :page.sync="page"
@@ -151,7 +151,7 @@ export default {
   },
   methods: {
     add() {
-      this.$router.push({ name: "RegistrasiMember" });
+      this.$router.push({ name: "RegistrasiTipeMember" });
     },
     closeDelete() {
       this.dialogDelete = false;
@@ -167,11 +167,18 @@ export default {
       this.selectedItemIndex = this.identity.indexOf(item);
       this.dialogDelete = true;
     },
+    async getAllMembership() {
+      const membership = await this.$store.dispatch("getAllMembership");
+      console.log("membership dari method: ", membership);
+      this.memberships = membership;
+    },
+    
   },
   data() {
     return {
       search: "",
       page: 1,
+      memberships: [],
       dialogDelete: false,
       selectedItemIndex: -1,
       pageCount: 0,
@@ -180,15 +187,15 @@ export default {
         {
           text: "No",
           sortable: false,
-          value: "no",
+          value: "id",
         },
         {
           text: "Tipe",
-          value: "tipe",
+          value: "user_id",
         },
         {
           text: "Harga",
-          value: "harga",
+          value: "price",
         },
         {
           text: "Deskripsi",
@@ -204,7 +211,7 @@ export default {
           no: 1,
           tipe: "Member 1 Bulan",
           harga: "Rp. 200.000,00",
-          deskripsi: "jackson.graham@example.com",
+          deskripsi: "Dapat mengikuti kelas online, dapat mengikuti kelas offline setiap hari",
         },
         {
           no: 1,
@@ -262,6 +269,10 @@ export default {
         },
       ],
     };
+    
+  },
+  mounted() {
+    this.getAllMembership();
   },
 };
 </script>
