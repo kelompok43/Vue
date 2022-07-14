@@ -5,7 +5,7 @@ import axios from "axios";
 
 Vue.use(Vuex);
 const persistedDataState = createPersistedState({
-  paths: ["token", "tipekelas"],
+  paths: ["token", "tipekelas", "IndexDipilih"],
 });
 
 export default new Vuex.Store({
