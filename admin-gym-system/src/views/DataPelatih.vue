@@ -36,189 +36,194 @@
             </v-text-field>
           </div>
         </div>
-        <div>
-          <!-- <v-sheet :color="`grey ${theme.isDark ? 'darken-2' : 'lighten-4'}`" class="pa-5"> -->
-          <v-row>
-            <v-col>
-              <v-data-table
-                :headers="headers"
-                :items="identity"
-                :search="search"
-                hide-default-footer
-                hide-default-header
-                class="elevation-1"
-                :page.sync="page"
-                @page-count="
-                  pageCount = $event;
-                  hitungPage($event);
-                "
-                :items-per-page="itemsPerPage"
-              >
-                <template v-slot:top>
-                  <v-dialog v-model="dialog" max-width="1200px">
-                    <v-card>
-                      <v-card-text>
-                        <v-container>
-                          <v-row>
-                            <v-col cols="12" sm="6" md="4">
-                              <v-text-field
-                                v-model="editedItem.no"
-                                label="No :"
-                              ></v-text-field>
-                            </v-col>
-
-                            <v-col cols="12" sm="6" md="4">
-                              <v-text-field
-                                v-model="editedItem.bidangKeahlian"
-                                label="Bidang Keahlian :"
-                              ></v-text-field>
-                            </v-col>
-
-                            <v-col cols="12" sm="6" md="4">
-                              <v-text-field
-                                v-model="editedItem.name"
-                                label="Nama :"
-                              ></v-text-field>
-                            </v-col>
-
-                            <v-col cols="12" sm="6" md="4">
-                              <v-text-field
-                                v-model="editedItem.email"
-                                label="Email :"
-                              ></v-text-field>
-                            </v-col>
-
-                            <v-col cols="12" sm="6" md="4">
-                              <v-text-field
-                                v-model="editedItem.phoneNumber"
-                                label="Phone Number :"
-                              ></v-text-field>
-                            </v-col>
-
-                            <v-col cols="12" sm="6" md="4">
-                              <v-text-field
-                                v-model="editedItem.alamat"
-                                label="Alamat :"
-                              ></v-text-field>
-                            </v-col>
-
-                            <v-col cols="12" sm="6" md="4">
-                              <v-text-field
-                                v-model="editedItem.jenisKelamin"
-                                label="Jenis Kelamin :"
-                              ></v-text-field>
-                            </v-col>
-                          </v-row>
-                        </v-container>
-                      </v-card-text>
-
-                      <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn color="blue darken-1" text @click="close">
-                          Cancel
-                        </v-btn>
-                        <v-btn color="blue darken-1" text @click="save">
-                          Save
-                        </v-btn>
-                      </v-card-actions>
-                    </v-card>
-                  </v-dialog>
-
-                  <v-dialog v-model="dialogDelete" presistent width="800">
-                    <v-card height="250px">
-                      <v-card-title class="judul"
-                        ><strong> KONFIRMASI </strong></v-card-title
-                      ><br /><br />
-                      <v-card-text class="desc"
-                        >Apakah yakin untuk menghapus data ini?</v-card-text
-                      >
-                      <v-card-actions class="justify-center">
-                        <br /><br /><br />
-
-                        <v-btn
-                          class="btnbatal"
-                          width="150px"
-                          color="error"
-                          @click="closeDelete"
-                        >
-                          Batal
-                        </v-btn>
-
-                        <v-btn
-                          class="btnya"
-                          width="150px"
-                          color="success"
-                          @click="deleteItemConfirm"
-                        >
-                          Ya
-                        </v-btn>
-                      </v-card-actions>
-                    </v-card>
-                  </v-dialog>
-                </template>
-
-                <template v-slot:header="{ props: { headers } }">
-                  <thead class="MyHeader">
-                    <tr>
-                      <th
-                        v-for="(h, index) in headers"
-                        :class="h.class"
-                        :key="index"
-                      >
-                        <span class="JudulHeader">{{ h.text }}</span>
-                      </th>
-                    </tr>
-                  </thead>
-                </template>
-
-                <template v-slot:[`item.actions`]="{ item }">
-                  <div class="d-flex">
-                    <v-btn
-                      class="mr-2"
-                      color="#04BAED"
-                      dark
-                      width="45%"
-                      height="26px"
-                      @click="editItem(item)"
-                    >
-                      Edit
-                    </v-btn>
-
-                    <v-btn
-                      color="#FE8E93"
-                      dark
-                      width="45%"
-                      height="26px"
-                      @click="deleteItem(item)"
-                    >
-                      Hapus
-                    </v-btn>
-                  </div>
-                </template>
-              </v-data-table>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col>
-              <div class="d-flex justify-end mt-4">
-                <v-sheet
-                  :color="`#FEE9CC ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
-                  class="pa-5"
+        <div class="ma-5">
+          <v-sheet
+            :color="`grey ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
+            class="px-5 py-0"
+          >
+            <v-row>
+              <v-col>
+                <v-data-table
+                  :headers="headers"
+                  :items="identity"
+                  :search="search"
+                  hide-default-footer
+                  hide-default-header
+                  class="elevation-1"
+                  :page.sync="page"
+                  @page-count="
+                    pageCount = $event;
+                    hitungPage($event);
+                  "
+                  :items-per-page="itemsPerPage"
                 >
-                  <template>
-                    <div class="text-center">
-                      <v-pagination
-                        v-model="page"
-                        :length="totalPage"
-                        color="#F48743"
-                      ></v-pagination>
+                  <template v-slot:top>
+                    <v-dialog v-model="dialog" max-width="1200px">
+                      <v-card>
+                        <v-card-text>
+                          <v-container>
+                            <v-row>
+                              <v-col cols="12" sm="6" md="4">
+                                <v-text-field
+                                  v-model="editedItem.no"
+                                  label="No :"
+                                ></v-text-field>
+                              </v-col>
+
+                              <v-col cols="12" sm="6" md="4">
+                                <v-text-field
+                                  v-model="editedItem.bidangKeahlian"
+                                  label="Bidang Keahlian :"
+                                ></v-text-field>
+                              </v-col>
+
+                              <v-col cols="12" sm="6" md="4">
+                                <v-text-field
+                                  v-model="editedItem.name"
+                                  label="Nama :"
+                                ></v-text-field>
+                              </v-col>
+
+                              <v-col cols="12" sm="6" md="4">
+                                <v-text-field
+                                  v-model="editedItem.email"
+                                  label="Email :"
+                                ></v-text-field>
+                              </v-col>
+
+                              <v-col cols="12" sm="6" md="4">
+                                <v-text-field
+                                  v-model="editedItem.phoneNumber"
+                                  label="Phone Number :"
+                                ></v-text-field>
+                              </v-col>
+
+                              <v-col cols="12" sm="6" md="4">
+                                <v-text-field
+                                  v-model="editedItem.alamat"
+                                  label="Alamat :"
+                                ></v-text-field>
+                              </v-col>
+
+                              <v-col cols="12" sm="6" md="4">
+                                <v-text-field
+                                  v-model="editedItem.jenisKelamin"
+                                  label="Jenis Kelamin :"
+                                ></v-text-field>
+                              </v-col>
+                            </v-row>
+                          </v-container>
+                        </v-card-text>
+
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+                          <v-btn color="blue darken-1" text @click="close">
+                            Cancel
+                          </v-btn>
+                          <v-btn color="blue darken-1" text @click="save">
+                            Save
+                          </v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </v-dialog>
+
+                    <v-dialog v-model="dialogDelete" presistent width="800">
+                      <v-card height="250px">
+                        <v-card-title class="judul"
+                          ><strong> KONFIRMASI </strong></v-card-title
+                        ><br /><br />
+                        <v-card-text class="desc"
+                          >Apakah yakin untuk menghapus data ini?</v-card-text
+                        >
+                        <v-card-actions class="justify-center">
+                          <br /><br /><br />
+
+                          <v-btn
+                            class="btnbatal"
+                            width="150px"
+                            color="error"
+                            @click="closeDelete"
+                          >
+                            Batal
+                          </v-btn>
+
+                          <v-btn
+                            class="btnya"
+                            width="150px"
+                            color="success"
+                            @click="deleteItemConfirm"
+                          >
+                            Ya
+                          </v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </v-dialog>
+                  </template>
+
+                  <template v-slot:header="{ props: { headers } }">
+                    <thead class="MyHeader">
+                      <tr>
+                        <th
+                          v-for="(h, index) in headers"
+                          :class="h.class"
+                          :key="index"
+                        >
+                          <span class="JudulHeader">{{ h.text }}</span>
+                        </th>
+                      </tr>
+                    </thead>
+                  </template>
+
+                  <template v-slot:[`item.actions`]="{ item }">
+                    <div class="d-flex">
+                      <v-btn
+                        class="mr-2"
+                        color="#04BAED"
+                        dark
+                        width="45%"
+                        height="26px"
+                        @click="editItem(item)"
+                      >
+                        Edit
+                      </v-btn>
+
+                      <v-btn
+                        color="#FE8E93"
+                        dark
+                        width="45%"
+                        height="26px"
+                        @click="deleteItem(item)"
+                      >
+                        Hapus
+                      </v-btn>
                     </div>
                   </template>
-                </v-sheet>
-              </div>
-            </v-col>
-          </v-row>
-          <!-- </v-sheet> -->
+                </v-data-table>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <div class="d-flex justify-end mt-4">
+                  <v-sheet
+                    :color="`#FEE9CC ${
+                      theme.isDark ? 'darken-2' : 'lighten-4'
+                    }`"
+                    class="pa-5"
+                  >
+                    <template>
+                      <div class="text-center">
+                        <v-pagination
+                          v-model="page"
+                          :length="totalPage"
+                          color="#F48743"
+                        ></v-pagination>
+                      </div>
+                    </template>
+                  </v-sheet>
+                </div>
+              </v-col>
+            </v-row>
+          </v-sheet>
         </div>
       </v-sheet>
     </div>

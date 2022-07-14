@@ -37,7 +37,7 @@
               <v-col>
                 <v-data-table
                   :headers="headers"
-                  :items="identity"
+                  :items="tipekelasFromStore"
                   :search="search"
                   hide-default-header
                   hide-default-footer
@@ -61,40 +61,58 @@
                       </tr>
                     </thead>
                   </template>
+
                   <template
                     v-slot:[`item.deskripsi`]="{ item }"
-                    max-width="100px"
+                    max-width="200px"
                   >
-                    <v-container id class="deskripsi">
+                    <v-container id class="deskripsi ms-3">
                       {{ item.deskripsi }}
                     </v-container>
                   </template>
 
-                  <template v-slot:[`item.foto`]="{ item }" max-width="100px">
-                    <v-container id class="deskripsi justify-start">
-                      {{ item.foto }}
-                    </v-container>
+                  <template v-slot:[`item.foto`]="{ item }">
+                    <v-img
+                      max-height="215"
+                      max-width="362"
+                      :src="item.foto"
+                    ></v-img>
                   </template>
 
                   <template v-slot:top>
-                    <v-dialog v-model="dialogDelete" max-width="400px">
-                      <v-card>
-                        <v-card-title class="text-h5"
-                          >Yakin ingin menghapus data ini?</v-card-title
+                    <v-dialog v-model="dialogDelete" presistent width="800">
+                      <v-card height="250px">
+                        <v-card-title class="judul"
+                          ><strong> KONFIRMASI </strong></v-card-title
+                        ><br /><br />
+                        <v-card-text class="desc"
+                          >Apakah yakin untuk menghapus data ini?</v-card-text
                         >
-                        <v-card-actions>
-                          <v-spacer></v-spacer>
-                          <v-btn color="primary" text @click="closeDelete"
-                            >Cancel</v-btn
+                        <v-card-actions class="justify-center">
+                          <br /><br /><br />
+
+                          <v-btn
+                            class="btnbatal"
+                            width="150px"
+                            color="error"
+                            @click="closeDelete"
                           >
-                          <v-btn color="primary" text @click="deleteItemConfirm"
-                            >OK</v-btn
+                            Batal
+                          </v-btn>
+
+                          <v-btn
+                            class="btnya"
+                            width="150px"
+                            color="success"
+                            @click="deleteItemConfirm"
                           >
-                          <v-spacer></v-spacer>
+                            Ya
+                          </v-btn>
                         </v-card-actions>
                       </v-card>
                     </v-dialog>
                   </template>
+
                   <template v-slot:[`item.actions`]="{ item }">
                     <v-btn
                       class="mr-2"
@@ -102,6 +120,7 @@
                       dark
                       width="45%"
                       max-height="26px"
+                      @click="editItem(item)"
                     >
                       Edit
                     </v-btn>
@@ -122,17 +141,14 @@
           <v-row>
             <v-col>
               <div class="d-flex justify-end mt-4">
-                <v-sheet color="#FEE9CC" class="pa-5" :rounded="'lg'">
+                <v-sheet color="#FFFFFF" class="pa-5" :rounded="'lg'">
                   <template>
                     <div>
                       <v-pagination
                         color="#F48743"
                         v-model="page"
-                        previous-aria-label="Prev"
-                        next-aria-label="Next"
-                        wrapper-aria-label
                         total-visible
-                        :length="6"
+                        :length="totalPage"
                       ></v-pagination>
                     </div>
                   </template>
@@ -157,7 +173,7 @@ export default {
   },
   methods: {
     add() {
-      this.$router.push({ name: "RegistrasiMember" });
+      this.$router.push({ name: "TambahTipeKelas" });
     },
     closeDelete() {
       this.dialogDelete = false;
@@ -166,12 +182,17 @@ export default {
       });
     },
     deleteItemConfirm() {
-      this.identity.splice(this.selectedItemIndex, 1);
+      this.tipekelasFromStore.splice(this.selectedItemIndex, 1);
       this.closeDelete();
     },
     deleteItem(item) {
-      this.selectedItemIndex = this.identity.indexOf(item);
+      this.selectedItemIndex = this.tipekelasFromStore.indexOf(item);
       this.dialogDelete = true;
+    },
+    editItem(item) {
+      this.selectedItemIndex = this.tipekelasFromStore.indexOf(item);
+      this.$store.dispatch("updateIndex", this.selectedItemIndex);
+      this.$router.push({ name: "EditTipeKelas" });
     },
     hitungPage(totalitem) {
       this.totalPage = totalitem;
@@ -209,79 +230,12 @@ export default {
           value: "actions",
         },
       ],
-      identity: [
-        {
-          no: 1,
-          name: "Cycling",
-          foto: "https://user-images.githubusercontent.com/77964982/178594801-3c963074-3aa7-4b95-ac43-a8b1f34f18fb.png",
-          deskripsi:
-            "Fill the burn of a 3-part spin workout and explore different terrains without even leaving the gym",
-        },
-        {
-          no: 2,
-          name: "Cycling",
-          foto: "https://user-images.githubusercontent.com/77964982/178594801-3c963074-3aa7-4b95-ac43-a8b1f34f18fb.png",
-          deskripsi:
-            "Fill the burn of a 3-part spin workout and explore different terrains without even leaving the gym",
-        },
-        {
-          no: 3,
-          name: "Mind & Body ",
-          foto: "https://user-images.githubusercontent.com/77964982/178594801-3c963074-3aa7-4b95-ac43-a8b1f34f18fb.png",
-          deskripsi:
-            "Find your center with a combination of Yoga, Tai Chi, and Pilates",
-        },
-        {
-          no: 4,
-          name: "Mind & Body ",
-          foto: "https://user-images.githubusercontent.com/77964982/178594801-3c963074-3aa7-4b95-ac43-a8b1f34f18fb.png",
-          deskripsi:
-            "Find your center with a combination of Yoga, Tai Chi, and Pilates",
-        },
-        {
-          no: 5,
-          name: "Cardio",
-          foto: "https://user-images.githubusercontent.com/77964982/178594801-3c963074-3aa7-4b95-ac43-a8b1f34f18fb.png",
-          deskripsi:
-            "Train like a warrior for an all over body workout that all leave you lean and toned",
-        },
-        {
-          no: 6,
-          name: "Cardio",
-          foto: "https://user-images.githubusercontent.com/77964982/178594801-3c963074-3aa7-4b95-ac43-a8b1f34f18fb.png",
-          deskripsi:
-            "Train like a warrior for an all over body workout that all leave you lean and toned",
-        },
-        {
-          no: 7,
-          name: "Strength And Conditioning",
-          foto: "https://user-images.githubusercontent.com/77964982/178594801-3c963074-3aa7-4b95-ac43-a8b1f34f18fb.png",
-          deskripsi:
-            "Sculp and shape your whole body using light barbell weights and high reps",
-        },
-        {
-          no: 8,
-          name: "Strength And Conditioning",
-          foto: "https://user-images.githubusercontent.com/77964982/178594801-3c963074-3aa7-4b95-ac43-a8b1f34f18fb.png",
-          deskripsi:
-            "Sculp and shape your whole body using light barbell weights and high reps",
-        },
-        {
-          no: 9,
-          name: "Cardio",
-          foto: "https://user-images.githubusercontent.com/77964982/178594801-3c963074-3aa7-4b95-ac43-a8b1f34f18fb.png",
-          deskripsi:
-            "Sculp and shape your whole body using light barbell weights and high reps",
-        },
-        {
-          no: 10,
-          name: "Strength And Conditioning",
-          foto: "https://user-images.githubusercontent.com/77964982/178594801-3c963074-3aa7-4b95-ac43-a8b1f34f18fb.png",
-          deskripsi:
-            "Sculp and shape your whole body using light barbell weights and high reps",
-        },
-      ],
     };
+  },
+  computed: {
+    tipekelasFromStore() {
+      return this.$store.state.tipekelas;
+    },
   },
 };
 </script>
@@ -329,7 +283,7 @@ tbody tr:nth-of-type(odd) {
   font-weight: 900 !important;
 }
 .deskripsi {
-  width: 300px;
+  width: 400px !important;
   font-size: 14px;
   left: 0 !important;
   justify-content: start !important;

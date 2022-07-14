@@ -5,7 +5,7 @@ import axios from "axios";
 
 Vue.use(Vuex);
 const persistedDataState = createPersistedState({
-  paths: ["token"],
+  paths: ["token", "tipekelas"],
 });
 
 export default new Vuex.Store({
@@ -127,6 +127,200 @@ export default new Vuex.Store({
         TimeStart: "08.00 AM",
         TimeEnd: "12.00 AM",
         Rating: "4/5",
+      },
+    ],
+    kelasoffline: [
+      {
+        number: 1,
+        name: "Cycling",
+        description:
+          "Fill the burn of a 3-part spin workout and explore different terrains without even leaving the gym",
+        Trainer: "Ulil",
+        Location: "Ruangan 1",
+        Date: "03/06/2022",
+        TimeStart: "07.00 AM",
+        TimeEnd: "09.00 AM",
+        Quota: 30,
+      },
+      {
+        number: 2,
+        name: "Cycling",
+        description:
+          "Fill the burn of a 3-part spin workout and explore different terrains without even leaving the gym",
+        Trainer: "Vidi",
+        Location: "Ruangan 2",
+        Date: "04/06/2022",
+        TimeStart: "08.00 AM",
+        TimeEnd: "11.00 AM",
+        Quota: 30,
+      },
+      {
+        number: 3,
+        name: "Mind & Body",
+        description:
+          "Fill the burn of a 3-part spin workout and explore different terrains without even leaving the gym",
+        Trainer: "Vidi",
+        Location: "Ruangan 2",
+        Date: "04/06/2022",
+        TimeStart: "08.00 PM",
+        TimeEnd: "11.00 PM",
+        Quota: 30,
+      },
+      {
+        number: 4,
+        name: "Mind & Body",
+        description:
+          "Fill the burn of a 3-part spin workout and explore different terrains without even leaving the gym",
+        Trainer: "Alif",
+        Location: "Ruangan 3",
+        Date: "05/06/2022",
+        TimeStart: "08.00 AM",
+        TimeEnd: "01.00 PM",
+        Quota: 30,
+      },
+      {
+        number: 5,
+        name: "Mind & Body",
+        description:
+          "Fill the burn of a 3-part spin workout and explore different terrains without even leaving the gym",
+        Trainer: "Alif",
+        Location: "Ruangan 3",
+        Date: "05/06/2022",
+        TimeStart: "08.00 AM",
+        TimeEnd: "02.00 PM",
+        Quota: 30,
+      },
+      {
+        number: 6,
+        name: "Mind & Body",
+        description:
+          "Fill the burn of a 3-part spin workout and explore different terrains without even leaving the gym",
+        Trainer: "Alif",
+        Location: "Ruangan 3",
+        Date: "05/06/2022",
+        TimeStart: "08.00 AM",
+        TimeEnd: "10.00 AM",
+        Quota: 30,
+      },
+      {
+        number: 7,
+        name: "Mind & Body",
+        description:
+          "Fill the burn of a 3-part spin workout and explore different terrains without even leaving the gym",
+        Trainer: "Alif",
+        Location: "Ruangan 3",
+        Date: "05/06/2022",
+        TimeStart: "08.00 AM",
+        TimeEnd: "9.00 AM",
+        Quota: 30,
+      },
+      {
+        number: 8,
+        name: "Mind & Body",
+        description:
+          "Fill the burn of a 3-part spin workout and explore different terrains without even leaving the gym",
+        Trainer: "Alif",
+        Location: "Ruangan 3",
+        Date: "05/06/2022",
+        TimeStart: "08.00 AM",
+        TimeEnd: "11.30 AM",
+        Quota: 30,
+      },
+      {
+        number: 9,
+        name: "Mind & Body",
+        description:
+          "Fill the burn of a 3-part spin workout and explore different terrains without even leaving the gym",
+        Trainer: "Alif",
+        Location: "Ruangan 3",
+        Date: "05/06/2022",
+        TimeStart: "08.00 AM",
+        TimeEnd: "12.00 AM",
+        Quota: 30,
+      },
+      {
+        number: 10,
+        name: "Mind & Body",
+        description:
+          "Fill the burn of a 3-part spin workout and explore different terrains without even leaving the gym",
+        Trainer: "Alif",
+        Location: "Ruangan 3",
+        Date: "05/06/2022",
+        TimeStart: "08.00 AM",
+        TimeEnd: "9.30 AM",
+        Quota: 30,
+      },
+    ],
+    tipekelas: [
+      {
+        no: 1,
+        name: "Cycling",
+        foto: "https://user-images.githubusercontent.com/77964982/178594801-3c963074-3aa7-4b95-ac43-a8b1f34f18fb.png",
+        deskripsi:
+          "Fill the burn of a 3-part spin workout and explore different terrains without even leaving the gym",
+      },
+      {
+        no: 2,
+        name: "Cycling",
+        foto: "https://user-images.githubusercontent.com/77964982/178594801-3c963074-3aa7-4b95-ac43-a8b1f34f18fb.png",
+        deskripsi:
+          "Fill the burn of a 3-part spin workout and explore different terrains without even leaving the gym",
+      },
+      {
+        no: 3,
+        name: "Mind & Body ",
+        foto: "https://user-images.githubusercontent.com/77964982/178720976-033551a1-907d-4e28-a2ee-48657b615296.png",
+        deskripsi:
+          "Find your center with a combination of Yoga, Tai Chi, and Pilates",
+      },
+      {
+        no: 4,
+        name: "Mind & Body ",
+        foto: "https://user-images.githubusercontent.com/77964982/178720976-033551a1-907d-4e28-a2ee-48657b615296.png",
+        deskripsi:
+          "Find your center with a combination of Yoga, Tai Chi, and Pilates",
+      },
+      {
+        no: 5,
+        name: "Cardio",
+        foto: "https://user-images.githubusercontent.com/77964982/178594801-3c963074-3aa7-4b95-ac43-a8b1f34f18fb.png",
+        deskripsi:
+          "Train like a warrior for an all over body workout that all leave you lean and toned",
+      },
+      {
+        no: 6,
+        name: "Cardio",
+        foto: "https://user-images.githubusercontent.com/77964982/178720985-938a2ff9-ff26-44b6-9248-8b114363637d.png",
+        deskripsi:
+          "Train like a warrior for an all over body workout that all leave you lean and toned",
+      },
+      {
+        no: 7,
+        name: "Strength And Conditioning",
+        foto: "https://user-images.githubusercontent.com/77964982/178720985-938a2ff9-ff26-44b6-9248-8b114363637d.png",
+        deskripsi:
+          "Sculp and shape your whole body using light barbell weights and high reps",
+      },
+      {
+        no: 8,
+        name: "Strength And Conditioning",
+        foto: "https://user-images.githubusercontent.com/77964982/178720986-d8c9dc35-da4c-491c-8190-32c83025a560.png",
+        deskripsi:
+          "Sculp and shape your whole body using light barbell weights and high reps",
+      },
+      {
+        no: 9,
+        name: "Cardio",
+        foto: "https://user-images.githubusercontent.com/77964982/178720986-d8c9dc35-da4c-491c-8190-32c83025a560.png",
+        deskripsi:
+          "Sculp and shape your whole body using light barbell weights and high reps",
+      },
+      {
+        no: 10,
+        name: "Strength And Conditioning",
+        foto: "https://user-images.githubusercontent.com/77964982/178720986-d8c9dc35-da4c-491c-8190-32c83025a560.png",
+        deskripsi:
+          "Sculp and shape your whole body using light barbell weights and high reps",
       },
     ],
     dataadmin: [
@@ -270,6 +464,7 @@ export default new Vuex.Store({
         admin: "True",
       },
     ],
+
   },
   mutations: {
     setToken(state, param) {
@@ -302,16 +497,26 @@ export default new Vuex.Store({
         Rating: payload.Rating,
       });
     },
-    editKelasOnline(state, payload) {
-      console.log(payload);
-      console.log(state.IndexDipilih);
-      //Object.assign(state.kelasonline[this.state.IndexDipilih], payload);
-      state.kelasonline[state.IndexDipilih].name = payload.name;
-      state.kelasonline[state.IndexDipilih].description = payload.description;
-      state.kelasonline[state.IndexDipilih].Trainer = payload.Trainer;
-      state.kelasonline[state.IndexDipilih].Date = payload.Date;
-      state.kelasonline[state.IndexDipilih].TimeStart = payload.TimeStart;
-      state.kelasonline[state.IndexDipilih].TimeEnd = payload.TimeEnd;
+    setKelasOffline(state, payload) {
+      state.kelasoffline.push({
+        number: payload.number,
+        name: payload.name,
+        description: payload.description,
+        Trainer: payload.Trainer,
+        Location: payload.Location,
+        Date: payload.Date,
+        TimeStart: payload.TimeStart,
+        TimeEnd: payload.TimeEnd,
+        Quota: payload.Quota,
+      });
+    },
+    setTipeKelas(state, payload) {
+      state.tipekelas.push({
+        no: payload.number,
+        name: payload.name,
+        foto: payload.foto,
+        deskripsi: payload.description,
+      });
     },
     setDataAdmin(state, payload) {
       state.dataadmin.push({
@@ -327,10 +532,40 @@ export default new Vuex.Store({
         admin: payload.admin,
       });
     },
+    editKelasOnline(state, payload) {
+      //Object.assign(state.kelasonline[this.state.IndexDipilih], payload);
+      state.kelasonline[state.IndexDipilih].name = payload.name;
+      state.kelasonline[state.IndexDipilih].description = payload.description;
+      state.kelasonline[state.IndexDipilih].Trainer = payload.Trainer;
+      state.kelasonline[state.IndexDipilih].Date = payload.Date;
+      state.kelasonline[state.IndexDipilih].TimeStart = payload.TimeStart;
+      state.kelasonline[state.IndexDipilih].TimeEnd = payload.TimeEnd;
+    },
+    editKelasOffline(state, payload) {
+      state.kelasoffline[state.IndexDipilih].name = payload.name;
+      state.kelasoffline[state.IndexDipilih].description = payload.description;
+      state.kelasoffline[state.IndexDipilih].Trainer = payload.Trainer;
+      state.kelasoffline[state.IndexDipilih].Location = payload.Location;
+      state.kelasoffline[state.IndexDipilih].Date = payload.Date;
+      state.kelasoffline[state.IndexDipilih].TimeStart = payload.TimeStart;
+      state.kelasoffline[state.IndexDipilih].TimeEnd = payload.TimeEnd;
+      state.kelasoffline[state.IndexDipilih].Quota = payload.Quota;
+    },
+    editTipeKelas(state, payload) {
+      state.tipekelas[state.IndexDipilih].name = payload.name;
+      state.tipekelas[state.IndexDipilih].deskripsi = payload.description;
+      state.tipekelas[state.IndexDipilih].foto = payload.foto;
+    },
   },
   actions: {
     addKelasOnline(store, param) {
       store.commit("setKelasOnline", param);
+    },
+    addKelasOffline(store, param) {
+      store.commit("setKelasOffline", param);
+    },
+    addTipeKelas(store, param) {
+      store.commit("setTipeKelas", param);
     },
     addDataAdmin(store, param) {
       store.commit("setDataAdmin", param);
@@ -338,8 +573,14 @@ export default new Vuex.Store({
     updateIndex(store, param) {
       store.commit("setIndex", param);
     },
-    editKelasOnline(store, param1) {
-      store.commit("editKelasOnline", param1);
+    editKelasOnline(store, param) {
+      store.commit("editKelasOnline", param);
+    },
+    editKelasOffline(store, param) {
+      store.commit("editKelasOffline", param);
+    },
+    editTipeKelas(store, param) {
+      store.commit("editTipeKelas", param);
     },
     login(store, credentials) {
       return axios

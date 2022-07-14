@@ -24,60 +24,65 @@
             </v-text-field>
           </div>
         </div>
-        <div>
-          <v-row>
-            <v-col>
-              <v-data-table
-                :headers="headers"
-                :items="identity"
-                :search="search"
-                hide-default-footer
-                hide-default-header
-                class="elevation-1"
-                :page.sync="page"
-                @page-count="
-                  pageCount = $event;
-                  hitungPage($event);
-                "
-                :items-per-page="itemsPerPage"
-              >
-                <template v-slot:header="{ props: { headers } }">
-                  <thead class="MyHeader">
-                    <tr>
-                      <th
-                        v-for="(h, index) in headers"
-                        :class="h.class"
-                        :key="index"
-                      >
-                        <span class="JudulHeader">{{ h.text }}</span>
-                      </th>
-                    </tr>
-                  </thead>
-                </template>
-              </v-data-table>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col>
-              <div class="d-flex justify-end mt-4">
-                <v-sheet
-                  :color="`#FEE9CC ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
-                  class="pa-5"
+        <div class="ma-5">
+          <v-sheet
+            :color="`grey ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
+            class="px-5 py-0"
+          >
+            <v-row>
+              <v-col>
+                <v-data-table
+                  :headers="headers"
+                  :items="identity"
+                  :search="search"
+                  hide-default-footer
+                  hide-default-header
+                  class="elevation-1"
+                  :page.sync="page"
+                  @page-count="
+                    pageCount = $event;
+                    hitungPage($event);
+                  "
+                  :items-per-page="itemsPerPage"
                 >
-                  <template>
-                    <div class="text-center">
-                      <v-pagination
-                        v-model="page"
-                        :length="totalPage"
-                        color="#F48743"
-                      ></v-pagination>
-                    </div>
+                  <template v-slot:header="{ props: { headers } }">
+                    <thead class="MyHeader">
+                      <tr>
+                        <th
+                          v-for="(h, index) in headers"
+                          :class="h.class"
+                          :key="index"
+                        >
+                          <span class="JudulHeader">{{ h.text }}</span>
+                        </th>
+                      </tr>
+                    </thead>
                   </template>
-                </v-sheet>
-              </div>
-            </v-col>
-          </v-row>
+                </v-data-table>
+              </v-col>
+            </v-row>
+          </v-sheet>
         </div>
+        <v-row>
+          <v-col>
+            <div class="d-flex justify-end mt-4">
+              <v-sheet
+                :color="`#FEE9CC ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
+                class="pa-5"
+              >
+                <template>
+                  <div class="text-center">
+                    <v-pagination
+                      v-model="page"
+                      :length="totalPage"
+                      color="#F48743"
+                    ></v-pagination>
+                  </div>
+                </template>
+              </v-sheet>
+            </div>
+          </v-col>
+        </v-row>
       </v-sheet>
     </div>
   </v-container>
@@ -224,7 +229,7 @@ export default {
     hitungPage(totalitem) {
       this.totalPage = totalitem;
     },
-  }
+  },
 };
 </script>
 

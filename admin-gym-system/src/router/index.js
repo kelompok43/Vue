@@ -20,7 +20,10 @@ import TipeMembership from "@/views/TipeMembership.vue"
 import TambahRekening from "@/views/TambahRekening.vue"
 import TambahPelatih from "@/views/TambahPelatih.vue"
 import TambahBerita from "@/views/TambahBerita.vue"
+import TambahTipeKelas from "@/views/TambahTipeKelas.vue"
 import EditKelasOnline from "@/components/EditKelasOnline.vue"
+import EditKelasOffline from "@/components/EditKelasOffline.vue"
+import EditTipeKelas from "@/components/EditTipeKelas.vue"
 
 Vue.use(VueRouter);
 
@@ -33,6 +36,11 @@ const routes = [
         path: "/",
         name: "Dashboard",
         component: Dashboard,
+      },
+      {
+        path: "/EditKelasOffline",
+        name: "EditKelasOffline",
+        component: EditKelasOffline,
       },
       {
         path: "/DataKelasOffline",
@@ -93,6 +101,16 @@ const routes = [
         path: "/TipeKelas",
         name: "TipeKelas",
         component: TipeKelas,
+      },
+      {
+        path: "/EditTipeKelas",
+        name: "EditTipeKelas",
+        component: EditTipeKelas,
+      },
+      {
+        path: "/tambahTipeKelas",
+        name: "TambahTipeKelas",
+        component: TambahTipeKelas,
       },
       {
         path: "/DataRekening",

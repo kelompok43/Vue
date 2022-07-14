@@ -44,7 +44,7 @@
               <v-col>
                 <v-data-table
                   :headers="headers"
-                  :items="identity"
+                  :items="kelasofflineFromStore"
                   :search="search"
                   hide-default-header
                   hide-default-footer
@@ -118,6 +118,7 @@
                       dark
                       width="45%"
                       height="26px"
+                      @click="editItem(item)"
                     >
                       Edit
                     </v-btn>
@@ -198,128 +199,6 @@ export default {
         { text: "Kuota", value: "Quota" },
         { text: "Action", value: "actions" },
       ],
-      identity: [
-        {
-          number: 1,
-          name: "Cycling",
-          description:
-            "Fill the burn of a 3-part spin workout and explore different terrains without even leaving the gym",
-          Trainer: "Ulil",
-          Location: "Ruangan 1",
-          Date: "03/06/2022",
-          TimeStart: "07.00 AM",
-          TimeEnd: "09.00 AM",
-          Quota: 30,
-        },
-        {
-          number: 2,
-          name: "Cycling",
-          description:
-            "Fill the burn of a 3-part spin workout and explore different terrains without even leaving the gym",
-          Trainer: "Vidi",
-          Location: "Ruangan 2",
-          Date: "04/06/2022",
-          TimeStart: "08.00 AM",
-          TimeEnd: "11.00 AM",
-          Quota: 30,
-        },
-        {
-          number: 3,
-          name: "Mind & Body",
-          description:
-            "Fill the burn of a 3-part spin workout and explore different terrains without even leaving the gym",
-          Trainer: "Vidi",
-          Location: "Ruangan 2",
-          Date: "04/06/2022",
-          TimeStart: "08.00 PM",
-          TimeEnd: "11.00 PM",
-          Quota: 30,
-        },
-        {
-          number: 4,
-          name: "Mind & Body",
-          description:
-            "Fill the burn of a 3-part spin workout and explore different terrains without even leaving the gym",
-          Trainer: "Alif",
-          Location: "Ruangan 3",
-          Date: "05/06/2022",
-          TimeStart: "08.00 AM",
-          TimeEnd: "01.00 PM",
-          Quota: 30,
-        },
-        {
-          number: 5,
-          name: "Mind & Body",
-          description:
-            "Fill the burn of a 3-part spin workout and explore different terrains without even leaving the gym",
-          Trainer: "Alif",
-          Location: "Ruangan 3",
-          Date: "05/06/2022",
-          TimeStart: "08.00 AM",
-          TimeEnd: "02.00 PM",
-          Quota: 30,
-        },
-        {
-          number: 6,
-          name: "Mind & Body",
-          description:
-            "Fill the burn of a 3-part spin workout and explore different terrains without even leaving the gym",
-          Trainer: "Alif",
-          Location: "Ruangan 3",
-          Date: "05/06/2022",
-          TimeStart: "08.00 AM",
-          TimeEnd: "10.00 AM",
-          Quota: 30,
-        },
-        {
-          number: 7,
-          name: "Mind & Body",
-          description:
-            "Fill the burn of a 3-part spin workout and explore different terrains without even leaving the gym",
-          Trainer: "Alif",
-          Location: "Ruangan 3",
-          Date: "05/06/2022",
-          TimeStart: "08.00 AM",
-          TimeEnd: "9.00 AM",
-          Quota: 30,
-        },
-        {
-          number: 8,
-          name: "Mind & Body",
-          description:
-            "Fill the burn of a 3-part spin workout and explore different terrains without even leaving the gym",
-          Trainer: "Alif",
-          Location: "Ruangan 3",
-          Date: "05/06/2022",
-          TimeStart: "08.00 AM",
-          TimeEnd: "11.30 AM",
-          Quota: 30,
-        },
-        {
-          number: 9,
-          name: "Mind & Body",
-          description:
-            "Fill the burn of a 3-part spin workout and explore different terrains without even leaving the gym",
-          Trainer: "Alif",
-          Location: "Ruangan 3",
-          Date: "05/06/2022",
-          TimeStart: "08.00 AM",
-          TimeEnd: "12.00 AM",
-          Quota: 30,
-        },
-        {
-          number: 10,
-          name: "Mind & Body",
-          description:
-            "Fill the burn of a 3-part spin workout and explore different terrains without even leaving the gym",
-          Trainer: "Alif",
-          Location: "Ruangan 3",
-          Date: "05/06/2022",
-          TimeStart: "08.00 AM",
-          TimeEnd: "9.30 AM",
-          Quota: 30,
-        },
-      ],
     };
   },
   methods: {
@@ -333,15 +212,25 @@ export default {
       });
     },
     deleteItemConfirm() {
-      this.identity.filter(this.selectedItemIndex, 1);
+      this.kelasofflineFromStore.filter(this.selectedItemIndex, 1);
       this.closeDelete();
     },
     deleteItem(item) {
-      this.selectedItemIndex = this.identity.indexOf(item);
+      this.selectedItemIndex = this.kelasofflineFromStore.indexOf(item);
       this.dialogDelete = true;
+    },
+    editItem(item) {
+      this.selectedItemIndex = this.kelasofflineFromStore.indexOf(item);
+      this.$store.dispatch("updateIndex", this.selectedItemIndex);
+      this.$router.push({ name: "EditKelasOffline" });
     },
     hitungPage(totalitem) {
       this.totalPage = totalitem;
+    },
+  },
+  computed: {
+    kelasofflineFromStore(){
+      return this.$store.state.kelasoffline
     },
   },
 };
