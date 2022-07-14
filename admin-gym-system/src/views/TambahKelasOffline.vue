@@ -140,6 +140,8 @@
                   </v-time-picker>
                 </v-dialog>
 
+                <h4>Lokasi</h4>
+                <br />
                 <v-text-field
                   v-model="lokasi"
                   :rules="lokasiRules"

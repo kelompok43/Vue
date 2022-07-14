@@ -120,6 +120,7 @@
                       dark
                       width="45%"
                       max-height="26px"
+                      @click="editItem(item)"
                     >
                       Edit
                     </v-btn>
@@ -187,6 +188,11 @@ export default {
     deleteItem(item) {
       this.selectedItemIndex = this.tipekelasFromStore.indexOf(item);
       this.dialogDelete = true;
+    },
+    editItem(item) {
+      this.selectedItemIndex = this.tipekelasFromStore.indexOf(item);
+      this.$store.dispatch("updateIndex", this.selectedItemIndex);
+      this.$router.push({ name: "EditTipeKelas" });
     },
     hitungPage(totalitem) {
       this.totalPage = totalitem;

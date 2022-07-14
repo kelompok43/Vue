@@ -227,7 +227,6 @@ export default {
       this.selectedItemIndex = this.kelasonlineFromStore.indexOf(item);
       this.$store.dispatch("updateIndex", this.selectedItemIndex);
       this.$router.push({ name: "EditKelasOnline" });
-      console.log(this.selectedItemIndex);
     },
     hitungPage(totalitem) {
       this.totalPage = totalitem;

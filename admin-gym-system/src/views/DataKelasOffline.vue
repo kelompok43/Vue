@@ -118,6 +118,7 @@
                       dark
                       width="45%"
                       height="26px"
+                      @click="editItem(item)"
                     >
                       Edit
                     </v-btn>
@@ -217,6 +218,11 @@ export default {
     deleteItem(item) {
       this.selectedItemIndex = this.kelasofflineFromStore.indexOf(item);
       this.dialogDelete = true;
+    },
+    editItem(item) {
+      this.selectedItemIndex = this.kelasofflineFromStore.indexOf(item);
+      this.$store.dispatch("updateIndex", this.selectedItemIndex);
+      this.$router.push({ name: "EditKelasOffline" });
     },
     hitungPage(totalitem) {
       this.totalPage = totalitem;

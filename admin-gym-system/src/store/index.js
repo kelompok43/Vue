@@ -5,7 +5,7 @@ import axios from "axios";
 
 Vue.use(Vuex);
 const persistedDataState = createPersistedState({
-  paths: ["token"],
+  paths: ["token", "tipekelas"],
 });
 
 export default new Vuex.Store({
@@ -533,8 +533,6 @@ export default new Vuex.Store({
       });
     },
     editKelasOnline(state, payload) {
-      console.log(payload);
-      console.log(state.IndexDipilih);
       //Object.assign(state.kelasonline[this.state.IndexDipilih], payload);
       state.kelasonline[state.IndexDipilih].name = payload.name;
       state.kelasonline[state.IndexDipilih].description = payload.description;
@@ -542,6 +540,21 @@ export default new Vuex.Store({
       state.kelasonline[state.IndexDipilih].Date = payload.Date;
       state.kelasonline[state.IndexDipilih].TimeStart = payload.TimeStart;
       state.kelasonline[state.IndexDipilih].TimeEnd = payload.TimeEnd;
+    },
+    editKelasOffline(state, payload) {
+      state.kelasoffline[state.IndexDipilih].name = payload.name;
+      state.kelasoffline[state.IndexDipilih].description = payload.description;
+      state.kelasoffline[state.IndexDipilih].Trainer = payload.Trainer;
+      state.kelasoffline[state.IndexDipilih].Location = payload.Location;
+      state.kelasoffline[state.IndexDipilih].Date = payload.Date;
+      state.kelasoffline[state.IndexDipilih].TimeStart = payload.TimeStart;
+      state.kelasoffline[state.IndexDipilih].TimeEnd = payload.TimeEnd;
+      state.kelasoffline[state.IndexDipilih].Quota = payload.Quota;
+    },
+    editTipeKelas(state, payload) {
+      state.tipekelas[state.IndexDipilih].name = payload.name;
+      state.tipekelas[state.IndexDipilih].deskripsi = payload.description;
+      state.tipekelas[state.IndexDipilih].foto = payload.foto;
     },
   },
   actions: {
@@ -560,8 +573,14 @@ export default new Vuex.Store({
     updateIndex(store, param) {
       store.commit("setIndex", param);
     },
-    editKelasOnline(store, param1) {
-      store.commit("editKelasOnline", param1);
+    editKelasOnline(store, param) {
+      store.commit("editKelasOnline", param);
+    },
+    editKelasOffline(store, param) {
+      store.commit("editKelasOffline", param);
+    },
+    editTipeKelas(store, param) {
+      store.commit("editTipeKelas", param);
     },
     login(store, credentials) {
       return axios
