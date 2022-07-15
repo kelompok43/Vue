@@ -77,6 +77,10 @@
                     </v-container>
                   </template>
 
+                  <template v-slot:[`item.no`]="{ item }">
+                    {{ kelasonlineFromStore.indexOf(item) + 1 }}
+                  </template>
+
                   <template v-slot:top>
                     <v-dialog v-model="dialogDelete" presistent width="800">
                       <v-card height="250px">
@@ -177,6 +181,7 @@ export default {
   data() {
     return {
       totalPage: null,
+      nomor: 1,
       search: "",
       dialogDelete: false,
       selectedItemIndex: -1,
@@ -186,8 +191,8 @@ export default {
       headers: [
         {
           text: "No",
-          value: "number",
           align: "start",
+          value: "no",
           sortable: false,
         },
         { text: "Nama Kelas", value: "name" },

@@ -62,6 +62,10 @@
                     </thead>
                   </template>
 
+                  <template v-slot:[`item.no`]="{ item }">
+                    {{ users.indexOf(item) + 1 }}
+                  </template>
+
                   <template v-slot:top>
                     <v-dialog v-model="dialogDelete" presistent width="800">
                       <v-card height="250px">
@@ -194,7 +198,7 @@ export default {
       headers: [
         {
           text: "No",
-          value: "id",
+          value: "no",
         },
         {
           text: "Nama",
@@ -238,7 +242,7 @@ export default {
   mounted() {
     this.getAllUser();
   },
-  computed:{
+  computed: {
     cekRole() {
       return this.$store.state.role;
     },
