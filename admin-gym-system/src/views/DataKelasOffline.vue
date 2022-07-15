@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <div class="text-center d-flex justify-start mb-6">
-      <div class="my-2 mx-3">
+      <div v-if="cekRole !== 'Admin Operasional'" class="my-2 mx-3">
         <v-btn
           width="300px"
           color="#F48743"
@@ -231,6 +231,9 @@ export default {
   computed: {
     kelasofflineFromStore(){
       return this.$store.state.kelasoffline
+    },
+    cekRole() {
+      return this.$store.state.role;
     },
   },
 };

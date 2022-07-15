@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <div class="d-flex justify-start mb-6">
-      <div class="my-2 mx-3">
+      <div v-if="cekRole !== 'Admin Operasional'" class="my-2 mx-3">
         <v-btn width="300px" color="#F48743" dark @click="add()">
           Tambahkan Member
         </v-btn>
@@ -237,6 +237,11 @@ export default {
   },
   mounted() {
     this.getAllUser();
+  },
+  computed:{
+    cekRole() {
+      return this.$store.state.role;
+    },
   },
 };
 </script>

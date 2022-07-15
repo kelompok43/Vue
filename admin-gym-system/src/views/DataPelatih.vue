@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <div class="text-center d-flex justify-start mb-6">
-      <div class="my-2 mx-3">
+      <div v-if="cekRole !== 'Admin Operasional'" class="my-2 mx-3">
         <v-btn
           class="tambahPelatih"
           width="300px"
@@ -424,6 +424,11 @@ export default {
         this.identity.push(this.editedItem);
       }
       this.close();
+    },
+  },
+  computed:{
+    cekRole() {
+      return this.$store.state.role;
     },
   },
 };
