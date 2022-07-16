@@ -21,9 +21,6 @@
               Tambahkan admin operasional baru
             </h3>
             <v-card-text class="mt-5">
-              <!-- <h1
-                          class="text-center display-2 orange--text text--accent-3"
-                        >Fitness Gym</h1> -->
               <v-form>
                 <h4>Nama Lengkap</h4>
                 <br />

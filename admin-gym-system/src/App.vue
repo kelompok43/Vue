@@ -1,34 +1,34 @@
 <template>
   <v-app>
-      <v-main>
-        <router-view />
-      </v-main>
+    <v-main>
+      <router-view />
+    </v-main>
   </v-app>
 </template>
 
 <script>
 export default {
   // components: { NavBarDataKelas },
-  name: 'App',
-  }
+  name: "App",
+};
 </script>
 
 <style>
 .v-main__wrap {
-    background-color: #FEE9CC;
+  background-color: #fee9cc;
 }
 
 * {
-    justify-content: center;
-    font-weight: 600;
+  justify-content: center;
+  font-weight: 600;
 }
 
-.navIcon{
+.navIcon {
   max-height: 40px;
   max-width: 224px;
 }
 
-.expansion .v-expansion-panels{
+.expansion .v-expansion-panels {
   max-height: 40px;
   max-width: 224px;
 }
