@@ -22,6 +22,7 @@ import TambahPelatih from "@/views/TambahPelatih.vue"
 import TambahBerita from "@/views/TambahBerita.vue"
 import TambahTipeKelas from "@/views/TambahTipeKelas.vue"
 import EditKelasOnline from "@/components/EditKelasOnline.vue"
+import RegistrasiTipeMember from "@/views/RegistrasiTipeMember.vue"
 import EditKelasOffline from "@/components/EditKelasOffline.vue"
 import EditTipeKelas from "@/components/EditTipeKelas.vue"
 
@@ -121,6 +122,11 @@ const routes = [
         path: "/RegistrasiMember",
         name: "RegistrasiMember",
         component: RegistrasiMember,
+      },
+      {
+        path: "/RegistrasiTipeMember",
+        name: "RegistrasiTipeMember",
+        component: RegistrasiTipeMember,
       },
       {
         path: "/registrasi",
