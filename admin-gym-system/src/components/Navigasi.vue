@@ -20,7 +20,7 @@
         </v-list-item-content>
       </v-list-item>
       <v-list shaped class="clickable">
-        <template v-for="item in items">
+        <template v-for="item in roleComputed">
           <v-list-group
             v-if="item.children"
             :key="item.text"
@@ -91,7 +91,12 @@
       <v-menu offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-btn text v-bind="attrs" v-on="on">
-            <span class="nameUser mr-2">SuperAdmin</span>
+            <span v-if="cekRole !== 'Admin Operasional'" class="nameUser mr-2"
+              >Super Admin</span
+            >
+            <span v-if="cekRole === 'Admin Operasional'" class="nameUser mr-2"
+              >Admin Operasional</span
+            >
             <v-icon color="#BBBBBB">mdi-account-circle</v-icon>
           </v-btn>
         </template>
@@ -155,6 +160,38 @@ export default {
       { icon: "mdi-newspaper-variant", text: "Berita", route: "/Berita" },
       { icon: "mdi-calculator", text: "Data Rekening", route: "/DataRekening" },
     ],
+    items2: [
+      { icon: "mdi-view-dashboard", text: "Dashboard", route: "/" },
+      {
+        icon: "mdi-chevron-up",
+        "icon-alt": "mdi-chevron-down",
+        "icon-ctr": "mdi-dumbbell",
+        text: "Membership",
+        model: false,
+        children: [
+          { text: "Data Member", route: "/DataMember" },
+          { text: "Tipe Membership", route: "/TipeMembership" },
+        ],
+      },
+      {
+        icon: "mdi-chevron-up",
+        "icon-alt": "mdi-chevron-down",
+        "icon-ctr": "mdi-dumbbell",
+        text: "Data Kelas",
+        model: false,
+        children: [
+          { text: "Offline", route: "/DataKelasOffline" },
+          { text: "Online", route: "/DataKelasOnline" },
+          { text: "Tipe Kelas", route: "/TipeKelas" },
+        ],
+      },
+      { icon: "mdi-cart", text: "Data Pemesanan", route: "/DataPemesanan" },
+      {
+        icon: "mdi-badge-account-horizontal-outline",
+        text: "Data Pelatih",
+        route: "/DataPelatih",
+      },
+    ],
     drawer: null,
     mini: false,
     fab: false,
@@ -172,6 +209,18 @@ export default {
       localStorage.setItem("authenticated", false);
       this.$router.push({ name: "Login" });
       this.$store.commit("setToken", "");
+    },
+  },
+  computed: {
+    cekRole() {
+      return this.$store.state.role;
+    },
+    roleComputed() {
+      if (this.cekRole === "Admin Operasional") {
+        return this.items2;
+      } else {
+        return this.items;
+      }
     },
   },
 };

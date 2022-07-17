@@ -1,9 +1,8 @@
 <template>
   <v-container fluid>
     <div class="text-center d-flex justify-start mb-6">
-      <div class="my-2 mx-3">
+      <div v-if="cekRole !== 'Admin Operasional'" class="my-2 mx-3">
         <v-btn
-          class="tambahKelas"
           width="300px"
           color="#F48743"
           dark
@@ -17,17 +16,18 @@
     <div>
       <v-sheet
         :color="`white ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
-        class="pa-4 ma-3"
+        class="pa-4 ma-3 rounded-lg"
       >
         <div class="d-flex mb-6">
           <div class="judul order-1 pt-5 ms-5">Tabel Kelas Online</div>
           <v-spacer class="order-2 pa-2"></v-spacer>
           <div class="d-flex order-3 justify-end">
-            <div class="d-flex align-center mb-6 mx-4">show</div>
+            <div class="d-flex align-center mb-6 mx-4">Search :</div>
             <v-text-field
               v-model="search"
               outlined
               single-line
+              dense
               label="cari disini"
               append-icon="mdi-magnify"
               class="shrink"
@@ -46,11 +46,14 @@
                   :headers="headers"
                   :items="kelasonlineFromStore"
                   :search="search"
+                  hide-default-header
                   hide-default-footer
                   :page.sync="page"
-                  @page-count="pageCount = $event"
+                  @page-count="
+                    pageCount = $event;
+                    hitungPage($event);
+                  "
                   :items-per-page="itemsPerPage"
-                  hide-default-header
                 >
                   <template v-slot:header="{ props: { headers } }">
                     <thead class="MyHeader">
@@ -74,21 +77,39 @@
                     </v-container>
                   </template>
 
+                  <template v-slot:[`item.no`]="{ item }">
+                    {{ kelasonlineFromStore.indexOf(item) + 1 }}
+                  </template>
+
                   <template v-slot:top>
-                    <v-dialog v-model="dialogDelete" max-width="400px">
-                      <v-card>
-                        <v-card-title class="text-h5"
-                          >Yakin ingin menghapus data ini?</v-card-title
+                    <v-dialog v-model="dialogDelete" presistent width="800">
+                      <v-card height="250px">
+                        <v-card-title class="judul"
+                          ><strong> KONFIRMASI </strong></v-card-title
+                        ><br /><br />
+                        <v-card-text class="desc"
+                          >Apakah yakin untuk menghapus data ini?</v-card-text
                         >
-                        <v-card-actions>
-                          <v-spacer></v-spacer>
-                          <v-btn color="primary" text @click="closeDelete"
-                            >Cancel</v-btn
+                        <v-card-actions class="justify-center">
+                          <br /><br /><br />
+
+                          <v-btn
+                            class="btnbatal"
+                            width="150px"
+                            color="error"
+                            @click="closeDelete"
                           >
-                          <v-btn color="primary" text @click="deleteItemConfirm"
-                            >OK</v-btn
+                            Batal
+                          </v-btn>
+
+                          <v-btn
+                            class="btnya"
+                            width="150px"
+                            color="success"
+                            @click="deleteItemConfirm"
                           >
-                          <v-spacer></v-spacer>
+                            Ya
+                          </v-btn>
                         </v-card-actions>
                       </v-card>
                     </v-dialog>
@@ -103,8 +124,8 @@
                       class="mr-2"
                       color="#04BAED"
                       dark
-                      width="90px"
-                      height="26px"
+                      width="45%"
+                      max-height="26px"
                       @click="editItem(item)"
                     >
                       Edit
@@ -112,8 +133,8 @@
                     <v-btn
                       color="#FE8E93"
                       dark
-                      width="90px"
-                      height="26px"
+                      width="45%"
+                      max-height="26px"
                       @click="deleteItem(item)"
                     >
                       Hapus
@@ -127,17 +148,15 @@
             <v-col>
               <div class="d-flex justify-end mt-4">
                 <v-sheet
-                  :color="`#FEE9CC ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
+                  :color="`#FFFFFF ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
                   class="pa-5"
                 >
                   <template>
                     <div class="text-center">
                       <v-pagination
                         class="halaman"
-                        next-icon="Next"
-                        prev-icon="Prev"
                         v-model="page"
-                        :length="6"
+                        :length="totalPage"
                         color="#F48743"
                       ></v-pagination>
                     </div>
@@ -161,6 +180,8 @@ export default {
   },
   data() {
     return {
+      totalPage: null,
+      nomor: 1,
       search: "",
       dialogDelete: false,
       selectedItemIndex: -1,
@@ -170,8 +191,8 @@ export default {
       headers: [
         {
           text: "No",
-          value: "number",
           align: "start",
+          value: "no",
           sortable: false,
         },
         { text: "Nama Kelas", value: "name" },
@@ -210,24 +231,24 @@ export default {
     editItem(item) {
       this.selectedItemIndex = this.kelasonlineFromStore.indexOf(item);
       this.$store.dispatch("updateIndex", this.selectedItemIndex);
-      this.$router.push({ name: "EditKelasOnline"});
-      console.log(this.selectedItemIndex);
+      this.$router.push({ name: "EditKelasOnline" });
+    },
+    hitungPage(totalitem) {
+      this.totalPage = totalitem;
     },
   },
   computed: {
     kelasonlineFromStore() {
       return this.$store.state.kelasonline;
     },
+    cekRole() {
+      return this.$store.state.role;
+    },
   },
 };
 </script>
 
 <style>
-.v-btn.tambahKelas {
-  margin-top: 25px;
-  margin-left: 21px;
-}
-
 tbody tr:nth-of-type(even) {
   background-color: rgba(236, 237, 237);
 }
@@ -289,5 +310,19 @@ tbody tr:nth-of-type(odd) {
 .v-pagination__navigation {
   box-shadow: none;
 }
-
+.judul {
+  font-size: 50px;
+  justify-content: center !important;
+}
+.desc {
+  font-size: 25px;
+  text-align: center;
+}
+.btnbatal {
+  margin-left: 10px;
+  margin-right: 45px;
+}
+.alertatas {
+  background: #b3ea78 !important;
+}
 </style>

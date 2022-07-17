@@ -1,14 +1,8 @@
 <template>
   <v-container fluid>
     <div class="d-flex justify-start mb-6">
-      <div class="my-2 mx-3">
-        <v-btn
-          class="mt-8 ms-4"
-          width="300px"
-          color="#F48743"
-          dark
-          @click="add()"
-        >
+      <div v-if="cekRole !== 'Admin Operasional'" class="my-2 mx-3">
+        <v-btn width="300px" color="#F48743" dark @click="add()">
           Tambahkan Tipe
         </v-btn>
       </div>
@@ -16,20 +10,23 @@
     <div>
       <v-sheet
         :color="`white ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
-        class="pa-4"
+        class="pa-4 ma-3 rounded-lg"
       >
-        <div class="judul">Tabel Data Member</div>
-        <div class="d-flex justify-end">
-          <div class="d-flex align-center mb-6 mx-4">show</div>
-          <v-text-field
-            v-model="search"
-            outlined
-            single-line
-            label="cari disini"
-            append-icon="mdi-magnify"
-            class="shrink"
-          >
-          </v-text-field>
+        <div class="d-flex mb-6">
+          <div class="judul order-1 pt-5 ms-5">Tabel Data Tipe Kelas</div>
+          <v-spacer class="order-2 pa-2"></v-spacer>
+          <div class="d-flex order-3 justify-end">
+            <div class="d-flex align-center mb-6 mx-4">Search :</div>
+            <v-text-field
+              v-model="search"
+              outlined
+              single-line
+              label="cari disini"
+              append-icon="mdi-magnify"
+              class="shrink"
+            >
+            </v-text-field>
+          </div>
         </div>
         <div class="ma-5">
           <v-sheet
@@ -40,13 +37,16 @@
               <v-col>
                 <v-data-table
                   :headers="headers"
-                  :items="identity"
+                  :items="tipekelasFromStore"
                   :search="search"
+                  hide-default-header
                   hide-default-footer
                   :page.sync="page"
-                  @page-count="pageCount = $event"
+                  @page-count="
+                    pageCount = $event;
+                    hitungPage($event);
+                  "
                   :items-per-page="itemsPerPage"
-                  hide-default-header
                 >
                   <template v-slot:header="{ props: { headers } }">
                     <thead class="MyHeader">
@@ -61,49 +61,74 @@
                       </tr>
                     </thead>
                   </template>
+
                   <template
-                    v-slot:[`item.description`]="{ item }"
-                    max-width="100px"
+                    v-slot:[`item.deskripsi`]="{ item }"
+                    max-width="200px"
                   >
-                    <v-container id class="deskripsi">
-                      {{ item.description }}
+                    <v-container id class="deskripsi ms-3">
+                      {{ item.deskripsi }}
                     </v-container>
                   </template>
 
+                  <template v-slot:[`item.foto`]="{ item }">
+                    <v-img
+                      max-height="215"
+                      max-width="362"
+                      :src="item.foto"
+                    ></v-img>
+                  </template>
+
                   <template v-slot:top>
-                    <v-dialog v-model="dialogDelete" max-width="400px">
-                      <v-card>
-                        <v-card-title class="text-h5"
-                          >Yakin ingin menghapus data ini?</v-card-title
+                    <v-dialog v-model="dialogDelete" presistent width="800">
+                      <v-card height="250px">
+                        <v-card-title class="judul"
+                          ><strong> KONFIRMASI </strong></v-card-title
+                        ><br /><br />
+                        <v-card-text class="desc"
+                          >Apakah yakin untuk menghapus data ini?</v-card-text
                         >
-                        <v-card-actions>
-                          <v-spacer></v-spacer>
-                          <v-btn color="primary" text @click="closeDelete"
-                            >Cancel</v-btn
+                        <v-card-actions class="justify-center">
+                          <br /><br /><br />
+
+                          <v-btn
+                            class="btnbatal"
+                            width="150px"
+                            color="error"
+                            @click="closeDelete"
                           >
-                          <v-btn color="primary" text @click="deleteItemConfirm"
-                            >OK</v-btn
+                            Batal
+                          </v-btn>
+
+                          <v-btn
+                            class="btnya"
+                            width="150px"
+                            color="success"
+                            @click="deleteItemConfirm"
                           >
-                          <v-spacer></v-spacer>
+                            Ya
+                          </v-btn>
                         </v-card-actions>
                       </v-card>
                     </v-dialog>
                   </template>
+
                   <template v-slot:[`item.actions`]="{ item }">
                     <v-btn
                       class="mr-2"
                       color="#04BAED"
                       dark
-                      width="93.5px"
-                      height="26px"
+                      width="45%"
+                      max-height="26px"
+                      @click="editItem(item)"
                     >
                       Edit
                     </v-btn>
                     <v-btn
                       color="#FE8E93"
                       dark
-                      width="93.5px"
-                      height="26px"
+                      width="45%"
+                      max-height="26px"
                       @click="deleteItem(item)"
                     >
                       Hapus
@@ -116,17 +141,14 @@
           <v-row>
             <v-col>
               <div class="d-flex justify-end mt-4">
-                <v-sheet color="#FEE9CC" class="pa-5" :rounded="'lg'">
+                <v-sheet color="#FFFFFF" class="pa-5" :rounded="'lg'">
                   <template>
                     <div>
                       <v-pagination
                         color="#F48743"
                         v-model="page"
-                        previous-aria-label="Prev"
-                        next-aria-label="Next"
-                        wrapper-aria-label
                         total-visible
-                        :length="6"
+                        :length="totalPage"
                       ></v-pagination>
                     </div>
                   </template>
@@ -151,7 +173,7 @@ export default {
   },
   methods: {
     add() {
-      this.$router.push({ name: "RegistrasiMember" });
+      this.$router.push({ name: "TambahTipeKelas" });
     },
     closeDelete() {
       this.dialogDelete = false;
@@ -160,22 +182,31 @@ export default {
       });
     },
     deleteItemConfirm() {
-      this.identity.splice(this.selectedItemIndex, 1);
+      this.tipekelasFromStore.splice(this.selectedItemIndex, 1);
       this.closeDelete();
     },
     deleteItem(item) {
-      this.selectedItemIndex = this.identity.indexOf(item);
+      this.selectedItemIndex = this.tipekelasFromStore.indexOf(item);
       this.dialogDelete = true;
+    },
+    editItem(item) {
+      this.selectedItemIndex = this.tipekelasFromStore.indexOf(item);
+      this.$store.dispatch("updateIndex", this.selectedItemIndex);
+      this.$router.push({ name: "EditTipeKelas" });
+    },
+    hitungPage(totalitem) {
+      this.totalPage = totalitem;
     },
   },
   data() {
     return {
+      totalPage: null,
       search: "",
       page: 1,
       dialogDelete: false,
       selectedItemIndex: -1,
       pageCount: 0,
-      itemsPerPage: 10,
+      itemsPerPage: 8,
       headers: [
         {
           text: "No",
@@ -183,12 +214,12 @@ export default {
           value: "no",
         },
         {
-          text: "Tipe",
-          value: "tipe",
+          text: "Nama Kelas",
+          value: "name",
         },
         {
-          text: "Harga",
-          value: "harga",
+          text: "Foto",
+          value: "foto",
         },
         {
           text: "Deskripsi",
@@ -199,69 +230,15 @@ export default {
           value: "actions",
         },
       ],
-      identity: [
-        {
-          no: 1,
-          tipe: "Member 1 Bulan",
-          harga: "Rp. 200.000,00",
-          deskripsi: "jackson.graham@example.com",
-        },
-        {
-          no: 1,
-          tipe: "Member 1 Bulan",
-          harga: "Rp. 200.000,00",
-          deskripsi: "jackson.graham@example.com",
-        },
-        {
-          no: 1,
-          tipe: "Member 1 Bulan",
-          harga: "Rp. 200.000,00",
-          deskripsi: "jackson.graham@example.com",
-        },
-        {
-          no: 1,
-          tipe: "Member 1 Bulan",
-          harga: "Rp. 200.000,00",
-          deskripsi: "jackson.graham@example.com",
-        },
-        {
-          no: 1,
-          tipe: "Member 1 Bulan",
-          harga: "Rp. 200.000,00",
-          deskripsi: "jackson.graham@example.com",
-        },
-        {
-          no: 1,
-          tipe: "Member 1 Bulan",
-          harga: "Rp. 200.000,00",
-          deskripsi: "jackson.graham@example.com",
-        },
-        {
-          no: 1,
-          tipe: "Member 1 Bulan",
-          harga: "Rp. 200.000,00",
-          deskripsi: "jackson.graham@example.com",
-        },
-        {
-          no: 1,
-          tipe: "Member 1 Bulan",
-          harga: "Rp. 200.000,00",
-          deskripsi: "jackson.graham@example.com",
-        },
-        {
-          no: 1,
-          tipe: "Member 1 Bulan",
-          harga: "Rp. 200.000,00",
-          deskripsi: "jackson.graham@example.com",
-        },
-        {
-          no: 1,
-          tipe: "Member 1 Bulan",
-          harga: "Rp. 200.000,00",
-          deskripsi: "jackson.graham@example.com",
-        },
-      ],
     };
+  },
+  computed: {
+    tipekelasFromStore() {
+      return this.$store.state.tipekelas;
+    },
+    cekRole() {
+      return this.$store.state.role;
+    },
   },
 };
 </script>
@@ -281,5 +258,55 @@ tbody tr:nth-of-type(odd) {
 .v-data-table-header {
   background-color: rgba(182, 183, 187);
   color: white;
+}
+.judul {
+  align-items: center;
+  display: block;
+  color: #026daa;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 23.4539px !important;
+  line-height: 140%;
+  line-height: 21px;
+  letter-spacing: 0.015em;
+  word-break: break-all;
+}
+
+.v-data-table > .v-data-table__wrapper > table > tbody > tr > td {
+  padding: 0 16px;
+  transition: height 0.2s cubic-bezier(0.4, 0, 0.6, 1);
+  color: #88898a;
+}
+
+.MyHeader {
+  background-color: #f6f6f6 !important;
+}
+.JudulHeader {
+  font-weight: 900 !important;
+}
+.deskripsi {
+  width: 400px !important;
+  font-size: 14px;
+  left: 0 !important;
+  justify-content: start !important;
+}
+.pagination {
+  background-color: #ffffff;
+  color: #f48743;
+}
+.theme--light.v-pagination .v-pagination__item:hover {
+  background: #fee9cc !important;
+}
+
+.theme--light.v-pagination .v-pagination__item {
+  color: #f48743;
+}
+.theme--light.v-pagination .v-pagination__item--active {
+  color: #ffffff !important;
+}
+
+.v-pagination__navigation {
+  box-shadow: none;
 }
 </style>

@@ -4,10 +4,20 @@
       <v-col cols="12" sm="8" md="8">
         <v-card class="elevation-12">
           <v-col cols="12" md="8">
-            <h3 class="text-left mt-4 blue--text">Edit Kelas Online</h3>
-            <v-alert v-if="sucess" dense text type="success">
-              <strong>SUKSES!</strong> Data berhasil disimpan
-            </v-alert>
+            <div>
+              <v-alert
+                v-if="sucess"
+                dense
+                text
+                dismissible
+                type="success"
+                color="green darken-3"
+                class="alertatas"
+              >
+                <strong>SUKSES!</strong> Data berhasil disimpan
+              </v-alert>
+            </div>
+            <h3 class="text-left mt-4 blue--text">Tambah Kelas Offline Baru</h3>
             <v-card-text class="mt-5">
               <v-form v-model="valid">
                 <h4>Nama Kelas</h4>
@@ -15,8 +25,6 @@
                 <v-text-field
                   v-model="namaKelas"
                   :rules="nameRules"
-                  :disabled="isUpdating"
-                  :counter="10"
                   :label="namaKelasComputed"
                   required
                   type="text"
@@ -132,6 +140,31 @@
                   </v-time-picker>
                 </v-dialog>
 
+                <h4>Lokasi</h4>
+                <br />
+                <v-text-field
+                  v-model="lokasi"
+                  :rules="lokasiRules"
+                  :label="locationComputed"
+                  required
+                  type="text"
+                  outlined
+                  color="orange"
+                  max-width="100px"
+                />
+                <h4>Kuota Kelas</h4>
+                <br />
+                <v-text-field
+                  v-model="kuota"
+                  :rules="kuotaRules"
+                  :label="quotaComputed"
+                  required
+                  type="number"
+                  outlined
+                  color="orange"
+                  max-width="100px"
+                />
+
                 <h4>Nama Pelatih</h4>
                 <br />
                 <v-select
@@ -153,19 +186,6 @@
                   outlined
                   color="orange"
                 ></v-textarea>
-
-                <h4>Virtual Meeting</h4>
-                <br />
-                <v-text-field
-                  v-model="link"
-                  :rules="linkRules"
-                  label="Masukkan link zoom"
-                  required
-                  type="url"
-                  outlined
-                  color="orange"
-                  max-width="100px"
-                />
               </v-form>
             </v-card-text>
             <div class="text-left mt-5 ms-3">
@@ -179,7 +199,7 @@
                     v-bind="attrs"
                     v-on="on"
                   >
-                    Edit
+                    Save
                   </v-btn>
                 </template>
                 <v-card height="250px">
@@ -235,27 +255,21 @@ export default {
     valid: false,
     namaKelas: null,
     tanggal: null,
+    lokasi: null,
     timeStart: null,
     timeEnd: null,
-    link: null,
-    isUpdating: false,
+    kuota: null,
     namaPelatih: null,
-    Deskripsi: null,
     trainer: null,
-    nameRules: [
-      (v) => !!v || "Nama kelas tidak boleh kosong",
-      // (v) => v.length <= 10 || "Nama kelas harus kurang dari 10 huruf",
-    ],
+    Deskripsi: null,
+    nameRules: [(v) => !!v || "Nama kelas tidak boleh kosong"],
     dateRules: [(v) => !!v || "Tanggal tidak boleh kosong"],
     timeStartRules: [(v) => !!v || "Jam mulai tidak boleh kosong"],
     timeEndRules: [(v) => !!v || "Jam selesai tidak boleh kosong"],
-    linkRules: [
-      (v) => !!v || "Link zoom tidak boleh kosong",
-      // (v) => this.isURL(v) || "URL tidak valid",
-    ],
+    kuotaRules: [(v) => !!v || "Kuota Kelas tidak boleh kosong"],
     descRules: [(v) => !!v || "Deskripsi tidak boleh kosong"],
+    lokasiRules: [(v) => !!v || "Lokasi tidak boleh kosong"],
     dialog: false,
-    message: {},
     sucess: false,
   }),
 
@@ -265,38 +279,64 @@ export default {
         name: this.namaKelas,
         description: this.Deskripsi,
         Trainer: this.trainer,
+        Location: this.lokasi,
         Date: this.tanggal,
         TimeStart: this.timeStart,
         TimeEnd: this.timeEnd,
+        Quota: this.kuota,
       };
-      this.$store.dispatch("editKelasOnline", this.message);
+      this.$store.dispatch("editKelasOffline", this.message);
     },
   },
   computed: {
-    kelasonlineFromStore() {
-      return this.$store.state.kelasonline;
+    kelasofflineFromStore() {
+      return this.$store.state.kelasoffline;
     },
     indexyangDipilih() {
       return this.$store.state.IndexDipilih;
     },
     namaKelasComputed(){
-      return this.kelasonlineFromStore[this.indexyangDipilih].name;
+      return this.kelasofflineFromStore[this.indexyangDipilih].name;
     },
     DeskripsiComputed(){
-      return this.kelasonlineFromStore[this.indexyangDipilih].description;
+      return this.kelasofflineFromStore[this.indexyangDipilih].description;
     },
     tanggalComputed(){
-      return this.kelasonlineFromStore[this.indexyangDipilih].Date;
+      return this.kelasofflineFromStore[this.indexyangDipilih].Date;
     },
     trainerComputed(){
-      return this.kelasonlineFromStore[this.indexyangDipilih].Trainer
+      return this.kelasofflineFromStore[this.indexyangDipilih].Trainer
+    },
+    locationComputed(){
+      return this.kelasofflineFromStore[this.indexyangDipilih].Location
     },
     timeStartComputed(){
-      return this.kelasonlineFromStore[this.indexyangDipilih].TimeStart;
+      return this.kelasofflineFromStore[this.indexyangDipilih].TimeStart;
     },
     timeEndComputed(){
-      return this.kelasonlineFromStore[this.indexyangDipilih].TimeEnd;
+      return this.kelasofflineFromStore[this.indexyangDipilih].TimeEnd;
+    },
+    quotaComputed(){
+      return this.kelasofflineFromStore[this.indexyangDipilih].Quota;
     },
   },
 };
 </script>
+
+<style scoped>
+.judul {
+  font-size: 50px;
+  justify-content: center;
+}
+.desc {
+  font-size: 25px;
+  text-align: center;
+}
+.btnbatal {
+  margin-left: 10px;
+  margin-right: 45px;
+}
+.alertatas {
+  background: #b3ea78 !important;
+}
+</style>

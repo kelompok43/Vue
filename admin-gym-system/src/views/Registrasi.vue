@@ -3,19 +3,24 @@
     <v-row align="center" justify="center">
       <v-col cols="12" sm="8" md="8">
         <div>
-            <v-alert v-if="sucess" dense text dismissible type="success" color="green darken-3" class="alertatas">
-              <strong>SUKSES!</strong> Data berhasil disimpan
-            </v-alert>
-            </div>
+          <v-alert
+            v-if="sucess"
+            dense
+            text
+            dismissible
+            type="success"
+            color="green darken-3"
+            class="alertatas"
+          >
+            <strong>SUKSES!</strong> Data berhasil disimpan
+          </v-alert>
+        </div>
         <v-card class="elevation-12">
           <v-col cols="12" md="8">
             <h3 class="text-left ms-3 mt-4 blue--text">
               Tambahkan admin operasional baru
             </h3>
             <v-card-text class="mt-5">
-              <!-- <h1
-                          class="text-center display-2 orange--text text--accent-3"
-                        >Fitness Gym</h1> -->
               <v-form>
                 <h4>Nama Lengkap</h4>
                 <br />
@@ -108,9 +113,10 @@
                       width="150px"
                       color="success"
                       @click="
-                      addAdmin();
+                        addAdmin();
                         dialog = false;
-                        sucess = true;"
+                        sucess = true;
+                      "
                     >
                       Ya
                     </v-btn>
@@ -161,14 +167,14 @@ export default {
       console.log(this.message);
       this.$store.dispatch("addDataAdmin", this.message);
     },
-  }
+  },
 };
 </script>
 
 <style scoped>
 .judul {
   font-size: 50px;
-  justify-content: center;
+  justify-content: center !important;
 }
 .desc {
   font-size: 25px;
@@ -179,6 +185,6 @@ export default {
   margin-right: 45px;
 }
 .alertatas {
-  background: #B3EA78 !important;
+  background: #b3ea78 !important;
 }
 </style>

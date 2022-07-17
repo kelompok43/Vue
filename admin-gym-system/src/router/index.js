@@ -19,8 +19,13 @@ import RegistrasiMember from "@/views/RegistrasiMember.vue"
 import TipeMembership from "@/views/TipeMembership.vue"
 import TambahRekening from "@/views/TambahRekening.vue"
 import TambahPelatih from "@/views/TambahPelatih.vue"
+import TambahBerita from "@/views/TambahBerita.vue"
+import TambahTipeKelas from "@/views/TambahTipeKelas.vue"
 import EditKelasOnline from "@/components/EditKelasOnline.vue"
 import RegistrasiTipeMember from "@/views/RegistrasiTipeMember.vue"
+import EditKelasOffline from "@/components/EditKelasOffline.vue"
+import EditTipeKelas from "@/components/EditTipeKelas.vue"
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -32,6 +37,11 @@ const routes = [
         path: "/",
         name: "Dashboard",
         component: Dashboard,
+      },
+      {
+        path: "/EditKelasOffline",
+        name: "EditKelasOffline",
+        component: EditKelasOffline,
       },
       {
         path: "/DataKelasOffline",
@@ -74,6 +84,11 @@ const routes = [
         component: Berita,
       },
       {
+        path: "/tambahBerita",
+        name: "TambahBerita",
+        component: TambahBerita,
+      },
+      {
         path: "/tambahKelasOffline",
         name: "TambahKelasOffline",
         component: TambahKelasOffline,
@@ -87,6 +102,16 @@ const routes = [
         path: "/TipeKelas",
         name: "TipeKelas",
         component: TipeKelas,
+      },
+      {
+        path: "/EditTipeKelas",
+        name: "EditTipeKelas",
+        component: EditTipeKelas,
+      },
+      {
+        path: "/tambahTipeKelas",
+        name: "TambahTipeKelas",
+        component: TambahTipeKelas,
       },
       {
         path: "/DataRekening",
@@ -131,15 +156,6 @@ const routes = [
     name: "Login",
     component: Login,
     children: [],
-  },
-  {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue"),
   },
 ];
 

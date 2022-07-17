@@ -4,10 +4,20 @@
       <v-col cols="12" sm="8" md="8">
         <v-card class="elevation-12">
           <v-col cols="12" md="8">
+            <div>
+              <v-alert
+                v-if="sucess"
+                dense
+                text
+                dismissible
+                type="success"
+                color="green darken-3"
+                class="alertatas"
+              >
+                <strong>SUKSES!</strong> Data berhasil disimpan
+              </v-alert>
+            </div>
             <h3 class="text-left mt-4 blue--text">Tambah Kelas Online Baru</h3>
-            <v-alert v-if="sucess" dense text type="success">
-              <strong>SUKSES!</strong> Data berhasil disimpan
-            </v-alert>
             <v-card-text class="mt-5">
               <v-form v-model="valid">
                 <h4>Nama Kelas</h4>
@@ -15,7 +25,6 @@
                 <v-text-field
                   v-model="namaKelas"
                   :rules="nameRules"
-                  :counter="10"
                   label="Masukkan nama kelas"
                   required
                   type="text"
@@ -277,10 +286,28 @@ export default {
         Date: this.tanggal,
         TimeStart: this.timeStart,
         TimeEnd: this.timeEnd,
-        Rating: "5/5",
+        Rating: "N/A",
       };
       this.$store.dispatch("addKelasOnline", this.message);
     },
   },
 };
 </script>
+
+<style scoped>
+.judul {
+  font-size: 50px;
+  justify-content: center;
+}
+.desc {
+  font-size: 25px;
+  text-align: center;
+}
+.btnbatal {
+  margin-left: 10px;
+  margin-right: 45px;
+}
+.alertatas {
+  background: #b3ea78 !important;
+}
+</style>
