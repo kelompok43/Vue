@@ -92,7 +92,7 @@
         <template v-slot:activator="{ on, attrs }">
           <v-btn text v-bind="attrs" v-on="on">
             <span v-if="cekRole !== 'Admin Operasional'" class="nameUser mr-2"
-              >SuperAdmin</span
+              >Super Admin</span
             >
             <span v-if="cekRole === 'Admin Operasional'" class="nameUser mr-2"
               >Admin Operasional</span
