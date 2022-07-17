@@ -88,7 +88,7 @@
                             class="btnya"
                             width="150px"
                             color="success"
-                            @click="deleteItemConfirm"
+                            @click="deleteItemConfirm()"
                           >
                             Ya
                           </v-btn>
@@ -96,7 +96,11 @@
                       </v-card>
                     </v-dialog>
                   </template>
- 
+
+                  <template v-slot:[`item.no`]="{ item }">
+                    {{ admins.indexOf(item) + 1 }}
+                  </template>
+  
                   <template v-slot:[`item.actions`]="{ item }">
                     <v-btn
                       class="mr-2"
@@ -112,7 +116,7 @@
                       dark
                       width="45%"
                       height="26px"
-                      @click="deleteItem(item)"
+                      @click="deleteItem(item.id, item)"
                     >
                       Hapus
                     </v-btn>
@@ -159,6 +163,7 @@ export default {
       totalPage: null,
       search: "",
       admins: [],
+      selectedID: -1,
       dialogDelete: false,
       selectedItemIndex: -1,
       pageCount: 0,
@@ -167,7 +172,7 @@ export default {
       headers: [
         {
           text: "No",
-          value: "id",
+          value: "no",
           align: "start",
           sortable: false,
         },
@@ -178,10 +183,6 @@ export default {
         {
           text: "Email",
           value: "email",
-        },
-        {
-          text: "Phone Number",
-          value: "phone",
         },
         {
           text: "Tanggal Lahir",
@@ -224,18 +225,21 @@ export default {
         this.selectedItemIndex = -1;
       });
     },
-    deleteItemConfirm() {
-      this.dataadminFromStore.splice(this.selectedItemIndex, 1);
+    async deleteItemConfirm() {
+      this.$store.dispatch("deleteAdmin", this.selectedID);
+      this.admins.splice(this.selectedItemIndex, 1);
+      this.selectedID = -1;
       this.closeDelete();
     },
-    deleteItem(item) {
-      this.selectedItemIndex = this.dataadminFromStore.indexOf(item);
+    async deleteItem(id, item) {
+      this.selectedItemIndex = this.admins.indexOf(item);
+      this.selectedID = id;
       this.dialogDelete = true;
     },
     async getAllAdmin() {
       const admin = await this.$store.dispatch("getAllAdmin");
-      console.log("admin dari method: ", admin);
       this.admins = admin;
+    },
     hitungPage(totalitem) {
       this.totalPage = totalitem;
     },

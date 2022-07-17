@@ -39,6 +39,7 @@
                 <v-data-table
                   :items="users"
                   :headers="headers"
+                  :search="search"
                   hide-default-footer
                   :page.sync="page"
                   @page-count="
@@ -115,7 +116,7 @@
                       dark
                       width="45%"
                       max-height="26px"
-                      @click="deleteItem(item)"
+                      @click="deleteItem(item.id)"
                     >
                       Hapus
                     </v-btn>
@@ -168,13 +169,21 @@ export default {
       });
     },
     deleteItemConfirm() {
-      this.identity.splice(this.selectedItemIndex, 1);
+      this.users.splice(this.selectedItemIndex, 1);
       this.closeDelete();
     },
-    deleteItem(item) {
-      this.selectedItemIndex = this.identity.indexOf(item);
+    async deleteItem(item) {
+      const result = await this.$store.dispatch("hapusMember", item);
+      if (result) {
+        localStorage.setItem("authenticated", true);
+        this.$router.push({ name: "Dashboard" });
+      } else {
+        this.errorText = this.$store.state.info;
+      }
+      this.selectedItemIndex = this.users.indexOf(item);
       this.dialogDelete = true;
     },
+
     async getAllUser() {
       const user = await this.$store.dispatch("getAllUser");
       this.users = user;

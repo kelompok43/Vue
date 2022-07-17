@@ -151,6 +151,10 @@
                     </thead>
                   </template>
 
+                  <template v-slot:[`item.no`]="{ item }">
+                    {{ kelasonlineFromStore.indexOf(item) + 1 }}
+                  </template>
+
                   <template v-slot:[`item.actions`]="{ item }">
                     <div class="d-flex">
                       <v-btn

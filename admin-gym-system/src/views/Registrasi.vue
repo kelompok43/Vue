@@ -42,10 +42,9 @@
                   color="orange"
                 />
                 <h4>Jenis Kelamin</h4>
-                <v-radio-group v-model="row" row>
-                  <v-radio label="Laki-laki" value="radio-1"></v-radio>
-
-                  <v-radio label="Perempuan" value="radio-2"></v-radio>
+                <v-radio-group v-model="jenisKelamin" row>
+                  <v-radio label="Laki-laki" value="L"></v-radio>
+                  <v-radio label="Perempuan" value="P"></v-radio>
                 </v-radio-group>
 
                 <h4>Alamat</h4>
@@ -53,7 +52,12 @@
                 <v-textarea outlined v-model="alamat"></v-textarea>
                 <h4>Role</h4>
                 <br />
-                <v-select :items="items" outlined color="orange"></v-select>
+                <v-select
+                  :items="items"
+                  outlined
+                  color="orange"
+                  v-model="role"
+                ></v-select>
                 <h4>Email</h4>
                 <br />
                 <v-text-field
@@ -137,7 +141,8 @@
 <script>
 export default {
   data: () => ({
-    items: ["Admin Operasional", "Member"],
+    items: ["Admin Operasional", "Super Admin"],
+    role: null,
     dialog: false,
     namaAdmin: null,
     emailAdmin: null,
@@ -147,25 +152,20 @@ export default {
     alamat: null,
     message: {},
     sucess: false,
+    jenisKelamin: null,
   }),
   methods: {
     addAdmin() {
-      console.log(this.message);
-      this.message = {
-        number: 11,
-        phoneNumber: "(319) 555-0115",
+      const payload = {
         name: this.namaAdmin,
-        emailAdmin: this.emailAdmin,
-        passwordAdmin: this.passwordAdmin,
-        tanggallahir: this.tanggallahir,
-        tanggaljoin: "05/06/2021",
-        alamat: this.alamat,
-        lastlogin: "Oct 13, 2021 at 08:09 pm",
-        staff: "false",
-        admin: "true",
+        dob: this.tanggallahir,
+        gender: this.jenisKelamin,
+        address: this.alamat,
+        role: this.role,
+        email: this.emailAdmin,
+        password: this.passwordAdmin,
       };
-      console.log(this.message);
-      this.$store.dispatch("addDataAdmin", this.message);
+      this.$store.dispatch("addAdmin", payload);
     },
   },
 };

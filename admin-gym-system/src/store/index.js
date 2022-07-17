@@ -632,7 +632,6 @@ export default new Vuex.Store({
         .then((response) => {
           if (response.data.message === "success") {
             store.commit("setList", response.data);
-            console.log("response: ", response.data)
             return response.data.data;
           } else {
             store.commit("setInfo", response.data.message);
@@ -653,7 +652,6 @@ export default new Vuex.Store({
         })
         .then((response) => {
           if (response.data.message === "success") {
-            console.log("response: ", response.data)
             return response.data.data;
           } else {
             store.commit("setInfo", response.data.message);
@@ -681,6 +679,35 @@ export default new Vuex.Store({
         .catch((error) => {
           store.commit("setError", error);
         });
+    },
+    hapusMember(store, param) {
+      return axios
+        .delete(
+          "https://api.gms.mirfanrafif.me/user/delete/" +
+            param
+        )
+        .then(() => {
+          store.dispatch("getAllUser");
+        });
+    },
+
+    async deleteAdmin(store, id) {
+      const config = {
+        headers: {
+          Authorization: "Bearer " + store.state.token,
+        },
+      };
+      axios
+        .delete("https://api.gms.mirfanrafif.me/admin/" + id, config)
+    },
+
+    async addAdmin(store, param) {
+      const config = {
+        headers: {
+          Authorization: "Bearer " + store.state.token,
+        },
+      };
+      axios.post("https://api.gms.mirfanrafif.me/admin/register", param, config)
     },
   },
   modules: {},
