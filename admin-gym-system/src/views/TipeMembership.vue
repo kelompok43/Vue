@@ -13,7 +13,7 @@
         class="pa-4 ma-3 rounded-lg"
       >
         <div class="d-flex mb-6">
-          <div class="judul order-1 pt-5 ms-5">Tabel Kelas Online</div>
+          <div class="judul order-1 pt-5 ms-5">Tabel Membership</div>
           <v-spacer class="order-2 pa-2"></v-spacer>
           <div class="d-flex order-3 justify-end">
             <div class="d-flex align-center mb-6 mx-4">show</div>
@@ -89,6 +89,11 @@
                       </v-card>
                     </v-dialog>
                   </template>
+
+                  <template v-slot:[`item.no`]="{ item }">
+                    {{ memberships.indexOf(item) + 1 }}
+                  </template>
+
                   <template v-slot:[`item.actions`]="{ item }">
                     <v-btn
                       class="mr-2"
@@ -170,7 +175,7 @@ export default {
       console.log("membership dari method: ", membership);
       this.memberships = membership;
     },
-    
+
     hitungPage(totalitem) {
       this.totalPage = totalitem;
     },
@@ -189,11 +194,11 @@ export default {
         {
           text: "No",
           sortable: false,
-          value: "id",
+          value: "no",
         },
         {
           text: "Tipe",
-          value: "user_id",
+          value: "id",
         },
         {
           text: "Harga",
@@ -201,7 +206,7 @@ export default {
         },
         {
           text: "Deskripsi",
-          value: "deskripsi",
+          value: "category",
         },
         {
           text: "Action",
@@ -213,7 +218,8 @@ export default {
           no: 1,
           tipe: "Member 1 Bulan",
           harga: "Rp. 200.000,00",
-          deskripsi: "Dapat mengikuti kelas online, dapat mengikuti kelas offline setiap hari",
+          deskripsi:
+            "Dapat mengikuti kelas online, dapat mengikuti kelas offline setiap hari",
         },
         {
           no: 1,
@@ -271,12 +277,11 @@ export default {
         },
       ],
     };
-    
   },
   mounted() {
     this.getAllMembership();
   },
-  computed:{
+  computed: {
     cekRole() {
       return this.$store.state.role;
     },

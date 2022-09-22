@@ -644,7 +644,7 @@ export default new Vuex.Store({
     },
     getAllMembership(store) {
       return axios
-        .get(`https://api.gms.mirfanrafif.me/membership`, {
+        .get(`https://api.gms.mirfanrafif.me/membership/category`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: "Bearer " + store.state.token,

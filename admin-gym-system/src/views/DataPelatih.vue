@@ -201,29 +201,27 @@
                 </v-data-table>
               </v-col>
             </v-row>
-            <v-row>
-              <v-col>
-                <div class="d-flex justify-end mt-4">
-                  <v-sheet
-                    :color="`#FEE9CC ${
-                      theme.isDark ? 'darken-2' : 'lighten-4'
-                    }`"
-                    class="pa-5"
-                  >
-                    <template>
-                      <div class="text-center">
-                        <v-pagination
-                          v-model="page"
-                          :length="totalPage"
-                          color="#F48743"
-                        ></v-pagination>
-                      </div>
-                    </template>
-                  </v-sheet>
-                </div>
-              </v-col>
-            </v-row>
           </v-sheet>
+          <v-row>
+            <v-col>
+              <div class="d-flex justify-end mt-4">
+                <v-sheet
+                  :color="`#FEE9CC ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
+                  class="pa-5"
+                >
+                  <template>
+                    <div class="text-center">
+                      <v-pagination
+                        v-model="page"
+                        :length="totalPage"
+                        color="#F48743"
+                      ></v-pagination>
+                    </div>
+                  </template>
+                </v-sheet>
+              </div>
+            </v-col>
+          </v-row>
         </div>
       </v-sheet>
     </div>
@@ -426,7 +424,7 @@ export default {
       this.close();
     },
   },
-  computed:{
+  computed: {
     cekRole() {
       return this.$store.state.role;
     },
